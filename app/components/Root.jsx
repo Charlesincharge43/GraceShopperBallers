@@ -4,26 +4,6 @@ import WhoAmI from './WhoAmI'
 import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router';
 
-//No longer in use??? Delete???
-
-// import React from 'react';
-// import Navbar from './Navbar.jsx';
-// // import Footer from './Footer';
-//
-// const Root = ({ children }) => {
-//   console.log(children)
-//   return (
-//   <div id="main" className="container-fluid">
-//     <Navbar />
-//     { children }
-//     {/* <Footer /> */}
-//   </div>
-// )
-// }
-//
-//
-// export default Root;
-
 export const Root = connect(
   ({ auth }) => ({ user: auth })
 )(
@@ -32,12 +12,12 @@ export const Root = connect(
     return (
     <div>
       <nav>
-        <span>USERNAME PLACEHOLDER</span>
-        <span>ORDERS PLACEHOLDER (VISIBLE OR NOT DEPENDS ON IF USER IS LOGGED IN)</span>
-        <Link to="/signin" activeClassName="active">Sign In (placeholder)</Link>
-        <Link to="/logout" activeClassName="active">Logout (placeholder)</Link>
+        <span>Username (placeholder)</span> |
+        <Link to="/signin" activeClassName="active">Orders (placeholder- vis or not)</Link> |
+        <Link to="/signin" activeClassName="active">Sign In (placeholder)</Link> |
+        <Link to="/logout" activeClassName="active">Logout (placeholder)</Link> |
         <Link to="/cart" activeClassName="active">Cart (placeholder)</Link>
-        {user ? <WhoAmI/> : <Login/>}
+        {/* {user ? <WhoAmI/> : <Login/>} */}
       </nav>
       {children}
     </div>
