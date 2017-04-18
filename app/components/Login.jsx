@@ -1,13 +1,13 @@
 import React from 'react'
 import store from '../store'
 
-import { login } from '../reducers/auth'
+import { loginUserThunk } from '../reducers/users'
 
 export class Login extends React.Component {
   constructor() {
     super()
     this.state = {
-      username: '',
+      email: '',
       password: '',
     }
 
@@ -21,7 +21,8 @@ export class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    store.dispatch(login(this.state.username, this.state.password))
+    const thunk = loginUserThunk(this.state.email, this.state.password)
+    store.dispatch(thunk)
   }
 
   render() {
@@ -30,9 +31,9 @@ export class Login extends React.Component {
 
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
-            <label className="col-sm-2 control-label">Username</label>
+            <label className="col-sm-2 control-label">Email</label>
             <div className="col-sm-10">
-              <input type="text" name="username" value={this.state.username} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="text" name="email" value={this.state.email} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
@@ -52,7 +53,6 @@ export class Login extends React.Component {
   }
 }
 
-import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 function mapState(state, ownProps) {
@@ -60,9 +60,7 @@ function mapState(state, ownProps) {
 }
 
 function mapDispatch(dispatch, ownProps) {
-  return {
-    login: login
-  }
+  return {}
 }
 
 const LoginContainer = connect(mapState, mapDispatch)(Login)
