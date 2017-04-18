@@ -15,7 +15,9 @@ const Products = (props) => {
           if(product.category_id === +currCategory_id) {
             return (
             <div className="col-xs-4" key={ product.id }>
-              <img src={ product.imageUrl } />
+              <div className="resizeMed">
+                <img src={ product.imageUrl } />
+              </div>
               <div className="caption">
                 <h5>
                   <p>{ product.title }</p>

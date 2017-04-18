@@ -1,4 +1,5 @@
 'use strict'
+const seed = require('./tempseed.js')
 const app = require('APP')
     , debug = require('debug')(`${app.name}:db`) // DEBUG=your_app_name:db
     , chalk = require('chalk')
@@ -41,6 +42,7 @@ db.didSync = db.createAndSync()
 function createAndSync(force=true, retries=0, maxRetries=5) {
   return db.sync({force})
     .then(() => debug(`Synced models to db ${url}`))
+    .then(()=> seed.seed(db))
     .catch(fail => {
       // Don't do this auto-create nonsense in prod, or
       // if we've retried too many times.

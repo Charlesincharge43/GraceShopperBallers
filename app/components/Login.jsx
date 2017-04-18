@@ -52,7 +52,7 @@ export class Login extends React.Component {
   }
 }
 
-import {login} from 'APP/app/reducers/auth'
+// import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 function mapState(state, ownProps) {
