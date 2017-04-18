@@ -14,7 +14,8 @@ export const Root = connect(
       <nav>
         <span>Username (placeholder)</span> |
         <Link to="/signin" activeClassName="active">Orders (placeholder- vis or not)</Link> |
-        <Link to="/signin" activeClassName="active">Sign In (placeholder)</Link> |
+        <Link to="/signup" activeClassName="active">Sign Up (placeholder)</Link> |
+        <Link to="/login" activeClassName="active">Log In (placeholder)</Link> |
         <Link to="/logout" activeClassName="active">Logout (placeholder)</Link> |
         <Link to="/cart" activeClassName="active">Cart (placeholder)</Link>
         {/* {user ? <WhoAmI/> : <Login/>} */}

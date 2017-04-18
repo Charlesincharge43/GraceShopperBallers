@@ -10,6 +10,8 @@ import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
 import Categories from './components/Categories.jsx'
 import NotFound from './components/NotFound'
+import Login from './components/Login'
+import Signup from './components/Signup'
 
 const onRootEnter = function () {
 
@@ -31,11 +33,11 @@ render(
       <Route path="/" component={Root} onEnter={onRootEnter}>
         <IndexRedirect to="/categories" />
         <Route path="/categories" component={Categories} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         {/* <Route path="/products" component={Products}/>
         <Route path="/item" component={Item}/>
         <Route path="/orders" component={Orders}/>
-        <Route path="/signin" component={SignIn}/>
-        <Route path="/signup" component={SignUp}/>
         <Route path="/cart" component={Cart}/>
         <Route path="/cart" component={Checkout}/> */}
       </Route>
