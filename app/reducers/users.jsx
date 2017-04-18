@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export const CREATE_USER = 'CREATE_USER'
+export const LOGIN_USER = 'LOGIN_USER'
 
 
 //-------------------------------- createUser ACTION CREATOR AND REDUCER
@@ -8,6 +9,11 @@ export const CREATE_USER = 'CREATE_USER'
 
 export const createUser = user => ({
     type: CREATE_USER,
+    user
+})
+
+export const loginUser = user => ({
+    type: LOGIN_USER,
     user
 })
 
