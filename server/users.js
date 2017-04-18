@@ -18,6 +18,9 @@ module.exports = require('express').Router()
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
+  .get('/fetchSession',(req,res,next)=>{
+    res.json(req.session);
+  })
   .post('/',
     (req, res, next) =>
       User.create(req.body)

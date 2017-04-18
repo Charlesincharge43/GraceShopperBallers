@@ -55,9 +55,3 @@ export function createBillReducer (prevState=initialState, action) {
 	}
 	return newState
 }
-
-
-
-
-
-
