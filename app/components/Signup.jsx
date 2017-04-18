@@ -1,5 +1,6 @@
 import React from 'react'
 import store from '../store'
+import { browserHistory } from 'react-router'
 
 import { createUserThunk } from '../reducers/users'
 
@@ -25,6 +26,7 @@ export class Signup extends React.Component {
     event.preventDefault()
     const thunk = createUserThunk(this.state.firstName, this.state.lastName, this.state.email, this.state.password_digest)
     store.dispatch(thunk)
+    browserHistory.push(`/categories`)
   }
 
   render () {

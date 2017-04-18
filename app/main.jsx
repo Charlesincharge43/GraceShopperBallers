@@ -14,6 +14,8 @@ import NotFound from './components/NotFound'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Products from './components/Products'
+import Orders from './components/Orders'
+import { allOrders } from './reducers/orders'
 import singleProduct from './components/singleProduct'
 
 const onRootEnter = function () {
@@ -32,6 +34,17 @@ const onRootEnter = function () {
 
 };
 
+const onOrdersEnter = (nextState) => {
+  axios.get(`/api/orders`)
+    .then(res => res.data)
+    .then(orders => {
+      store.dispatch(allOrders(orders))
+    })
+    .catch(err => {
+      console.error(err)
+    })
+}
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -41,6 +54,8 @@ render(
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/categories/:category_id" component={Products}/>
+        <Route path="/orders" component={Orders} onEnter={onOrdersEnter} />
+        {/* <Route path="/item" component={Item}/>
         <Route path="/products/:product_id" component={singleProduct}/>
         {/* <Route path="/orders" component={Orders}/>
         <Route path="/cart" component={Cart}/>
