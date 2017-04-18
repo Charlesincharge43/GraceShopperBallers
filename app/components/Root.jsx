@@ -13,11 +13,11 @@ export const Root = connect(
     <div>
       <nav>
         <span>Username (placeholder)</span> |
-        <Link to="/signin" activeClassName="active">Orders (placeholder- vis or not)</Link> |
-        <Link to="/signup" activeClassName="active">Sign Up (placeholder)</Link> |
-        <Link to="/login" activeClassName="active">Log In (placeholder)</Link> |
-        <Link to="/logout" activeClassName="active">Logout (placeholder)</Link> |
-        <Link to="/cart" activeClassName="active">Cart (placeholder)</Link>
+        <Link to="/orders" activeClassName="active">Orders</Link> |
+        <Link to="/signup" activeClassName="active">Sign Up</Link> |
+        <Link to="/login" activeClassName="active">Log In</Link> |
+        <Link to="/logout" activeClassName="active">Logout</Link> |
+        <Link to="/cart" activeClassName="active">Cart</Link>
         {/* {user ? <WhoAmI/> : <Login/>} */}
       </nav>
       {children}

@@ -1,5 +1,6 @@
 import React from 'react'
 import store from '../store'
+import { browserHistory } from 'react-router'
 
 import { loginUserThunk } from '../reducers/users'
 
@@ -23,6 +24,7 @@ export class Login extends React.Component {
     event.preventDefault()
     const thunk = loginUserThunk(this.state.email, this.state.password)
     store.dispatch(thunk)
+    browserHistory.push(`/categories`)
   }
 
   render() {
