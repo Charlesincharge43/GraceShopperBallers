@@ -13,7 +13,7 @@ export class Checkout extends React.Component {
       city: '',
       state: '',
       zipCode: ''
-    }
+    } //comment
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
