@@ -12,6 +12,7 @@ import Categories from './components/Categories.jsx'
 import NotFound from './components/NotFound'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Products from './components/Products'
 
 const onRootEnter = function () {
 
@@ -35,8 +36,8 @@ render(
         <Route path="/categories" component={Categories} />
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {/* <Route path="/products" component={Products}/>
-        <Route path="/item" component={Item}/>
+        <Route path="/categories/:category_id" component={Products}/>
+        {/* <Route path="/item" component={Item}/>
         <Route path="/orders" component={Orders}/>
         <Route path="/cart" component={Cart}/>
         <Route path="/cart" component={Checkout}/> */}

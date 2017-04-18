@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize')
 
-module.exports = db => db.define('category', {
+module.exports = db => db.define('categories', {
   name: {
     type: Sequelize.STRING,
     allowNull: false
