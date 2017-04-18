@@ -1,5 +1,6 @@
 import React from 'react'
 import store from '../store'
+import {connect} from 'react-redux'
 import { createBillingInfo } from '../reducers/checkout'
 
 export class Checkout extends React.Component {
@@ -13,13 +14,14 @@ export class Checkout extends React.Component {
       city: '',
       state: '',
       zipCode: ''
-    } //comment
+    }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
+    console.log('event in checkout handleChange', event)
   }
 
   handleSubmit(event) {
@@ -29,49 +31,49 @@ export class Checkout extends React.Component {
   }
 
   render () {
-
+  	console.log('this state', this.state)
     return (
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
             <label className="col-sm-2 control-label">Credit Card Number</label>
             <div className="col-sm-10">
-              <input type="text" name="firstName" value={this.state.cardNumber} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="text" name="cardNumber" value={this.state.cardNumber} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
             <label className="col-sm-2 control-label">Expiry Date</label>
             <div className="col-sm-10">
-              <input type="text" name="lastName" value={this.state.expDate} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="number" name="expDate" value={this.state.expDate} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
             <label className="col-sm-2 control-label">CCV Number</label>
             <div className="col-sm-10">
-              <input type="text" name="email" value={this.state.ccvNumber} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="number" name="ccvNumber" value={this.state.ccvNumber} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
             <label className="col-sm-2 control-label">Address</label>
             <div className="col-sm-10">
-              <input type="text" name="password_digest" value={this.state.address} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="text" name="address" value={this.state.address} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
             <label className="col-sm-2 control-label">City</label>
             <div className="col-sm-10">
-              <input type="text" name="firstName" value={this.state.city} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="text" name="city" value={this.state.city} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
             <label className="col-sm-2 control-label">State</label>
             <div className="col-sm-10">
-              <input type="text" name="firstName" value={this.state.state} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="text" name="state" value={this.state.state} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
             <label className="col-sm-2 control-label">ZipCode</label>
             <div className="col-sm-10">
-              <input type="text" name="firstName" value={this.state.zipCode} className="form-control" placeholder="" onChange={this.handleChange} />
+              <input type="number" name="zipCode" value={this.state.zipCode} className="form-control" placeholder="" onChange={this.handleChange} />
             </div>
           </div>
           <div className="form-group">
@@ -83,3 +85,20 @@ export class Checkout extends React.Component {
     )
   }
 }
+
+function mapState(state, ownProps) {
+  return {}
+}
+
+function mapDispatch(dispatch, ownProps) {
+  return {}
+}
+
+const CheckoutContainer = connect(mapState, mapDispatch)(Checkout)
+
+export default CheckoutContainer
+
+
+
+
+

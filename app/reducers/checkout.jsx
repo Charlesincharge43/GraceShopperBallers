@@ -4,7 +4,7 @@ const UPDATE_BILLING = 'UPDATE_BILLING'
 
 /* Action Creator */
 
-export const createBill(bill){
+export function createBill (bill){
 	return {
 		type: UPDATE_BILLING,
 		bill
@@ -12,7 +12,7 @@ export const createBill(bill){
 }
 
 /* Thunks*/
-export const createBillingInfo(cardNumber, expDate, ccvNumber, address, city, state, zipCode) {
+export function createBillingInfo (cardNumber, expDate, ccvNumber, address, city, state, zipCode) {
 
 	return function (dispatch) {
 		return axios.post('/api/billing', {
@@ -47,9 +47,9 @@ export function createBillReducer (prevState=initialState, action) {
 
 	switch(action.type) {
 		case UPDATE_BILLING: 
-			newState.currentBill = action.type
+			newState.currentBill = action.bill
 			break
-			
+
 		default: 
 			return prevState
 	}

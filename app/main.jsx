@@ -13,6 +13,7 @@ import NotFound from './components/NotFound'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Products from './components/Products'
+import Checkout from './components/Checkout'
 
 const onRootEnter = function () {
 
@@ -22,11 +23,11 @@ const onRootEnter = function () {
   ])
     .then(responses => responses.map(r => r.data))
     .then(([categories, products]) => {
-      store.dispatch(receiveCategoriesAC(categories));
-      store.dispatch(receiveProductsAC(products));
-    });
+      store.dispatch(receiveCategoriesAC(categories))
+      store.dispatch(receiveProductsAC(products))
+    })
 
-};
+}
 
 render(
   <Provider store={store}>
@@ -37,6 +38,7 @@ render(
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/categories/:category_id" component={Products}/>
+        <Route path="/checkout" component={Checkout}/>
         {/* <Route path="/item" component={Item}/>
         <Route path="/orders" component={Orders}/>
         <Route path="/cart" component={Cart}/>
