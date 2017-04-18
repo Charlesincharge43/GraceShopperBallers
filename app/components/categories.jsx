@@ -12,9 +12,11 @@ const Categories = (props) => {
       <div className="row">
       {
         categories && categories.map(category => (
-          <div className="col-xs-4" key={ category.id }>
+          <div className="col-xs-4" key={ category.id } >
             <Link className="thumbnail" to={`/categories/${category.id}`} >
-              <img src={ category.imageUrl } />
+              <div className="resizeLrg">
+                <img src={ category.imageUrl } />
+              </div>
               <div className="caption">
                 <h5>
                   <span>{ category.name }</span>
