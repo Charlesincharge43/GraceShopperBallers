@@ -18,18 +18,19 @@ module.exports = require('express').Router()
       User.findAll()
         .then(users => res.json(users))
         .catch(next))
+  .get('/fetchSession',(req,res,next)=>{
+    res.json(req.session);
+  })
   .post('/',
     (req, res, next) =>
       User.create(req.body)
       .then(user => res.status(201).json(user))
       .catch(next))
   .post('/login', function (req, res, next) {
-    console.log('req.body================================', req.body)
     User.findOne({
       where: {email: req.body.email, password_digest: req.body.password}
     })
     .then(user => {
-      console.log('user from database in server response=======================', user)
       res.json(user)
     })
     .catch(next)
