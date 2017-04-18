@@ -21,7 +21,8 @@ const app = require('APP')
       Product: require('./product.js'),
       ProdOnOrder: require('./prodOnOrder.js'),
       Category: require('./category.js'),
-      Review: require('./review.js')
+      Review: require('./review.js'),
+      Billing: require('./billing.js')
       // ---------- Add new models here ----------
     }
     , {mapValues} = require('lodash')

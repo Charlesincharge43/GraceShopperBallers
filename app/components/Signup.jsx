@@ -5,26 +5,26 @@ import { createUserThunk } from '../reducers/users'
 
 export class Signup extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       firstName: '',
       lastName: '',
       email: '',
       password_digest: ''
-    };
+    }
 
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   handleChange (event) {
-    this.setState({ [event.target.name]: event.target.value });
+    this.setState({ [event.target.name]: event.target.value })
   }
 
   handleSubmit (event) {
-    event.preventDefault();
-    const thunk = createUserThunk(this.state.firstName, this.state.lastName, this.state.email, this.state.password_digest);
-    store.dispatch(thunk);
+    event.preventDefault()
+    const thunk = createUserThunk(this.state.firstName, this.state.lastName, this.state.email, this.state.password_digest)
+    store.dispatch(thunk)
   }
 
   render () {
@@ -63,11 +63,11 @@ export class Signup extends React.Component {
           </div>
         </form>
 
-    );
+    )
   }
 }
 
-//import {} from 'APP/app/reducers/auth'
+// import {} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
 function mapState(state, ownProps) {
