@@ -13,7 +13,7 @@ const Categories = (props) => {
       {
         categories && categories.map(category => (
           <div className="col-xs-4" key={ category.id }>
-            <Link className="thumbnail" to={`/categories/${category.id}`}>
+            <Link className="thumbnail" to={`/categories/${category.id}`} >
               <img src={ category.imageUrl } />
               <div className="caption">
                 <h5>
