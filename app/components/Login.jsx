@@ -1,9 +1,10 @@
 import React from 'react'
+import store from '../store'
 
 export const Login = ({ login }) => (
   <form onSubmit={evt => {
     evt.preventDefault()
-    login(evt.target.username.value, evt.target.password.value)
+    store.dispatch(login(evt.target.username.value, evt.target.password.value))
   } }>
     <input name="username" />
     <input name="password" type="password" />
@@ -14,7 +15,16 @@ export const Login = ({ login }) => (
 import {login} from 'APP/app/reducers/auth'
 import {connect} from 'react-redux'
 
-export default connect(
-  state => ({}),
-  {login},
-)(Login)
+function mapState(state, ownProps) {
+  return {}
+}
+
+function mapDispatch(dispatch, ownProps) {
+  return {
+    login: login
+  }
+}
+
+const LoginContainer = connect(mapState, mapDispatch)(Login)
+
+export default LoginContainer
