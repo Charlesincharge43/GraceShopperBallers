@@ -14,6 +14,7 @@ import NotFound from './components/NotFound'
 import Login from './components/Login'
 import Signup from './components/Signup'
 import Products from './components/Products'
+import Checkout from './components/Checkout'
 import Orders from './components/Orders'
 import { allOrders } from './reducers/orders'
 import singleProduct from './components/singleProduct'
@@ -31,8 +32,7 @@ const onRootEnter = function () {
       store.dispatch(receiveProductsAC(products));
       store.dispatch(fetchSessionAC(sessionObj));
     });
-
-};
+}
 
 const onOrdersEnter = (nextState) => {
   axios.get(`/api/orders`)
@@ -54,6 +54,7 @@ render(
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/categories/:category_id" component={Products}/>
+        <Route path="/checkout" component={Checkout}/>
         <Route path="/orders" component={Orders} onEnter={onOrdersEnter} />
         {/* <Route path="/item" component={Item}/>
         <Route path="/products/:product_id" component={singleProduct}/>

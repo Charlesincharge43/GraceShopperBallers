@@ -4,8 +4,11 @@ const Sequelize = require('sequelize')
 
 module.exports = db => db.define('billings', {
   cardNumber: {
-    type: Sequelize.INTEGER,
-    allowNull: false
+    type: Sequelize.STRING,
+    allowNull: false,
+    validation: {
+      isNumeric: true
+    }
   },
   expDate: {
     type: Sequelize.INTEGER,
