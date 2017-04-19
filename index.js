@@ -34,18 +34,23 @@ if (!reasonableName.test(pkg.name)) {
 // and add it to the environment.
 // Note that this needs to be in your home directory, not the project's root directory
 const env = Object.create(process.env)
-    , secretsFile = resolve(env.HOME, `.${pkg.name}.env`)
+const secretsFile = resolve(env.HOME, `.${pkg.name}.env.json`)
 
+console.log('secrets file---------------', secretsFile)
 try {
   const additionalEnv = require(secretsFile)
+  console.log('additional env', additionalEnv)
   Object.assign(env, additionalEnv)
   process.env = env
   debug('%s: %j', secretsFile, additionalEnv)
 } catch (error) {
+  console.log('inside of error block========================================')
   debug('%s: %s', secretsFile, error.message)
   debug('%s: env file not found or invalid, moving on', secretsFile)
 }
 
+console.log('env.port', env.port)
+console.log('env.PORT', env.PORT)
 module.exports = {
   get name() { return pkg.name },
   get isTesting() { return !!global.it },

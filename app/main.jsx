@@ -26,7 +26,7 @@ const onRootEnter = function () {
   Promise.all([
     axios.get('/api/categories'),
     axios.get('/api/products'),
-    axios.get('/api/users/fetchSession'),
+    //axios.get('/api/users/fetchSession'),
   ])
     .then(responses => responses.map(r => r.data))
     .then(([categories, products, sessionObj]) => {
