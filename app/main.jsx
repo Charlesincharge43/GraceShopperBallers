@@ -24,13 +24,13 @@ const onRootEnter = function () {
   Promise.all([
     axios.get('/api/categories'),
     axios.get('/api/products'),
-    axios.get('/api/users/fetchSession'),
+    //axios.get('/api/users/fetchSession'),
   ])
     .then(responses => responses.map(r => r.data))
     .then(([categories, products, sessionObj]) => {
       store.dispatch(receiveCategoriesAC(categories));
       store.dispatch(receiveProductsAC(products));
-      store.dispatch(fetchSessionAC(sessionObj));
+      //store.dispatch(fetchSessionAC(sessionObj));
     });
 }
 

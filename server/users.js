@@ -21,17 +21,29 @@ module.exports = require('express').Router()
   .get('/fetchSession',(req,res,next)=>{
     res.json(req.session);
   })
-  .post('/',
-    (req, res, next) =>
-      User.create(req.body)
-      .then(user => res.status(201).json(user))
-      .catch(next))
+  .post('/', function (req, res, next) {
+    User.create(req.body)
+    .then(user => {
+      if (!user) {
+        res.sendStatus(401)
+      } else {
+        req.session.user = user
+        res.json(user)
+      }
+    })
+    .catch(next)
+  })
   .post('/login', function (req, res, next) {
     User.findOne({
       where: {email: req.body.email, password_digest: req.body.password}
     })
     .then(user => {
-      res.json(user)
+      if (!user) {
+        res.sendStatus(401)
+      } else {
+        req.session.user = user
+        res.json(user)
+      }
     })
     .catch(next)
   })

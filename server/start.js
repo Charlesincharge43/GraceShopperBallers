@@ -7,7 +7,7 @@ const {resolve} = require('path')
 const passport = require('passport')
 const PrettyError = require('pretty-error')
 const finalHandler = require('finalhandler')
-// const session = require('express-session');
+const session = require('express-session');
 const db = require('APP/db')
 // console.log(db);
 // PrettyError docs: https://www.npmjs.com/package/pretty-error
@@ -46,13 +46,21 @@ module.exports = app
   // Body parsing middleware
   .use(bodyParser.urlencoded({ extended: true }))
   .use(bodyParser.json())
-  // .use(session({
-  //   // this mandatory configuration ensures that session IDs are not predictable ***
-  //   secret: 'ballintillimfallin', // or whatever you like
-  //   // these options are recommended and reduce session concurrency issues
-  //   resave: false,
-  //   saveUninitialized: false
-  // }))
+
+  // Session Middleware
+  .use(session({
+    // this mandatory configuration ensures that session IDs are not predictable ***
+    secret: 'ballintillimfallin', // or whatever you like
+    // these options are recommended and reduce session concurrency issues
+    resave: false,
+    saveUninitialized: false
+  }))
+
+  .use(function (req, res, next) {
+    console.log('session', req.session);
+    next();
+  })
+
   // Authentication middleware
   .use(passport.initialize())
   .use(passport.session())
