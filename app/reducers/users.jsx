@@ -37,7 +37,7 @@ export function loginUserThunk (email, password) {
 
   return function thunk (dispatch) {
 
-    return axios.post('/api/users/login', { email: email, password: password })
+    return axios.post('/api/auth/login/local', { email: email, password: password })
     .then(res => res.data)
     .then(user => {
       const action = loginUser(user);
