@@ -70,4 +70,4 @@ export const Root = connect(
           <li><Link to="/cart" activeClassName="active">Cart</Link></li>
         </ul>
       </div>
-    </nav>*/}
+*/}

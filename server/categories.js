@@ -7,10 +7,12 @@ console.log('@Categories Route')
 
 module.exports = require('express').Router()
   .get('/',
-    (req, res, next) =>
-      Category.findAll()
+    (req, res, next) => {
+      console.log('req.user==========', req.user)
+      return Category.findAll()
         .then(categories => res.json(categories))
-        .catch(next))
+        .catch(next)})
+
   // .post('/',
   //   (req, res, next) =>
   //     Category.create(req.body)
