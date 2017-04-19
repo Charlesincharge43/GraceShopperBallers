@@ -8,7 +8,9 @@ import axios from 'axios';
 import store from './store'
 import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
-import { fetchSessionAC } from './reducers/session.jsx'
+// import { fetchSessionAC } from './reducers/session.jsx'
+
+import Cart from './components/Cart.jsx'
 import Categories from './components/Categories.jsx'
 import NotFound from './components/NotFound'
 import Login from './components/Login'
@@ -30,7 +32,7 @@ const onRootEnter = function () {
     .then(([categories, products, sessionObj]) => {
       store.dispatch(receiveCategoriesAC(categories));
       store.dispatch(receiveProductsAC(products));
-      store.dispatch(fetchSessionAC(sessionObj));
+      // store.dispatch(fetchSessionAC(sessionObj));
     });
 }
 
@@ -56,11 +58,11 @@ render(
         <Route path="/categories/:category_id" component={Products}/>
         <Route path="/checkout" component={Checkout}/>
         <Route path="/orders" component={Orders} onEnter={onOrdersEnter} />
-        {/* <Route path="/item" component={Item}/>
+        {/* <Route path="/item" component={Item}/> */}
         <Route path="/products/:product_id" component={singleProduct}/>
-        {/* <Route path="/orders" component={Orders}/>
-        <Route path="/cart" component={Cart}/>
-        <Route path="/cart" component={Checkout}/> */}
+        {/* <Route path="/orders" component={Orders}/>*/}
+         <Route path="/cart" component={Cart}/>
+        {/*<Route path="/cart" component={Checkout}/> */}
       </Route>
       <Route path='*' component={NotFound} />
     </Router>

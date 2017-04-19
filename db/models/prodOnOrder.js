@@ -5,7 +5,6 @@ const Sequelize = require('sequelize')
 module.exports = db => db.define('prodOnOrders', {
   price: {
     type: Sequelize.DECIMAL,
-    allowNull: false
   },
   qty: {
     type: Sequelize.INTEGER,
