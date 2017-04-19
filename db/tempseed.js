@@ -30,7 +30,6 @@ const users = [
 
 const products = [
   {
-    id: 1,
     title: 'Lebrrn',
     description: 'jersey for cavs bandwagon fans',
     price: 1,
@@ -39,7 +38,6 @@ const products = [
     category_id: 1,
   },
   {
-    id: 2,
     title: 'Westbrook Jersey',
     description: 'tripledouble machineee',
     price: 90,
@@ -48,7 +46,6 @@ const products = [
     category_id: 1,
   },
   {
-    id: 3,
     title: 'Jeremy Lin Signed basketball',
     description: 'Signed by the best 3 week flash in the pan wonder in basketball history',
     price: 1000000,
@@ -59,21 +56,37 @@ const products = [
 ]
 const categories = [
   {
-    id: 1,
     name: 'Jerseys',
     imageUrl: 'http://nba.frgimages.com/FFImage/thumb.aspx?i=/productImages%2f_1993000%2fff_1993196_xl.jpg&w=600',
   },
   {
-    id: 2,
     name: 'Shoes',
     imageUrl: 'http://www.air-foamposite-galaxy.com/images/0829/Nike-Air-Max-LeBron-James-11-P.S-ELITE-Gold-Black-Basketball-shoes.jpg',
   },
   {
-    id: 3,
     name: 'memorabilia',
     imageUrl: 'http://cdn.sportsmemorabilia.com/sports-product-image/1354-t1748799-340.jpg',
   },
 ]
+
+
+const orders = [
+  {
+    status: 'complete',
+    user_id: 1,
+  },
+
+  {
+    status: 'incomplete',
+    user_id: 1,
+  },
+
+  {
+    status: 'incomplete',
+    user_id:1,
+  }
+]
+
 
 module.exports={
   seed:   function (db) {
@@ -87,19 +100,24 @@ module.exports={
       //   })
       // })
 
-      Promise.map(categories, function (category) {
+      return Promise.map(categories, function (category) {
         return db.Category.create(category);
       })
-      .then(
-        Promise.map(users, function (user) {
+      .then( () => {
+        return Promise.map(users, function (user) {
           return db.User.create(user);
         })
-      )
-      .then(
-        Promise.map(products, function(product){
+      })
+      .then( () => {
+        return Promise.map(products, function(product){
           return db.Product.create(product);
         })
-      )
+      })
+      .then( () => {
+        return Promise.map(orders, function(order){
+          return db.Order.create(order);
+        })
+      })
 
     }
 }

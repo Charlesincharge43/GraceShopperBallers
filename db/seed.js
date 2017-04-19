@@ -91,7 +91,6 @@ const categories = seed(Category, {
   },
 })
 
-
 const things = seed(Thing, {
   surfing: {name: 'surfing'},
   smiting: {name: 'smiting'},
