@@ -17,7 +17,8 @@ module.exports = db => db.define('users', {
 
   // We support oauth, so users may or may not have passwords.
   password_digest: STRING, // This column stores the hashed password in the DB, via the beforeCreate/beforeUpdate hooks
-  password: VIRTUAL // Note that this is a virtual, and not actually stored in DB
+  password: VIRTUAL, // Note that this is a virtual, and not actually stored in DB
+  googleId: STRING,
 }, {
   indexes: [{fields: ['email'], unique: true}],
   hooks: {

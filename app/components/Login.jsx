@@ -30,7 +30,7 @@ export class Login extends React.Component {
   render() {
 
     return (
-
+      <div>
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
           <div className="form-group">
             <label className="col-sm-2 control-label">Email</label>
@@ -49,8 +49,26 @@ export class Login extends React.Component {
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
           </div>
+
         </form>
 
+        <div className="or buffer">
+          <div className="back-line">
+            <span>OR</span>
+          </div>
+        </div>
+        <div className="buffer oauth">
+          <p>
+            <a
+              target="_self"
+              href="/api/auth/login/google"
+              className="btn btn-social btn-google">
+              <i className="fa fa-google" />
+              <span>Login! with Google</span>
+            </a>
+          </p>
+        </div>
+      </div>
     )
   }
 }
