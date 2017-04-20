@@ -128,8 +128,6 @@ auth.get('/whoami', (req, res) => res.send(req.user))
 
 // POST requests for local login:
 auth.post('/login/local', function(req, res, next) {
-  console.log('req.body==============', req.body)
-  console.log('log from post /login/local---------------')
   return passport.authenticate('local', function (err, user) {
     if (err || !user) {
       res.sendStatus(401)

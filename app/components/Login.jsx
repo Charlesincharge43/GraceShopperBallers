@@ -2,7 +2,7 @@ import React from 'react'
 import store from '../store'
 import { browserHistory } from 'react-router'
 
-import { loginUserThunk } from '../reducers/users'
+import { login } from '../reducers/auth'
 
 export class Login extends React.Component {
   constructor() {
@@ -22,9 +22,10 @@ export class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const thunk = loginUserThunk(this.state.email, this.state.password)
+    const thunk = login(this.state.email, this.state.password)
     store.dispatch(thunk)
-    //browserHistory.push(`/categories`)
+    browserHistory.push(`/categories`)
+    this.setState({ email: '', password: '' })
   }
 
   render() {
