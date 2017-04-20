@@ -36,7 +36,6 @@ if (!reasonableName.test(pkg.name)) {
 const env = Object.create(process.env)
 const secretsFile = resolve(env.HOME, `.${pkg.name}.env.json`)
 
-console.log('secrets file---------------', secretsFile)
 try {
   const additionalEnv = require(secretsFile)
   console.log('additional env', additionalEnv)
@@ -44,7 +43,6 @@ try {
   process.env = env
   debug('%s: %j', secretsFile, additionalEnv)
 } catch (error) {
-  console.log('inside of error block========================================')
   debug('%s: %s', secretsFile, error.message)
   debug('%s: env file not found or invalid, moving on', secretsFile)
 }
