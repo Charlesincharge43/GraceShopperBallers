@@ -43,6 +43,7 @@ module.exports = require('express').Router()
         .catch(next)
       }
       else {
+        console.log('posting... as anon');
         req.session.currentOrder.push(req.body.PoO);
         res.json(res.session.currentOrder);
       }

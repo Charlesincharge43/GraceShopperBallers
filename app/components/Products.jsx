@@ -1,55 +1,70 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux'
+import { pushToSessionOrdersTC } from '../reducers/session';
 
-const Products = (props) => {
-  const products = props.products;
-  const currCategory_id = +props.params.category_id;
+export class Products extends React.Component {
+  constructor(){
+    super()
+    this.addOrder=this.addOrder.bind(this);
+  }
 
-  return (
-    <div>
-      <h3>Products</h3>
-      <div className="row">
-      {
-        products && products.map(product => {
-          if(product.category_id === currCategory_id) {
-            return (
-            <div className="col-xs-4" key={ product.id }>
-              <Link className="thumbnail" to={`/products/${product.id}`} >
-                <div className="resizeMed">
-                  <img src={ product.imageUrl } />
+  addOrder(evt){
+    let productID= evt.target.value;
+    this.props.addtoOrder(productID);
+  }
+
+  render(){
+    const products = this.props.products;
+    const currCategory_id = +this.props.params.category_id;
+
+    return (
+      <div>
+        <h3>Products</h3>
+        <div className="row">
+          {
+            products && products.map(product => {
+              if(product.category_id === currCategory_id) {
+                return (
+                  <div className="col-xs-4" key={ product.id }>
+                    <Link className="thumbnail" to={`/products/${product.id}`} >
+                    <div className="resizeMed">
+                      <img src={ product.imageUrl } />
+                    </div>
+                    <div className="caption">
+                      <h5>
+                        <p>{ product.title }</p>
+                        <p>Description: { product.description }</p>
+                        <p>Price: { product.price }</p>
+                        <p>In Stock: { product.inventory }</p>
+                        {/*  want the button here, but i dont want the link thing to work... something about bubbling? */}
+                      </h5>
+                    </div>
+                  </Link>
+                  <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>+</button>
                 </div>
-                <div className="caption">
-                  <h5>
-                    <p>{ product.title }</p>
-                    <p>Description: { product.description }</p>
-                    <p>Price: { product.price }</p>
-                    <p>In Stock: { product.inventory }</p>
-                    <button className="btn btn-xs btn-default" value={product.id} onClick={'finishneedfunction'}>+</button>
-                  </h5>
-                </div>
-              </Link>
-            </div>
-            )
-          }
-        })
+              )
+            }
+          })
 
-      }
+        }
       </div>
     </div>
-  );
+    );
+
+  }
 }
+
+
 
 const mapState = ({ products }) => ({ products});// store.getState().products !!  ... that is passed into products
 
-const mapDispatch = {};
-
-// const mapDispatch = (dispatch)=>({
-//   {
-//     addtoOrder: function(productID){
-//       dispatch(addtoOrderThunkCreator(productID,))
-//     }
-//   }
-// });
+const mapDispatch = (dispatch)=>(
+  {
+    addtoOrder: function(productID){
+      dispatch(pushToSessionOrdersTC(productID))
+    }
+  }
+);
 
 export default connect(mapState, mapDispatch)(Products);
