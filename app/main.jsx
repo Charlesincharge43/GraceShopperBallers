@@ -20,6 +20,8 @@ import Checkout from './components/Checkout'
 import Orders from './components/Orders'
 import { allOrders } from './reducers/orders'
 import singleProduct from './components/singleProduct'
+import { logout } from './reducers/auth'
+import WhoAmI from './components/WhoAmI'
 
 const onRootEnter = function () {
 
@@ -47,6 +49,7 @@ const onOrdersEnter = (nextState) => {
     })
 }
 
+
 render(
   <Provider store={store}>
     <Router history={browserHistory}>
@@ -54,6 +57,7 @@ render(
         <IndexRedirect to="/categories" />
         <Route path="/categories" component={Categories} />
         <Route path="/login" component={Login} />
+        <Route path="/logout" component={Categories}/>
         <Route path="/signup" component={Signup} />
         <Route path="/categories/:category_id" component={Products}/>
         <Route path="/checkout" component={Checkout}/>

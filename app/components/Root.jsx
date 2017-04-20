@@ -3,11 +3,26 @@ import Login from './Login'//Why need the extension here????
 import WhoAmI from './WhoAmI'
 import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router';
+import { logout } from '../reducers/auth'
+import store from '../store'
 
-export const Root = connect(
-  ({ users }) => ({ user: users.currentUser })
-)(
-  ({ user, children }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
+function mapState (state, ownProps) {
+  return {
+    user: state.auth
+  }
+}
+
+function mapDispatch (dispatch, ownProps) {
+  return {
+    logoutThunk: function () {
+      const thunk = logout();
+      dispatch(thunk)
+    }
+  }
+}
+
+export const Root = connect(mapState, mapDispatch)(
+  ({ user, children, logoutThunk }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
 
     return (
@@ -44,7 +59,7 @@ export const Root = connect(
               <ul className="nav navbar-nav navbar-right">
                   <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
                   <li><Link to="/login" activeClassName="active">Login</Link></li>
-                  <li><Link to="/logout" activeClassName="active">Logout</Link></li>
+                  <li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>
                   <li><Link to="/logout" activeClassName="active"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</Link></li>
               </ul>
           </div>
