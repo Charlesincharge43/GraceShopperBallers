@@ -53,7 +53,7 @@ export const Root = connect(
     )
   }
 )
-
+//comment
 {/*
     <nav className="navbar navbar-inverse">
       <div className="container-fluid">
