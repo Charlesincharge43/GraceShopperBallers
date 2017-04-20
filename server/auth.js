@@ -74,11 +74,13 @@ OAuth.setupStrategy({
 // Passport review in the Week 6 Concept Review:
 // https://docs.google.com/document/d/1MHS7DzzXKZvR6MkL8VWdCxohFJHGgdms71XNLIET52Q/edit?usp=sharing
 passport.serializeUser((user, done) => {
+  console.log('in serializeUser')
   done(null, user.id)
 })
 
 passport.deserializeUser(
   (id, done) => {
+    console.log('in deserializeUser')
     debug('will deserialize user.id=%d', id)
     User.findById(id)
       .then(user => {
@@ -94,8 +96,11 @@ passport.deserializeUser(
 )
 
 // require.('passport-local').Strategy => a function we can use as a constructor, that takes in a callback
-passport.use(new (require('passport-local').Strategy)(
+passport.use(new (require('passport-local').Strategy)({
+  usernameField: 'email' // set usernameField to use email
+},
   (email, password, done) => {
+    console.log('email and password from strategy', email, password)
     debug('will authenticate user(email: "%s")', email)
     User.findOne({where: {email}})
       .then(user => {
@@ -119,8 +124,24 @@ passport.use(new (require('passport-local').Strategy)(
 
 auth.get('/whoami', (req, res) => res.send(req.user))
 
+//auth.post('/login/local', passport.authenticate('local', {successRedirect: '/'}))
+
 // POST requests for local login:
-auth.post('/login/local', passport.authenticate('local', {successRedirect: '/'}))
+auth.post('/login/local', function(req, res, next) {
+  console.log('req.body==============', req.body)
+  console.log('log from post /login/local---------------')
+  return passport.authenticate('local', function (err, user) {
+    if (err || !user) {
+      res.sendStatus(401)
+    } else {
+      req.logIn(user, function (err) {
+        console.log('in success block og reqlogin')
+        return res.json(req.user)
+      })
+    }
+    //{successRedirect: '/', failureRedirect: '/login'}
+  })(req, res, next) // need to invoke passport.authenticate middleware with (req, res, next)
+})
 
 // GET requests for OAuth login:
 // Register this route as a callback URL with OAuth provider
