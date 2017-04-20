@@ -47,7 +47,6 @@ export function pushToSessionOrdersTC (PoO) {//Product on Order
     return axios.post('/api/orders/currentOrder', {PoO})
     .then(res => res.data)
     .then(sessionOrdersArr => {
-      console.log('hello in pushToSessionOrdersTC')
       let fetchSessOrdersAO = fetchSessionCurrOrdersAC(sessionOrdersArr);
       dispatch(fetchSessOrdersAO);
     })

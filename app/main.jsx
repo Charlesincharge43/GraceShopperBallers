@@ -8,7 +8,7 @@ import axios from 'axios';
 import store from './store'
 import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
-// import { fetchSessionAC } from './reducers/session.jsx'
+import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
 
 import Cart from './components/Cart.jsx'
 import Categories from './components/Categories.jsx'
@@ -26,13 +26,13 @@ const onRootEnter = function () {
   Promise.all([
     axios.get('/api/categories'),
     axios.get('/api/products'),
-    //axios.get('/api/users/fetchSession'),
+    axios.get('/api/users/fetchSession'),
   ])
     .then(responses => responses.map(r => r.data))
     .then(([categories, products, sessionObj]) => {
       store.dispatch(receiveCategoriesAC(categories));
       store.dispatch(receiveProductsAC(products));
-      // store.dispatch(fetchSessionAC(sessionObj));
+      store.dispatch(fetchSessionCurrOrdersAC(sessionObj.currentOrder));
     });
 }
 
