@@ -5,10 +5,11 @@ import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router';
 
 export const Root = connect(
-  ({ auth }) => ({ user: auth })
+  ({ users }) => ({ user: users.currentUser })
 )(
   ({ user, children }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
+
     return (
           <div>
           <nav role="navigation" className="navbar navbar-inverse">
