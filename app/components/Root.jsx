@@ -10,9 +10,9 @@ export const Root = connect(
   ({ user, children }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
     return (
+
           <div>
           <nav role="navigation" className="navbar navbar-inverse">
-
           <div className="navbar-header">
               <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
                   <span className="sr-only">Toggle navigation</span>
@@ -20,7 +20,7 @@ export const Root = connect(
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
               </button>
-              <a href="#" className="navbar-brand"><Link to="/categories"><img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=0ahUKEwiXhc765rDTAhUp0oMKHaHWDYgQjBwIBA&url=https%3A%2F%2Ffanart.tv%2Ffanart%2Ftv%2F281714%2Fhdtvlogo%2Fballers-5529a2fa52e21.png&psig=AFQjCNEXQDBfJ8yB-8_K9v7mChPn2UG8rg&ust=1492701054215976"></img></Link></a>
+              <a href="#" className="navbar-brand"><Link to="/categories"><img src="https://fanart.tv/fanart/tv/281714/hdtvlogo/ballers-5529a2fa52e21.png"></img></Link></a>
           </div>
 
           <div id="navbarCollapse" className="collapse navbar-collapse">
@@ -28,11 +28,9 @@ export const Root = connect(
                   <li className="dropdown">
                       <a data-toggle="dropdown" className="dropdown-toggle" href="#">Products <b className="caret"></b></a>
                       <ul role="menu" className="dropdown-menu">
-                          <li><a href="#">Jerseys</a></li>
-                          <li><a href="#">Shoes</a></li>
-                          <li><a href="#">Memoribilia</a></li>
-                          <li className="divider"></li>
-                          <li><a href="#">Trash</a></li>
+                          <li><a href="/categories/1">Jerseys</a></li>
+                          <li><a href="/categories/2">Shoes</a></li>
+                          <li><a href="/categories/3">Memoribilia</a></li>
                       </ul>
                   </li>
                   <li><Link to="/orders" activeClassName="active">Orders</Link></li>
@@ -46,6 +44,7 @@ export const Root = connect(
                   <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
                   <li><Link to="/login" activeClassName="active">Login</Link></li>
                   <li><Link to="/logout" activeClassName="active">Logout</Link></li>
+                  <li><Link to="/logout" activeClassName="active"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</Link></li>
               </ul>
           </div>
       </nav>

@@ -24,6 +24,7 @@ export function createUserThunk (firstName, lastName, email, password) {
     return axios.post('/api/users', {firstName: firstName, lastName: lastName, email: email, password_digest: password})
     .then(res => res.data)
     .then(user => {
+      console.log('hello in createUserThunk')
       const action = createUser(user);
       dispatch(action);
     })
