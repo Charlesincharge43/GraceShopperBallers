@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import { logout } from '../reducers/auth'
 import store from '../store'
 
+
 function mapState (state, ownProps) {
   return {
     user: state.auth
@@ -21,10 +22,19 @@ function mapDispatch (dispatch, ownProps) {
   }
 }
 
+function isLoggedin(user){ //checking to see if user is logged in 
+  if (user) return (<li><Link to="/logout" activeClassName="active">Logout</Link></li>)
+  else return (
+        <div>
+          <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
+          <li><Link to="/login" activeClassName="active">Login</Link></li>
+        </div>
+  )
+}
+
 export const Root = connect(mapState, mapDispatch)(
   ({ user, children, logoutThunk }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
-
     return (
 
           <div>
@@ -44,9 +54,9 @@ export const Root = connect(mapState, mapDispatch)(
                   <li className="dropdown">
                       <a data-toggle="dropdown" className="dropdown-toggle" href="#">Products <b className="caret"></b></a>
                       <ul role="menu" className="dropdown-menu">
-                          <li><a href="/categories/1">Jerseys</a></li>
-                          <li><a href="/categories/2">Shoes</a></li>
-                          <li><a href="/categories/3">Memoribilia</a></li>
+                          <li><Link to="/categories/1">Jerseys</Link></li>
+                          <li><Link to="/categories/2">Shoes</Link></li>
+                          <li><Link to="/categories/3">Memoribilia</Link></li>
                       </ul>
                   </li>
                   <li><Link to="/orders" activeClassName="active">Orders</Link></li>
