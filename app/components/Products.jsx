@@ -10,6 +10,7 @@ export class Products extends React.Component {
   }
 
   addOrder(evt){
+    evt.preventDefault();
     let productID= evt.target.value;
     this.props.addtoOrder(productID);
   }
@@ -37,11 +38,11 @@ export class Products extends React.Component {
                         <p>Description: { product.description }</p>
                         <p>Price: { product.price }</p>
                         <p>In Stock: { product.inventory }</p>
-                        {/*  want the button here, but i dont want the link thing to work... something about bubbling? */}
+                        <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>+</button>
                       </h5>
                     </div>
                   </Link>
-                  <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>+</button>
+
                 </div>
               )
             }

@@ -44,7 +44,8 @@ module.exports = require('express').Router()
       }
       else {
         console.log('posting... as anon');
+        console.log('req session is ', req.session);
         req.session.currentOrder.push(req.body.PoO);
-        res.json(res.session.currentOrder);
+        res.json(req.session.currentOrder);
       }
     })
