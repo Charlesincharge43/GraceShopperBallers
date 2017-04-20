@@ -38,6 +38,7 @@ export const Root = connect(mapState, mapDispatch)(
     return (
 
           <div>
+          {console.log('user', user)}
           <nav role="navigation" className="navbar navbar-inverse">
           <div className="navbar-header">
               <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">
@@ -67,10 +68,10 @@ export const Root = connect(mapState, mapDispatch)(
                   </div>
               </form>
               <ul className="nav navbar-nav navbar-right">
-                  <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
-                  <li><Link to="/login" activeClassName="active">Login</Link></li>
-                  <li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>
-                  <li><Link to="/logout" activeClassName="active"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</Link></li>
+              {user ? (<li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>) : (
+                <div className= "nav navbar-nav "><li><Link to="/login" activeClassName="active">Login</Link></li>
+                <li><Link to="/login" activeClassName="active">Sign Up</Link></li></div>)}
+                  <li><Link to="/logout" activeClassName="active"><span className="glyphicon glyphicon-shopping-cart"></span></Link></li>
               </ul>
           </div>
       </nav>
