@@ -70,8 +70,8 @@ export const Root = connect(mapState, mapDispatch)(
               <ul className="nav navbar-nav navbar-right">
               {user ? (<li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>) : (
                 <div className= "nav navbar-nav "><li><Link to="/login" activeClassName="active">Login</Link></li>
-                <li><Link to="/login" activeClassName="active">Sign Up</Link></li></div>)}
-                  <li><Link to="/logout" activeClassName="active"><span className="glyphicon glyphicon-shopping-cart"></span></Link></li>
+                <li><Link to="/signup" activeClassName="active">Sign Up</Link></li></div>)}
+                  <li><Link to="/cart" activeClassName="active"><span className="glyphicon glyphicon-shopping-cart"></span></Link></li>
               </ul>
           </div>
       </nav>

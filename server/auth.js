@@ -155,6 +155,7 @@ auth.get('/login/:strategy', (req, res, next) =>
 
 auth.post('/logout', (req, res) => {
   req.logout()
+  console.log('session*********************', req.session)
   res.redirect('/api/auth/whoami')
 })
 
