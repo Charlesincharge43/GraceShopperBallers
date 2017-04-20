@@ -4,12 +4,22 @@ import WhoAmI from './WhoAmI'
 import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router';
 
+function isLoggedin(user){ //checking to see if user is logged in 
+  if (user) return (<li><Link to="/logout" activeClassName="active">Logout</Link></li>)
+  else return (
+        <div>
+          <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
+          <li><Link to="/login" activeClassName="active">Login</Link></li>
+        </div>
+  )
+}
+
 export const Root = connect(
-  ({ users }) => ({ user: users.currentUser })
+  ({ auth }) => ({ user: auth })
 )(
   ({ user, children }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
-
+  console.log('user', user)
     return (
 
           <div>
@@ -29,9 +39,9 @@ export const Root = connect(
                   <li className="dropdown">
                       <a data-toggle="dropdown" className="dropdown-toggle" href="#">Products <b className="caret"></b></a>
                       <ul role="menu" className="dropdown-menu">
-                          <li><a href="/categories/1">Jerseys</a></li>
-                          <li><a href="/categories/2">Shoes</a></li>
-                          <li><a href="/categories/3">Memoribilia</a></li>
+                          <li><Link to="/categories/1">Jerseys</Link></li>
+                          <li><Link to="/categories/2">Shoes</Link></li>
+                          <li><Link to="/categories/3">Memoribilia</Link></li>
                       </ul>
                   </li>
                   <li><Link to="/orders" activeClassName="active">Orders</Link></li>
@@ -42,10 +52,8 @@ export const Root = connect(
                   </div>
               </form>
               <ul className="nav navbar-nav navbar-right">
-                  <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
-                  <li><Link to="/login" activeClassName="active">Login</Link></li>
-                  <li><Link to="/logout" activeClassName="active">Logout</Link></li>
-                  <li><Link to="/logout" activeClassName="active"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</Link></li>
+                  {isLoggedin(user)}
+                  <li><Link to="/cart" activeClassName="active"><span class="glyphicon glyphicon-shopping-cart"></span>Cart</Link></li>
               </ul>
           </div>
       </nav>
