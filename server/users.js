@@ -33,20 +33,6 @@ module.exports = require('express').Router()
     })
     .catch(next)
   })
-  // .post('/login', function (req, res, next) {
-  //   User.findOne({
-  //     where: {email: req.body.email, password_digest: req.body.password}
-  //   })
-  //   .then(user => {
-  //     if (!user) {
-  //       res.sendStatus(401)
-  //     } else {
-  //       req.session.user = user
-  //       res.json(user)
-  //     }
-  //   })
-  //   .catch(next)
-  // })
   .get('/:id',
     mustBeLoggedIn,
     (req, res, next) =>

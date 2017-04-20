@@ -35,4 +35,20 @@ export const whoami = () =>
       })
       .catch(failed => dispatch(authenticated(null)))
 
+export function createUserThunk (firstName, lastName, email, password) {
+
+  return function thunk (dispatch) {
+
+    return axios.post('/api/users', {firstName: firstName, lastName: lastName, email: email, password: password})
+    .then(res => res.data)
+    .then(user => {
+      const action = login(user.email, user.password);
+      dispatch(action);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  };
+}
+
 export default reducer
