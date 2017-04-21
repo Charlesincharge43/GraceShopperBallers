@@ -8,7 +8,8 @@ import axios from 'axios';
 import store from './store'
 import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
-import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
+// import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
+import { setCurrentPoOAC } from './reducers/orders.jsx'
 
 import Cart from './components/Cart.jsx'
 import Categories from './components/Categories.jsx'
@@ -23,22 +24,22 @@ import singleProduct from './components/singleProduct'
 import { logout } from './reducers/auth'
 import WhoAmI from './components/WhoAmI'
 
-const onRootEnter = function () {
+const onRootEnter = () => {
 
   Promise.all([
     axios.get('/api/categories'),
     axios.get('/api/products'),
-    axios.get('/api/users/fetchSession'),
+    axios.get('/api/prodOnOrders/sessionProdOnOrders'), //this won't work on root enter.. session is undefined this early for some reason **
   ])
     .then(responses => responses.map(r => r.data))
-    .then(([categories, products, sessionObj]) => {
+    .then(([categories, products, sessionPoO]) => {
       store.dispatch(receiveCategoriesAC(categories));
       store.dispatch(receiveProductsAC(products));
-      store.dispatch(fetchSessionCurrOrdersAC(sessionObj.currentOrder));
+      store.dispatch(setCurrentPoOAC(sessionPoO));
     });
 }
 
-const onOrdersEnter = (nextState) => {
+const onOrdersEnter = (nextState) => {//what is nextState used for?
   axios.get(`/api/orders`)
     .then(res => res.data)
     .then(orders => {
@@ -48,6 +49,13 @@ const onOrdersEnter = (nextState) => {
       console.error(err)
     })
 }
+
+// const onCartEnter = () => {
+//   axios.get('/api/prodOnOrders/sessionProdOnOrders')
+//     .then((r)=>{
+//       store.dispatch(setCurrentPoOAC(r.data))
+//     })
+// }
 
 
 render(
@@ -65,7 +73,7 @@ render(
         {/* <Route path="/item" component={Item}/> */}
         <Route path="/products/:product_id" component={singleProduct}/>
         {/* <Route path="/orders" component={Orders}/>*/}
-         <Route path="/cart" component={Cart}/>
+         <Route path="/cart" component={Cart} />
         {/*<Route path="/cart" component={Checkout}/> */}
       </Route>
       <Route path='*' component={NotFound} />
