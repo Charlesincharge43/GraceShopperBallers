@@ -5,15 +5,16 @@ const Product = db.model('products')
 
 module.exports = require('express').Router()
   .get('/',//need to make this FORBIDDEN unless you are an admin
-    (req, res, next) =>
-      PoO.findAll()
-        .then(poOArr => res.json(poOArr))
-        .catch(next))
-  .get('/byProduct/:productID',
-    (req, res, next) =>
-      PoO.findAll({where: {product_id: req.params.productID}})
+    (req, res, next) =>{
+
+      let whereQueryObj={}
+      if(req.query.order_id) whereQueryObj.order_id = req.query.order_id
+      if(req.query.product_id) whereQueryObj.product_id = req.query.product_id
+
+      PoO.findAll(whereQueryObj)
       .then(poOArr => res.json(poOArr))
-      .catch(next))
+      .catch(next)
+    })
   .get('/sessionProdOnOrders',
     (req, res, next) =>{
       res.json(req.session.currentOrder || [])

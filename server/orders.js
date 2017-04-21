@@ -4,14 +4,13 @@ const db = require('APP/db')
 const Order = db.model('orders')
 
 module.exports = require('express').Router()
-  .get('/',//need to make this FORBIDDEN unless you are an admin
-    (req, res, next) =>
-      Order.findAll()
-        .then(orders => res.json(orders))
-        .catch(next))
-  .get('/?user=auth_id&status=compenum', (req, res, next) => {
+  .get('/', (req, res, next) => {
+    let whereQueryObj={}
+    if(req.query.user) whereQueryObj.user_id = req.query.user
+    if(req.query.status) whereQueryObj.status = req.query.status
+
     Order.findAll({
-      where: { user_id: req.query.user, status: req.query.status }
+      where: whereQueryObj
     })
     .then(orders => {
       res.json(orders)
