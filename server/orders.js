@@ -9,6 +9,15 @@ module.exports = require('express').Router()
       Order.findAll()
         .then(orders => res.json(orders))
         .catch(next))
+  .get('/:auth_id', (req, res, next) => {
+    Order.findAll({
+      where: { user_id: req.params.auth_id, status: 'complete' }
+    })
+    .then(orders => {
+      res.json(orders)
+    })
+    .catch(next)
+  })
   .get('/currentOrder',
     (req, res, next) => {
       if(req.user){
