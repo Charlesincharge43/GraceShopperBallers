@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { getSessionOrdersTC } from '../reducers/session';
 
 const Cart = (props) => {
+  console.log('cart props', props) 
   let currentOrder=props.orders.currentPoO;
 
   let currentTotal = 0
@@ -46,7 +47,7 @@ const Cart = (props) => {
                         <td data-th="Quantity">
                           <input type="number" className="form-control text-center" value="1" />
                         </td>
-                        <td data-th="Subtotal" className="text-center">{ total(singleOrder.associatedProduct.price) }</td>
+                        <td data-th="Subtotal" className="text-center">{ total(Number(singleOrder.associatedProduct.price)) }</td>
                         <td className="actions" data-th="">
                           <button className="btn btn-info btn-sm"><i className="fa fa-refresh"></i></button>
                           <button className="btn btn-danger btn-sm"><i className="fa fa-trash-o"></i></button>                
