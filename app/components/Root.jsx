@@ -22,6 +22,7 @@ function mapDispatch (dispatch, ownProps) {
   }
 }
 
+
 //from Charles: are we not using this anymore?  can we delete this block of code if that's the case?
 function isLoggedin(user){ //checking to see if user is logged in
   if (user) return (
@@ -45,7 +46,6 @@ export const Root = connect(mapState, mapDispatch)(
     return (
 
           <div>
-          {console.log('user', user)}
           <nav role="navigation" className="navbar navbar-inverse">
           <div className="navbar-header">
               <button type="button" data-target="#navbarCollapse" data-toggle="collapse" className="navbar-toggle">

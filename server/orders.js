@@ -9,6 +9,15 @@ module.exports = require('express').Router()
       Order.findAll()
         .then(orders => res.json(orders))
         .catch(next))
+  .get('/?user=auth_id&status=compenum', (req, res, next) => {
+    Order.findAll({
+      where: { user_id: req.query.user, status: req.query.status }
+    })
+    .then(orders => {
+      res.json(orders)
+    })
+    .catch(next)
+  })
   .get('/:orderID',
     (req, res, next) => {
       Order.findById(req.params.orderID)
