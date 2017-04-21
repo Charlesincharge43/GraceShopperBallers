@@ -9,43 +9,16 @@ module.exports = require('express').Router()
       Order.findAll()
         .then(orders => res.json(orders))
         .catch(next))
-  .get('/currentOrder',
+  .get('/:orderID',
     (req, res, next) => {
-      if(req.user){
-        Order.findAll({
-          where: {
-            user_id: req.user.id,//we'll figure this out after OATH/figuring out passport
-            status: 'incomplete',
-          }
-        })
-        .then(orders=>{
-          res.json(orders[0]);
-        })
-        .catch(next)
-      }
-      else {
-        res.json(res.session.currentOrder);//currentOrder is an array of Product On Orders
-      }
+      Order.findById(req.params.orderID)
+      .then(order=>{
+        res.json(orders);
+      })
+      .catch(next)
     })
-  .post('/currentOrder',
-    (req, res, next) => {
-      let newPoO = req.body.PoO;
-
-      if(req.user){
-        Order.findAll({
-          where: {
-            user_id: req.user.id,//we'll figure this out after OATH/figuring out passport
-            status: 'incomplete',
-          }
-        })
-        .then(orders=>orders[0].id)
-        // .then(currOrderId=>)   //finish later
-        .catch(next)
-      }
-      else {
-        console.log('posting... as anon');
-        console.log('req session is ', req.session);
-        req.session.currentOrder.push(req.body.PoO);
-        res.json(req.session.currentOrder);
-      }
-    })
+  // .post('/',
+  //   (req, res, next) => {
+  //     Order.create({})
+  //   })
+  //how to get order by user?  what should route look like?

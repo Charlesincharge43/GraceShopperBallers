@@ -22,8 +22,15 @@ function mapDispatch (dispatch, ownProps) {
   }
 }
 
-function isLoggedin(user){ //checking to see if user is logged in 
-  if (user) return (<li><Link to="/logout" activeClassName="active">Logout</Link></li>)
+//from Charles: are we not using this anymore?  can we delete this block of code if that's the case?
+function isLoggedin(user){ //checking to see if user is logged in
+  if (user) return (
+        <div>
+          <li>Hello, {user.firstName} </li>
+          <li><Link to="/logout" activeClassName="active">Logout</Link></li>
+        </div>
+  )
+
   else return (
         <div>
           <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
@@ -68,10 +75,18 @@ export const Root = connect(mapState, mapDispatch)(
                   </div>
               </form>
               <ul className="nav navbar-nav navbar-right">
-              {user ? (<li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>) : (
-                <div className= "nav navbar-nav "><li><Link to="/login" activeClassName="active">Login</Link></li>
-                <li><Link to="/signup" activeClassName="active">Sign Up</Link></li></div>)}
-                  <li><Link to="/cart" activeClassName="active"><span className="glyphicon glyphicon-shopping-cart"></span></Link></li>
+                {
+                  user ? (<div className= "nav navbar-nav ">
+                            <li><h4 className= "text-wh">Hello, {user.firstName} </h4></li>
+                            <li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>
+                          </div>)
+
+                       : (<div className= "nav navbar-nav ">
+                            <li><Link to="/login" activeClassName="active">Login</Link></li>
+                            <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
+                          </div>)
+                }
+                <li><Link to="/cart" activeClassName="active"><span className="glyphicon glyphicon-shopping-cart"></span></Link></li>
               </ul>
           </div>
       </nav>

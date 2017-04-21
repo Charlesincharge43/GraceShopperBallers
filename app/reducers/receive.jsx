@@ -13,11 +13,6 @@ export const receiveCategoriesAC = categories => ({
     categories
 })
 
-// const initialCatState = {
-//   name: '',
-//   imageURL: '',
-// };
-
 const initialCatState = [];
 
 export const recCatReducer = (newState = initialCatState, action) => {
@@ -36,14 +31,6 @@ export const receiveProductsAC = products => ({
     products
 })
 
-// const initialProdState = {
-//   title: '',
-//   description: '',
-//   price: null,
-//   inventory: ,
-//   wronnngggg!!!
-// };
-
 const initialProdState = [];
 
 export const recProdReducer = (newState = initialCatState, action) => {
@@ -53,13 +40,3 @@ export const recProdReducer = (newState = initialCatState, action) => {
   }
   return newState
 }
-
-
-// export const getAlbumById = albumId => {
-//   return dispatch => {
-//     axios.get(`/api/albums/${albumId}`)
-//       .then(response => {
-//         dispatch(receiveAlbum(response.data));
-//       })
-//   }
-// }
