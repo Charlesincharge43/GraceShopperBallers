@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import { setCurrentPoOAC } from './orders.jsx'
+
 export const FETCH_SESSION = 'FETCH_SESSION'
 export const FETCH_SESSION_ORDERS = 'FETCH_SESSION_ORDERS'
 
@@ -40,11 +42,25 @@ export const setSessionReducer = (prevState = initialState, action) => {
 
 //-------------------------------- PUSHT
 
-export function pushToSessionOrdersTC (PoO) {//Product on Order
+export function pushToSessionOrdersTC (productID) {
 
   return function thunk (dispatch) {
+    return axios.post('/api/prodOnOrders/sessionProdOnOrders', {productID})
+    .then(res => res.data)
+    .then(poOArr => {
+      let setCurrentPoOAO = setCurrentPoOAC(poOArr);
+      dispatch(setCurrentPoOAO);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  };
+}
 
-    return axios.post('/api/orders/currentOrder', {PoO})
+export function getSessionOrdersTC () {
+
+  return function thunk (dispatch) {
+    return axios.get('/api/prodOnOrders/sessionProdOnOrders')
     .then(res => res.data)
     .then(sessionOrdersArr => {
       let fetchSessOrdersAO = fetchSessionCurrOrdersAC(sessionOrdersArr);

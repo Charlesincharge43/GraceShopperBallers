@@ -1,16 +1,23 @@
 import axios from 'axios'
 
 export const ALL_ORDERS = 'ALL_ORDERS'
-export const ALL_PROD_ON_ORDER = 'ALL_PROD_ON_ORDER'
 export const AUTH_USER_ORDERS = 'AUTH_USER_ORDERS'
+export const ALL_PRODS_ON_ORDER = 'ALL_PRODS_ON_ORDER'
+
 export const AUTH_ORDER_PRODS = 'AUTH_ORDER_PRODS'
+export const SET_CURRENT_PRODS_ON_ORDER = 'SET_CURRENT_PRODS_ON_ORDER'
 
-//-------------------------------- createUser ACTION CREATOR AND REDUCER
 
+//-------------------------------- orders ACTION CREATOR AND REDUCER
 
 export const allOrders = orders => ({
     type: ALL_ORDERS,
-    orders
+    allOrders
+})
+
+export const setCurrentPoOAC = currentPoO => ({
+    type: SET_CURRENT_PRODS_ON_ORDER,
+    currentPoO
 })
 
 export const authUserOrders = orders => ({
@@ -22,6 +29,59 @@ export const authOrderProds = prodsOnOrders => ({
     type: AUTH_ORDER_PRODS,
     prodsOnOrders
 })
+
+
+//-------------------------------- INITIAL STATE ------
+
+//SUPER CONFUSING!  allOrders consist of order objects, NOT the products associated with the order objects
+//currentPoO consist of PRODUCTS associated either unassociated wtih any order objects (if user is guest), or associated with
+//the incomplete order in the logged in user's database
+
+//don't get it twisted!!!
+let initialState = {
+  allOrders: [],//array of order objects
+  authCompOrders: [],
+  
+  prodsOnOrders: [],
+  currentPoO: [],//array of product on orders associated with the current order object
+};
+
+
+//-------------------------------- REDUCER ------
+
+export const ordersReducer = (prevState = initialState, action) => {
+
+  const newState = Object.assign({}, prevState)
+
+  switch (action.type) {
+
+    case ALL_ORDERS:
+
+      newState.allOrders = [...action.allOrders];
+      return newState;
+
+    case SET_CURRENT_PRODS_ON_ORDER:
+
+      newState.currentPoO = [...action.currentPoO];
+      return newState;
+
+    case AUTH_USER_ORDERS:
+
+      newState.authOrders = [...action.orders];
+      return newState;
+
+    case AUTH_ORDER_PRODS:
+
+      newState.prodsOnOrders = [...action.prodsOnOrders];
+      return newState;
+
+    default:
+      return prevState;
+  }
+}
+
+
+//--------------------------------------------- THUNKS
 
 export function authUserOrdersThunk (auth_id) {
 
@@ -52,36 +112,4 @@ export function authUserOrdersThunk (auth_id) {
       console.error(err);
     });
   };
-}
-
-let initialState = {
-  orders: [],
-  authOrders: [],
-  prodsOnOrders: [],
-};
-
-export const ordersReducer = (prevState = initialState, action) => {
-
-  const newState = Object.assign({}, prevState)
-
-  switch (action.type) {
-
-    case ALL_ORDERS:
-
-      newState.orders = [...action.orders];
-      return newState;
-
-    case AUTH_USER_ORDERS:
-
-      newState.authOrders = [...action.orders];
-      return newState;
-
-    case AUTH_ORDER_PRODS:
-
-      newState.prodsOnOrders = [...action.prodsOnOrders];
-      return newState;
-
-    default:
-      return prevState;
-  }
 }
