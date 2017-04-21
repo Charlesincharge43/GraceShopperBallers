@@ -41,7 +41,7 @@ export const authOrderProds = prodsOnOrders => ({
 let initialState = {
   allOrders: [],//array of order objects
   authCompOrders: [],
-  
+
   prodsOnOrders: [],
   currentPoO: [],//array of product on orders associated with the current order object
 };
@@ -67,7 +67,7 @@ export const ordersReducer = (prevState = initialState, action) => {
 
     case AUTH_USER_ORDERS:
 
-      newState.authOrders = [...action.orders];
+      newState.authCompOrders = [...action.orders];
       return newState;
 
     case AUTH_ORDER_PRODS:
@@ -87,7 +87,7 @@ export function authUserOrdersThunk (auth_id) {
 
   return function thunk (dispatch) {
 
-    return axios.get(`/api/orders/${auth_id}`)
+    return axios.get(`/api/orders/?user=${auth_id}&status=complete`)
     .then(res => res.data)
     .then(orders => {
       const action = authUserOrders(orders);
@@ -96,7 +96,7 @@ export function authUserOrdersThunk (auth_id) {
     })
     .then(orders => {
       return Promise.all(orders.map(order => {
-        return axios.get(`/api/prodOnOrder/${order.id}`)
+        return axios.get(`/api/prodOnOrders/?order_id=${order.id}`)
       }))
     })
     .then(res => {
