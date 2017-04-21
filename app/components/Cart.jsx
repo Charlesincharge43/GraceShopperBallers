@@ -21,6 +21,7 @@ const Cart = (props) => {
         currentOrder && currentOrder.map(singleOrder => (
 
               <div className="container">
+
             <table id="cart" className="table table-hover table-condensed">
                       <thead>
                       <tr>
@@ -65,7 +66,7 @@ const Cart = (props) => {
                                               <td className="text-center"><strong>Total {  }</strong></td>
                                             </tr>
                                             <tr>
-                                              <td><a href="#" className="btn btn-warning"><i className="fa fa-angle-left"></i> Continue Shopping</a></td>
+                                              <td><Link to="/categories" className="btn btn-warning"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
                                               <td colspan="2" className="hidden-xs"></td>
                                               <td className="hidden-xs text-center"><strong>Total ${ total(0) }</strong></td>
                                               <td><Link to="/checkout" className="btn btn-success btn-block">Checkout <i className="fa fa-angle-right"></i></Link></td>
