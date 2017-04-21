@@ -42,12 +42,10 @@ export class Products extends React.Component {
                       </h5>
                     </div>
                   </Link>
-
                 </div>
               )
             }
           })
-
         }
       </div>
     </div>
@@ -55,8 +53,6 @@ export class Products extends React.Component {
 
   }
 }
-
-
 
 const mapState = ({ products }) => ({ products});// store.getState().products !!  ... that is passed into products
 

@@ -133,7 +133,6 @@ auth.post('/login/local', function(req, res, next) {
       res.sendStatus(401)
     } else {
       req.logIn(user, function (err) {
-        console.log('in success block og reqlogin')
         return res.json(req.user)
       })
     }
@@ -155,7 +154,6 @@ auth.get('/login/:strategy', (req, res, next) =>
 
 auth.post('/logout', (req, res) => {
   req.logout()
-  console.log('session*********************', req.session)
   res.redirect('/api/auth/whoami')
 })
 

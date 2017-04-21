@@ -2,7 +2,7 @@ import React from 'react'
 import store from '../store'
 import { browserHistory } from 'react-router'
 
-import { createUserThunk } from '../reducers/users'
+import { createUserThunk } from '../reducers/auth'
 
 export class Signup extends React.Component {
   constructor() {

@@ -4,6 +4,10 @@ html {
 body {
   background: linear-gradient(to right, #e6dada, #274046);}
 
+.text-wh {
+  color: white;
+}
+
 .resizeLrg {
   position: relative;
   width: 100%;
