@@ -24,7 +24,8 @@ module.exports = require('express').Router()
   //by either pushing a new poO into the array, or incrementing the qty value of the poO already in the array
     (req, res, next) =>{
       let productID= req.body.productID
-      let currentOrder= req.session.currentOrder || []
+      if(!req.session.currentOrder) req.session.currentOrder=[]
+      let currentOrder= req.session.currentOrder
       let newpoO= {price: null, qty: 1, product_id: null, order_id: null, associatedProduct: null }
       let incremented= false
 
