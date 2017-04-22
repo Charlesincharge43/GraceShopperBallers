@@ -9,7 +9,7 @@ import store from './store'
 import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
 // import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
-import { setCurrentPoOAC } from './reducers/orders.jsx'
+import { setCurrentPoOAC, receiveOrderAC } from './reducers/orders.jsx'
 
 import Cart from './components/Cart.jsx'
 import Categories from './components/Categories.jsx'
@@ -23,20 +23,27 @@ import { allOrders } from './reducers/orders'
 import singleProduct from './components/singleProduct'
 import { logout } from './reducers/auth'
 import WhoAmI from './components/WhoAmI'
+import {whoami} from './reducers/auth'
 
 const onRootEnter = () => {
 
-  Promise.all([
-    axios.get('/api/categories'),
-    axios.get('/api/products'),
-    axios.get('/api/prodOnOrders/sessionProdOnOrders'), //this won't work on root enter.. session is undefined this early for some reason **
-  ])
-    .then(responses => responses.map(r => r.data))
-    .then(([categories, products, sessionPoO]) => {
+  store.dispatch(whoami())// Set the auth info at start... moved it here from store.jsx to main.jsx, so i can .then off it and fetch some needed things
+  .then(()=>{
+    let user_id= store.getState().auth.id
+      return Promise.all([
+        axios.get('/api/categories'),
+        axios.get('/api/products'),
+        axios.get('/api/prodOnOrders/sessionProdOnOrders'),
+        user_id ? axios.get(`/api/orders/?user_id=${user_id}&status=incomplete`) : null,
+      ].filter(el=>el))//this filters out null from the above ternary    (promise.all with null as an element won't work correctly)
+    })
+  .then(responses => responses.map(r => r.data))
+  .then(([categories, products, sessionPoO, orders]) => {
       store.dispatch(receiveCategoriesAC(categories));
       store.dispatch(receiveProductsAC(products));
       store.dispatch(setCurrentPoOAC(sessionPoO));
-    });
+      orders && store.dispatch(receiveOrderAC(orders[0]));
+  });
 }
 
 const onOrdersEnter = (nextState) => {//what is nextState used for?

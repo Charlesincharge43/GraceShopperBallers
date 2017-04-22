@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+export const RECEIVE_ORDER = 'RECEIVE_ORDER'
 export const ALL_ORDERS = 'ALL_ORDERS'
 export const AUTH_USER_ORDERS = 'AUTH_USER_ORDERS'
 export const ALL_PRODS_ON_ORDER = 'ALL_PRODS_ON_ORDER'
@@ -8,7 +9,11 @@ export const AUTH_ORDER_PRODS = 'AUTH_ORDER_PRODS'
 export const SET_CURRENT_PRODS_ON_ORDER = 'SET_CURRENT_PRODS_ON_ORDER'
 
 
-//-------------------------------- orders ACTION CREATOR AND REDUCER
+//-------------------------------- orders ACTION CREATOR ------
+export const receiveOrderAC = order => ({
+  type: RECEIVE_ORDER,
+  order
+})
 
 export const allOrders = orders => ({
     type: ALL_ORDERS,
@@ -42,6 +47,7 @@ let initialState = {
   allOrders: [],//array of order objects
   authCompOrders: [],
 
+  authInCompOrder: {},//This will be fetched whenever a user is logged in... to make the current incomplete order id always available (to facilitate making post/put requests in productOnOrders, which require order_id)
   prodsOnOrders: [],
   currentPoO: [],//array of product on orders associated with the current order object
 };
@@ -73,6 +79,11 @@ export const ordersReducer = (prevState = initialState, action) => {
     case AUTH_ORDER_PRODS:
 
       newState.prodsOnOrders = [...action.prodsOnOrders];
+      return newState;
+
+    case RECEIVE_ORDER:
+
+      newState.authInCompOrder = action.order;
       return newState;
 
     default:
