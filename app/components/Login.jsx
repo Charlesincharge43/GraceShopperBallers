@@ -24,7 +24,7 @@ export class Login extends React.Component {
     event.preventDefault()
     const thunk = login(this.state.email, this.state.password)
     store.dispatch(thunk)
-    browserHistory.push(`/categories`)
+    browserHistory.push(`/categories`)//is there a way to make browser refresh at '/' rather than run some of the thunks already running at root??
     this.setState({ email: '', password: '' })
   }
 

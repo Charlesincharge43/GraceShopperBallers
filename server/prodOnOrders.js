@@ -2,19 +2,60 @@
 const db = require('APP/db')
 const PoO = db.model('prodOnOrders')
 const Product = db.model('products')
+//  /api/prodOnOrders
 
 module.exports = require('express').Router()
   .get('/',//need to make this FORBIDDEN unless you are an admin
     (req, res, next) =>{
-
       let whereQueryObj={}
       if(req.query.order_id) whereQueryObj.order_id = req.query.order_id
       if(req.query.product_id) whereQueryObj.product_id = req.query.product_id
 
-      PoO.findAll(whereQueryObj)
+      PoO.findAll({
+        where: whereQueryObj
+      })
       .then(poOArr => res.json(poOArr))
       .catch(next)
     })
+  .post('/',
+    (req, res, next) =>{
+      let createQueryObjArr= req.body.poOArr//example:  [ {qty: 5, price: 5}, {qty: 6, price: 6} ]   (json for testing {"poOArr": [ {"qty": "5", "price": "5"}, {"qty": "6", "price": "6"} ] }
+      PoO.bulkCreate(createQueryObjArr)
+        .then(function() {
+          return PoO.findAll();
+        })
+        .then(function(allPoO) {
+          res.json(allPoO)
+        })
+        .catch(next)
+    })
+  .put('/setorcreate',
+    (req, res, next) =>{// taking in req.body.product_id, req.body.order_id, and req.body.qty, update corresponding poO qty value (or add a new poO row in db with qty value)
+      PoO.classSetorCreate(req.body.product_id, req.body.order_id, req.body.qty)
+        .then(poO=>{
+          if(!poO) res.sendStatus(401); else res.json(poO)
+        })
+        .catch(next)
+    })
+  .put('/add_one',
+    (req, res, next) =>{// taking in req.body.product_id and req.body.order_id, increment corresponding poO qty by one (or add a new poO row in db with qty value of 1)
+      PoO.classIncrement(req.body.product_id, req.body.order_id)      //use the following to test on postman => {"product_id": "1","order_id": "1"} .. put to http://localhost:1337/api/prodOnOrders/add_one
+        .then(poO=>{
+          if(!poO) res.sendStatus(401); else res.json(poO)
+        })
+        .catch(next)
+    })
+  // .put('/adminUp',   //This is in the future for debugging purposes (or for administrators)... more open ended update route
+  //   (req, res, next) =>{
+  //     let whereQueryObj= req.body.whereQueryObj
+  //     let upQueryObj= req.body.upQueryObj
+  //     PoO.update(upQueryObj, {where: whereQueryObj})
+  //       .then(updatedArr => {
+  //         if (!updatedArr) res.sendStatus(401)
+  //         else res.json(updatedArr)
+  //       })
+  //       .catch(next)
+  //   })
   .get('/sessionProdOnOrders',
     (req, res, next) =>{
       res.json(req.session.currentOrder || [])
