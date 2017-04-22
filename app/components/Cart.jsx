@@ -13,6 +13,10 @@ const Cart = (props) => {
     return currentTotal
   }
 
+  function handleChange(event) {
+    console.log(event.target.value)
+  }
+
   return (
 
     <div>
@@ -46,7 +50,7 @@ const Cart = (props) => {
                         </td>
                         <td data-th="Price">{singleOrder.associatedProduct.price}</td>
                         <td data-th="Quantity">
-                          <input type="number" className="form-control text-center" value="1" />
+                          <input type="number" className="form-control text-center" value={singleOrder.qty} onChange={handleChange}/>
                         </td>
                         <td data-th="Subtotal" className="text-center">{ total(Number(singleOrder.associatedProduct.price)) }</td>
                         <td className="actions" data-th="">
