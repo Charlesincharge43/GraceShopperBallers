@@ -17,6 +17,7 @@ module.exports = require('express').Router()
     })
   .get('/sessionProdOnOrders',
     (req, res, next) =>{
+      //req.session.currentOrder = [] //for testing purposes only
       res.json(req.session.currentOrder || [])
     })
   .post('/sessionProdOnOrders',
