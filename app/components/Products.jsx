@@ -11,8 +11,9 @@ export class Products extends React.Component {
 
   addOrder(evt){
     evt.preventDefault();
-    let productID= evt.target.value;
-    this.props.addtoOrder(productID);
+    let product_id= evt.target.value;
+    console.log(this.props)
+    this.props.addOnePoOtoSession(product_id);
   }
 
   render(){
@@ -29,18 +30,18 @@ export class Products extends React.Component {
                 return (
                   <div className="col-xs-4" key={ product.id }>
                     <Link className="thumbnail" to={`/products/${product.id}`} >
-                    <div className="resizeMed">
-                      <img src={ product.imageUrl } />
-                    </div>
-                    <div className="caption">
-                      <h5>
-                        <p>{ product.title }</p>
-                        <p>Description: { product.description }</p>
-                        <p>Price: { product.price }</p>
-                        <p>In Stock: { product.inventory }</p>
-                        <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>+</button>
-                      </h5>
-                    </div>
+                      <div className="resizeMed">
+                        <img src={ product.imageUrl } />
+                      </div>
+                      <div className="caption">
+                        <h5>
+                          <p>{ product.title }</p>
+                          <p>Description: { product.description }</p>
+                          <p>Price: { product.price }</p>
+                          <p>In Stock: { product.inventory }</p>
+                          <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>+</button>
+                        </h5>
+                      </div>
                   </Link>
                 </div>
               )
@@ -58,8 +59,11 @@ const mapState = ({ products }) => ({ products});// store.getState().products !!
 
 const mapDispatch = (dispatch)=>(
   {
-    addtoOrder: function(productID){
-      dispatch(pushToSessionOrdersTC(productID))
+    addOnePoOtoSession: function(product_id){
+      dispatch(pushToSessionOrdersTC(product_id))
+    },
+    addOnePoOtoDb: function(product_id, order_id){
+      dispatch()
     }
   }
 );

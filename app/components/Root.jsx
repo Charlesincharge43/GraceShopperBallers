@@ -109,7 +109,7 @@ export const Root = connect(mapState, mapDispatch)(
               <ul className="nav navbar-nav navbar-right">
                 {
                   user ? (<div className= "nav navbar-nav ">
-                    {console.log(orders)}
+                    {/* {console.log(orders)} */}
                             <li><h4 className= "text-wh">Hello, {user.firstName} </h4></li>
                             <li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>
                           </div>)
