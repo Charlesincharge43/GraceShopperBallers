@@ -12,7 +12,6 @@ export class Login extends React.Component {
       email: '',
       password: '',
     }
-    console.log('this.props is ', this.props)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -31,6 +30,9 @@ export class Login extends React.Component {
       .then(resolvedVal=>{//resolvedVal is just the action object which dispatch(receiveOrderAC(order)) (that receiveIncompleteOrder eventually calls) returns
         let prodId_and_qty_Arr= this.props.orders.currentPoO
         let order_id=resolvedVal.order.id
+        console.log('session currentPoO ',prodId_and_qty_Arr)
+        console.log('order id is ', order_id)
+        console.log('should be transferingg over nowwww')
         return prodId_and_qty_Arr.length ? this.props.changePoOinDb(order_id, prodId_and_qty_Arr) : this.props.setCurrentPoOfromDb(order_id)
       })
       .then(()=>browserHistory.push(`/categories`))//is there a way to make browser refresh at '/' rather than run some of the thunks already running at root??)
@@ -39,7 +41,6 @@ export class Login extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
@@ -105,6 +106,7 @@ function mapDispatch(dispatch, ownProps) {
       return dispatch(thunk)
     },
     changePoOinDb: (order_id, prodId_and_qty_Arr)=>{
+      console.log('at changePoOinDb')
       const thunk = changePoOinDbTC(order_id, prodId_and_qty_Arr)
       return dispatch(thunk)
     }

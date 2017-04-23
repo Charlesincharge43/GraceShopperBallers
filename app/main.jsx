@@ -31,7 +31,7 @@ const onRootEnter = () => {
   store.dispatch(whoami())// Set the auth info at start... moved it here from store.jsx to main.jsx, so i can .then off it and fetch some needed things
   .then(()=>{
     let user_id= store.getState().auth.id
-      return Promise.all([//TURN OFF THIS INTO DISPATCH AND THUNK FORM LATER ON!!!
+      return Promise.all([//TURN THIS INTO DISPATCH AND THUNK FORM LATER ON!!!
         axios.get('/api/categories'),
         axios.get('/api/products'),
         axios.get('/api/prodOnOrders/sessionProdOnOrders'),
@@ -41,9 +41,9 @@ const onRootEnter = () => {
   .then(responses => responses.map(r => r.data))
   .then(([categories, products, sessionPoO, dbIncompleteOrders]) => {
       store.dispatch(receiveCategoriesAC(categories));
-      store.dispatch(receiveProductsAC(products))//uncomment after your testing shiz
+      store.dispatch(receiveProductsAC(products))
       if(dbIncompleteOrders){//If dbIncompleteOrders exists (from a logged in user), then pull the associated poO and set currentPoO, otherwise set currentPoO to sessionPoO
-        store.dispatch(receiveOrderAC(dbIncompleteOrders[0]))//apparently dispatching an action object is SYNCHRONOUS, so no need to try .thening off it (not that you can.. although you could do a promise.resolve)
+        store.dispatch(receiveOrderAC(dbIncompleteOrders[0]))
         let currentOrderID= store.getState().orders.authInCompOrder.id
         store.dispatch(setCurrentPoOfromDbTC(currentOrderID))
       }
