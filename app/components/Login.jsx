@@ -30,10 +30,7 @@ export class Login extends React.Component {
       .then(resolvedVal=>{//resolvedVal is just the action object which dispatch(receiveOrderAC(order)) (that receiveIncompleteOrder eventually calls) returns
         let prodId_and_qty_Arr= this.props.orders.currentPoO
         let order_id=resolvedVal.order.id
-        console.log('session currentPoO ',prodId_and_qty_Arr)
-        console.log('order id is ', order_id)
-        console.log('should be transferingg over nowwww')
-        return prodId_and_qty_Arr.length ? this.props.changePoOinDb(order_id, prodId_and_qty_Arr) : this.props.setCurrentPoOfromDb(order_id)
+        return prodId_and_qty_Arr.length ? this.props.changePoOinDb(order_id, prodId_and_qty_Arr) : this.props.setCurrentPoOfromDb(order_id)//either change Db to sync with session poO (and set session poO), or simply set session poO from db
       })
       .then(()=>browserHistory.push(`/categories`))//is there a way to make browser refresh at '/' rather than run some of the thunks already running at root??)
       .catch(err=>console.error(err))

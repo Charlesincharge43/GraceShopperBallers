@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import { changeSessionOrdersBulkTC } from './session.jsx'
+
 export const RECEIVE_ORDER = 'RECEIVE_ORDER'
 export const ALL_ORDERS = 'ALL_ORDERS'
 export const AUTH_USER_ORDERS = 'AUTH_USER_ORDERS'
@@ -100,7 +102,7 @@ export const ordersReducer = (prevState = initialState, action) => {
 
 //--------------------------------------------- THUNKS
 
-export function setCurrentPoOfromDbTC(order_id){
+export function setCurrentPoOfromDbTC(order_id){//this simply pulls product on orders from database (associated with the incomplete order of logged in user)
   return function thunk(dispatch){
     return axios.get(`/api/prodOnOrders/?order_id=${order_id}`)
       .then(res=>{
@@ -110,7 +112,7 @@ export function setCurrentPoOfromDbTC(order_id){
   }
 }
 
-export function changePoOinDbTC(order_id, prodId_and_qty_Arr){
+export function changePoOinDbTC(order_id, prodId_and_qty_Arr){//think of this as "merging" or "syncing" session to database
   return function thunk(dispatch){
     return axios.put('/api/prodOnOrders/setorcreateBulk', {order_id, prodId_and_qty_Arr})
       .then(res=>{
@@ -120,7 +122,7 @@ export function changePoOinDbTC(order_id, prodId_and_qty_Arr){
   }
 }
 
-export function emptySessionPoO(){
+export function emptySessionPoOTC(){
   return function thunk(dispatch){
     return axios.post('/api/prodOnOrders/emptySessionProdOnOrders')
       .then(res=>{
@@ -135,6 +137,19 @@ export function receiveIncompleteOrderTC(user_id){
     return axios.get(`/api/orders/?user_id=${user_id}&status=incomplete`)
       .then(r=>r.data)
       .then(dbIncompleteOrders=>dispatch(receiveOrderAC(dbIncompleteOrders[0])))
+      .catch(err=>err)
+  }
+}
+
+export function setSessionandSyncDbTC(order_id, prodId_and_qty_Arr){// this does a combination of set sessions poO AND syncing to db after sessions has been set
+  return function thunk(dispatch){
+    return dispatch(changeSessionOrdersBulkTC(prodId_and_qty_Arr))
+      .then(poOAO=>{
+        let poOArr= poOAO.currentPoO
+        if(order_id) return dispatch(changePoOinDbTC(order_id, poOArr))
+        return poOArr
+      })
+      .catch(err=>err)
   }
 }
 

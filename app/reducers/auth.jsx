@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {emptySessionPoO} from './orders'
+import {emptySessionPoOTC} from './orders'
 
 const reducer = (state=null, action) => {
   switch (action.type) {
@@ -24,7 +24,7 @@ export const login = (email, password) =>
 export const logout = () =>
   dispatch =>
     axios.post('/api/auth/logout')
-      .then(()=> dispatch(emptySessionPoO()))
+      .then(()=> dispatch(emptySessionPoOTC()))
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
 
