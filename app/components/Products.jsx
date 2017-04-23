@@ -1,19 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux'
-import { pushToSessionOrdersTC } from '../reducers/session';
+import { pushToSessionOrdersTC, changeSessionOrdersTC } from '../reducers/session';
+import { setSessionandSyncDbTC } from '../reducers/orders'
 
 export class Products extends React.Component {
-  constructor(){
-    super()
-    this.addOrder=this.addOrder.bind(this);
+  constructor(props){
+    super(props)
+    this.state= {prodQty:{}}
+    this.props.products.forEach(product=>{this.state.prodQty[product.id]=1})
+    this.addOrder=this.addOrder.bind(this)
+    this.handleChange=this.handleChange.bind(this)
+  }
+
+  handleChange(evt){
+    let target= evt.target
+    let prodQty={}
+    prodQty[target.name]=target.value
+    this.setState({prodQty})
   }
 
   addOrder(evt){
     evt.preventDefault();
-    let product_id= evt.target.value;
-    console.log(this.props)
-    this.props.addOnePoOtoSession(product_id);
+    let product_id= evt.target.value
+    let qty= this.state.prodQty[product_id]
+    let order_id= this.props.orders.authInCompOrder ? this.props.orders.authInCompOrder.id : null
+    let prodId_and_qty_Arr=[{product_id, qty}]
+    this.props.setSessionandSyncDb(order_id, prodId_and_qty_Arr)
+    // this.props.setorcreatePoOtoSession(product_id, qty)
   }
 
   render(){
@@ -39,8 +53,12 @@ export class Products extends React.Component {
                           <p>Description: { product.description }</p>
                           <p>Price: { product.price }</p>
                           <p>In Stock: { product.inventory }</p>
-                          <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>+</button>
                         </h5>
+                        <div>  {/*  can't get row to work */}
+                          <div>Quantity </div>
+                          <input type="text" value={this.state.prodQty[product.id]} onClick={(e)=>e.preventDefault()} onChange={this.handleChange} name={product.id} />
+                          <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>Add to Cart</button>
+                        </div>
                       </div>
                   </Link>
                 </div>
@@ -55,16 +73,22 @@ export class Products extends React.Component {
   }
 }
 
-const mapState = ({ products }) => ({ products});// store.getState().products !!  ... that is passed into products
+const mapState = ({ products, orders }) => ({ products, orders });// store.getState().products !!  ... that is passed into products
 
 const mapDispatch = (dispatch)=>(
   {
     addOnePoOtoSession: function(product_id){
       dispatch(pushToSessionOrdersTC(product_id))
     },
-    addOnePoOtoDb: function(product_id, order_id){
+    setorcreatePoOtoSession: function(product_id, qty){
+      dispatch(changeSessionOrdersTC(product_id, qty))
+    },
+    setSessionandSyncDb: function(order_id, prodId_and_qty_Arr){
+      dispatch(setSessionandSyncDbTC(order_id, prodId_and_qty_Arr))
+    },
+    addOnePoOtoDb: function(){
       dispatch()
-    }
+    },
   }
 );
 

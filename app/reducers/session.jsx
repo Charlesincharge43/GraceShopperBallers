@@ -42,14 +42,44 @@ export const setSessionReducer = (prevState = initialState, action) => {
 
 //-------------------------------- PUSHT
 
-export function pushToSessionOrdersTC (productID) {
+export function pushToSessionOrdersTC (product_id) {
 
   return function thunk (dispatch) {
-    return axios.post('/api/prodOnOrders/sessionProdOnOrders', {productID})
+    return axios.put('/api/prodOnOrders/add_one_to_session', {product_id})
     .then(res => res.data)
     .then(poOArr => {
       let setCurrentPoOAO = setCurrentPoOAC(poOArr);
       dispatch(setCurrentPoOAO);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  };
+}
+
+export function changeSessionOrdersTC (product_id, qty) {
+
+  return function thunk (dispatch) {
+    return axios.put('/api/prodOnOrders/setorcreate_to_session', {product_id, qty})
+    .then(res => res.data)
+    .then(poOArr => {
+      let setCurrentPoOAO = setCurrentPoOAC(poOArr);
+      return dispatch(setCurrentPoOAO);
+    })
+    .catch(err => {
+      console.error(err);
+    });
+  };
+}
+
+export function changeSessionOrdersBulkTC (prodId_and_qty_Arr) {
+
+  return function thunk (dispatch) {
+    return axios.put('/api/prodOnOrders/setorcreateBulk_to_session', {prodId_and_qty_Arr})
+    .then(res => res.data)
+    .then(poOArr => {
+      let setCurrentPoOAO = setCurrentPoOAC(poOArr);
+      return dispatch(setCurrentPoOAO);
     })
     .catch(err => {
       console.error(err);

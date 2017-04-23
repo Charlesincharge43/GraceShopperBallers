@@ -9,8 +9,9 @@ import store from '../store'
 
 function mapState (state, ownProps) {
   return {
+    categories: state.categories,
     user: state.auth,
-    orders: state.orders
+    orders: state.orders,
   }
 }
 
@@ -73,7 +74,7 @@ function cartNum(user, orders) {
 
 
 export const Root = connect(mapState, mapDispatch)(
-  ({ user, orders, children, logoutThunk }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
+  ({ categories, user, orders, children, logoutThunk }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
     return (
 
@@ -94,9 +95,9 @@ export const Root = connect(mapState, mapDispatch)(
                   <li className="dropdown">
                       <a data-toggle="dropdown" className="dropdown-toggle" href="#">Products <b className="caret"></b></a>
                       <ul role="menu" className="dropdown-menu">
-                          <li><Link to="/categories/1">Jerseys</Link></li>
-                          <li><Link to="/categories/2">Shoes</Link></li>
-                          <li><Link to="/categories/3">Memoribilia</Link></li>
+                        { categories.map(category=>{
+                          return (<li><Link to={`/categories/${category.id}`}>{category.name}</Link></li>)
+                        })}
                       </ul>
                   </li>
                   <li><Link to="/orders" activeClassName="active">Orders</Link></li>

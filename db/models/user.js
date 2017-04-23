@@ -24,6 +24,9 @@ module.exports = db => db.define('users', {
   hooks: {
     beforeCreate: setEmailAndPassword,
     beforeUpdate: setEmailAndPassword,
+    afterCreate: (user)=>{//after a new user is created, automatically create a new incomplete order (using newIncompleteOrder method for Order class)
+      db.model('orders').newIncompleteOrder(user.id)
+    },
   },
   instanceMethods: {
     // This method is a Promisified bcrypt.compare

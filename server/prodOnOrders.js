@@ -1,7 +1,9 @@
 
 const db = require('APP/db')
+const utils = require('../utils/utils')
 const PoO = db.model('prodOnOrders')
 const Product = db.model('products')
+
 //  /api/prodOnOrders
 
 module.exports = require('express').Router()
@@ -39,7 +41,7 @@ module.exports = require('express').Router()
           })
           .catch(next)
       })
-  .put('/setorcreate',
+  .put('/setorcreate',// this may be phased out in the next couple days if it seems like setorcreateBulk can take care of everything
     (req, res, next) =>{// taking in req.body.product_id, req.body.order_id, and req.body.qty, update corresponding poO qty value (or add a new poO row in db with qty value)
       PoO.classSetorCreate(req.body.order_id, req.body.product_id, req.body.qty)
         .then(poO=>{
@@ -48,7 +50,7 @@ module.exports = require('express').Router()
         .catch(next)
     })
   .put('/setorcreateBulk',// taking in req.body.order_id and req.body.prodId_and_qty_Arr (Array of {product_id, qty}) update corresponding poO qty values (or add new poO rows in db with qty value)
-    (req, res, next) =>{
+    (req, res, next) =>{//this will NOT delete existing database entries for that order, merely add and sync to them (and will res.json ALL db entries linked to order, not just the ones updated or added)
       PoO.classSetorCreateBulk(req.body.order_id, req.body.prodId_and_qty_Arr)
         .then(poOArr=>{
           if(poOArr.length===0) res.sendStatus(401); else res.json(poOArr)
@@ -71,36 +73,44 @@ module.exports = require('express').Router()
     (req, res, next) =>{
       res.json(req.session.currentOrder || [])
     })
-  .post('/sessionProdOnOrders',
+  .put('/add_one_to_session',
   //takes in a product id, then updates req.session.currentOrder (an array of product on orders)
   //by either pushing a new poO into the array, or incrementing the qty value of the poO already in the array
     (req, res, next) =>{
-      let productID= req.body.productID
-      if(!req.session.currentOrder) req.session.currentOrder=[]
+      let req_product_id= req.body.product_id
       let currentOrder= req.session.currentOrder
-      let newpoO= {price: null, qty: 1, product_id: null, order_id: null, associatedProduct: null }
-      let incremented= false
-
-      for(let poO of currentOrder){
-        if(poO.product_id === productID){
-          poO.qty+=1
-          incremented= true
-          res.json(currentOrder)
-        }
-      }
-
-      if(!incremented){
-        Product.findById(productID)
-        .then(singleProduct=>{
-          newpoO.associatedProduct=singleProduct
-          newpoO.product_id= productID
-          currentOrder.push(newpoO)
-          res.json(currentOrder)
-        })
+      if(!req_product_id) next('NO PRODUCT ID ENTERED')
+      if(!currentOrder) currentOrder=[]
+      utils.incrementSessionPoO({req_product_id, currentOrder})//this function MUTATES req.session.currentOrder, and returns it (as resolved value in a promise)
+        .then(mutatedCurrentOrder=>res.json(mutatedCurrentOrder))
         .catch(next)
-      }
     })
-  .post('/emptySessionProdOnOrders',
+  .put('/setorcreate_to_session',
+  //takes in a product id, and qty, then updates req.session.currentOrder (an array of product on orders)
+  //by either pushing a new poO into the array, or setting the qty value of the poO already in the array
+    (req, res, next) =>{
+      let req_product_id= req.body.product_id
+      let req_qty= req.body.qty
+      let currentOrder= req.session.currentOrder
+      if(!req_product_id || !req_qty) next('NO PRODUCT ID OR QTY ENTERED')
+      if(!currentOrder) currentOrder=[]
+      utils.setSessionPoO({req_product_id, req_qty, currentOrder})//this function MUTATES req.session.currentOrder, and returns it (as resolved value in a promise)
+        .then(mutatedCurrentOrder=>res.json(mutatedCurrentOrder))
+        .catch(next)
+    })
+  .put('/setorcreateBulk_to_session',
+  //takes in an Array of product id and qty, then updates req.session.currentOrder (an array of product on orders)
+  //by either pushing new poO's into the array, or setting the qty value of the poO's already in the array
+    (req, res, next) =>{
+      let prodId_and_qty_Arr= req.body.prodId_and_qty_Arr
+      let currentOrder= req.session.currentOrder
+      if(!prodId_and_qty_Arr.length) next('ARR OF PRODUCT ID AND QTY EMPTY')
+      if(!currentOrder) currentOrder=[]
+      utils.setSessionPoOBulk({prodId_and_qty_Arr, currentOrder})//this function MUTATES req.session.currentOrder, and returns it (as resolved value in a promise)
+        .then(mutatedCurrentOrder=>res.json(mutatedCurrentOrder))
+        .catch(next)
+    })
+  .post('/emptySessionProdOnOrders',  //api/prodOnOrders/emptySessionProdOnOrders
     (req, res, next) =>{
       req.session.currentOrder= []
       res.json(req.session.currentOrder)
