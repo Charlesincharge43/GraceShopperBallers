@@ -1,7 +1,5 @@
 'use strict'
-
 const Sequelize = require('sequelize')
-console.log('here----*********************')
 
 module.exports = db => db.define('orders',
   {

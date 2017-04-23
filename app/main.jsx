@@ -9,7 +9,7 @@ import store from './store'
 import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
 // import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
-import { setCurrentPoOAC, receiveOrderAC } from './reducers/orders.jsx'
+import { setCurrentPoOAC, setCurrentPoOfromDbTC, receiveOrderAC, } from './reducers/orders.jsx'
 
 import Cart from './components/Cart.jsx'
 import Categories from './components/Categories.jsx'
@@ -26,11 +26,12 @@ import WhoAmI from './components/WhoAmI'
 import {whoami} from './reducers/auth'
 
 const onRootEnter = () => {
+  //Note, apparently you CAN .then off a dispatch!!!!  See notes at the bottom of this file
 
   store.dispatch(whoami())// Set the auth info at start... moved it here from store.jsx to main.jsx, so i can .then off it and fetch some needed things
   .then(()=>{
     let user_id= store.getState().auth.id
-      return Promise.all([
+      return Promise.all([//TURN OFF THIS INTO DISPATCH AND THUNK FORM LATER ON!!!
         axios.get('/api/categories'),
         axios.get('/api/products'),
         axios.get('/api/prodOnOrders/sessionProdOnOrders'),
@@ -38,11 +39,16 @@ const onRootEnter = () => {
       ].filter(el=>el))//this filters out null from the above ternary    (promise.all with null as an element won't work correctly)
     })
   .then(responses => responses.map(r => r.data))
-  .then(([categories, products, sessionPoO, orders]) => {
+  .then(([categories, products, sessionPoO, dbIncompleteOrders]) => {
       store.dispatch(receiveCategoriesAC(categories));
-      store.dispatch(receiveProductsAC(products));
-      store.dispatch(setCurrentPoOAC(sessionPoO));
-      orders && store.dispatch(receiveOrderAC(orders[0]));
+      store.dispatch(receiveProductsAC(products))//uncomment after your testing shiz
+      if(dbIncompleteOrders){//If dbIncompleteOrders exists (from a logged in user), then pull the associated poO and set currentPoO, otherwise set currentPoO to sessionPoO
+        store.dispatch(receiveOrderAC(dbIncompleteOrders[0]))//apparently dispatching an action object is SYNCHRONOUS, so no need to try .thening off it (not that you can.. although you could do a promise.resolve)
+        let currentOrderID= store.getState().orders.authInCompOrder.id
+        store.dispatch(setCurrentPoOfromDbTC(currentOrderID))
+      }
+      else store.dispatch(setCurrentPoOAC(sessionPoO))
+
   });
 }
 
@@ -88,3 +94,19 @@ render(
   </Provider>,
   document.getElementById('main')
 )
+
+
+
+
+//REALLY COOL STUFF:
+
+// store.dispatch(setCurrentPoOAC(sessionPoO))
+
+// if you console.dir the above, you'll see you get an object (from the reducer, which
+// becomes a value for one of the keys in the store)
+
+// store.dispatch(whoami())
+//
+// if you console.dir the above, you'll see you don't get an object, but a PROMISE!!! why is that?  Because whoami()
+// is a thunk creator, and inside the thunk which gets dispatched, it returns an AXIOS request (with another dispatch nested inside), and
+// because it returns an axios request, it is returning a promise, and not an object!  so you can .then off it!

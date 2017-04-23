@@ -10,7 +10,7 @@ export const SET_CURRENT_PRODS_ON_ORDER = 'SET_CURRENT_PRODS_ON_ORDER'
 
 
 //-------------------------------- orders ACTION CREATOR ------
-export const receiveOrderAC = order => ({
+export const receiveOrderAC = order => ({//should be changed to receive incomplete order
   type: RECEIVE_ORDER,
   order
 })
@@ -41,15 +41,22 @@ export const authOrderProds = prodsOnOrders => ({
 //SUPER CONFUSING!  allOrders consist of order objects, NOT the products associated with the order objects
 //currentPoO consist of PRODUCTS associated either unassociated wtih any order objects (if user is guest), or associated with
 //the incomplete order in the logged in user's database
-
 //don't get it twisted!!!
-let initialState = {
-  allOrders: [],//array of order objects
-  authCompOrders: [],
 
-  authInCompOrder: {},//This will be fetched whenever a user is logged in... to make the current incomplete order id always available (to facilitate making post/put requests in productOnOrders, which require order_id)
+
+//WE NEED TO ESTABLISH A NAMING CONVENTION!!!!!  OR AT LEAST REFACTOR SOMETIME IN THE NEXT FEW DAYS TO MAKE THESE STATE KEYS LESS CONFUSING
+let initialState = {
+  allOrders: [],//array of order objects   //pretty much will never be used unless an admin needs to see all of them
+
+//------completed orders for logged in user, and product on orders (prodsOnOrders) associated with them -----
+  authCompOrders: [],
   prodsOnOrders: [],
+
+
+//------incomplete order for logged in user, and product on orders (currentPoO) associated with it, OR product on orders in the session (for guests) -----
+  authInCompOrder: {},//This will be fetched whenever a user is logged in... to make the current incomplete order id always available (to facilitate making post/put requests in productOnOrders, which require order_id)
   currentPoO: [],//array of product on orders associated with the current order object
+
 };
 
 
@@ -94,7 +101,34 @@ export const ordersReducer = (prevState = initialState, action) => {
 
 //--------------------------------------------- THUNKS
 
-export function authUserOrdersThunk (auth_id) {
+export function setCurrentPoOfromDbTC(order_id){
+  return function thunk(dispatch){
+    return axios.get(`/api/prodOnOrders/?order_id=${order_id}`)
+      .then(res=>{
+        let poOArr=res.data
+        dispatch(setCurrentPoOAC(poOArr))
+      })
+  }
+}
+
+export function changePoOinDbTC(order_id, prodId_and_qty_Arr){
+  return function thunk(dispatch){
+    return axios.put('/api/prodOnOrders/setorcreateBulk', {order_id, prodId_and_qty_Arr})
+      .then(res=>{
+        console.log(res);//need to finish
+      })
+  }
+}
+
+export function receiveIncompleteOrderTC(user_id){
+  return function thunk(dispatch){
+    return axios.get(`/api/orders/?user_id=${user_id}&status=incomplete`)
+      .then(r=>r.data)
+      .then(dbIncompleteOrders=>dispatch(receiveOrderAC(dbIncompleteOrders[0])))
+  }
+}
+
+export function authUserOrdersThunk (auth_id) {//good job on this alex!  I'm wondering if there is some way to break this doown into smaller chunks (but admittedly I have no idea how)
 
   return function thunk (dispatch) {
 
