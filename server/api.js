@@ -10,7 +10,6 @@ api
   .use('/categories', require('./categories'))
   .use('/products', require('./products'))
   .use('/orders', require('./orders'))
-  .use('/prodOnOrder', require('./prodOnOrder'))
   .use('/prodOnOrders', require('./prodOnOrders'))
 
 // No routes matched? 404.

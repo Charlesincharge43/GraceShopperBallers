@@ -7,21 +7,32 @@ export class Orders extends React.Component {
 
   }
 
-  componentDidMount () {
-    if (this.props.auth) {
-      this.props.authOrdersThunk(this.props.auth.id)
-    }
-  }
-
   render () {
 
-    const {auth, orders} = this.props
+    const { auth, orders, authCompOrders, prodsOnOrders } = this.props
+    console.log('prodsOnOrders', prodsOnOrders)
 
     return (
       <div>
         {
           auth ?
-          <p>There is a user</p>
+            authCompOrders.length > 0 ?
+            authCompOrders.map((order, i) => {
+              return <div className="panel panel-default">
+                <div className="panel-heading">
+                  <h3 className="panel-title">Order No. {order.id}</h3>
+                </div>
+                {
+                  prodsOnOrders.length > 0 &&
+                  prodsOnOrders[i].data.map(prod => {
+                    return <div className="panel-body">
+                      Product Id {prod.product_id}
+                    </div>
+                  })
+                }
+              </div>
+            })
+            : <p>You do not have any completed orders.</p>
           : <p>Please login to see order history.</p>
         }
       </div>
@@ -32,22 +43,18 @@ export class Orders extends React.Component {
 }
 
 import {connect} from 'react-redux'
-import { authUserOrdersThunk } from '../reducers/orders'
 
 function mapState(state, ownProps) {
   return {
     auth: state.auth,
-    orders: state.orders
+    orders: state.orders,
+    authCompOrders: state.orders.authCompOrders,
+    prodsOnOrders: state.orders.prodsOnOrders,
   }
 }
 
 function mapDispatch(dispatch, ownProps) {
-  return {
-    authOrdersThunk: function (auth_id) {
-      const thunk = authUserOrdersThunk(auth_id)
-      dispatch(thunk)
-    }
-  }
+  return {}
 }
 
 const OrdersContainer = connect(mapState, mapDispatch)(Orders)

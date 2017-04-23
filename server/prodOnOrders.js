@@ -11,7 +11,7 @@ module.exports = require('express').Router()
       if(req.query.order_id) whereQueryObj.order_id = req.query.order_id
       if(req.query.product_id) whereQueryObj.product_id = req.query.product_id
 
-      PoO.findAll(whereQueryObj)
+      PoO.findAll({ where: whereQueryObj })
       .then(poOArr => res.json(poOArr))
       .catch(next)
     })

@@ -66,7 +66,6 @@ export const ordersReducer = (prevState = initialState, action) => {
       return newState;
 
     case AUTH_USER_ORDERS:
-
       newState.authCompOrders = [...action.orders];
       return newState;
 
@@ -90,12 +89,16 @@ export function authUserOrdersThunk (auth_id) {
     return axios.get(`/api/orders/?user=${auth_id}&status=complete`)
     .then(res => res.data)
     .then(orders => {
+      console.log('orders from axios ... ', orders)
       const action = authUserOrders(orders);
       dispatch(action);
+
       return orders
     })
     .then(orders => {
+      console.log('orders from before PromiseAll', orders)
       return Promise.all(orders.map(order => {
+        console.log('order from PromiseAll', order)
         return axios.get(`/api/prodOnOrders/?order_id=${order.id}`)
       }))
     })
