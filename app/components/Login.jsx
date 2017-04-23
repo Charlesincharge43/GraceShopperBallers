@@ -2,6 +2,7 @@ import React from 'react'
 import store from '../store'
 import { browserHistory } from 'react-router'
 
+import { receiveIncompleteOrderTC, setCurrentPoOfromDbTC, changePoOinDbTC } from '../reducers/orders'
 import { login } from '../reducers/auth'
 
 export class Login extends React.Component {
@@ -11,7 +12,7 @@ export class Login extends React.Component {
       email: '',
       password: '',
     }
-
+    console.log('this.props is ', this.props)
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
@@ -22,9 +23,18 @@ export class Login extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    const thunk = login(this.state.email, this.state.password)
-    store.dispatch(thunk)
-    browserHistory.push(`/categories`)
+    this.props.login(this.state.email, this.state.password)
+      .then(resolvedVal=>{
+        let user_id=resolvedVal.user.id//resolvedVal is just the action object which dispatch(whoami()) (that login eventually calls) returns
+        return this.props.receiveIncompleteOrder(user_id)
+      })
+      .then(resolvedVal=>{//resolvedVal is just the action object which dispatch(receiveOrderAC(order)) (that receiveIncompleteOrder eventually calls) returns
+        let prodId_and_qty_Arr= this.props.orders.currentPoO
+        let order_id=resolvedVal.order.id
+        return prodId_and_qty_Arr.length ? this.props.changePoOinDb(order_id, prodId_and_qty_Arr) : this.props.setCurrentPoOfromDb(order_id)
+      })
+      .then(()=>browserHistory.push(`/categories`))//is there a way to make browser refresh at '/' rather than run some of the thunks already running at root??)
+      .catch(err=>console.error(err))
     this.setState({ email: '', password: '' })
   }
 
@@ -76,12 +86,29 @@ export class Login extends React.Component {
 
 import {connect} from 'react-redux'
 
-function mapState(state, ownProps) {
-  return {}
+function mapState({ orders }, ownProps) {
+  return { orders }
 }
 
 function mapDispatch(dispatch, ownProps) {
-  return {}
+  return {
+    login: (email, password)=>{
+      const thunk = login(email, password)
+      return dispatch(thunk) //return so i can .then off it
+    },
+    receiveIncompleteOrder: (user_id)=>{
+      const thunk = receiveIncompleteOrderTC(user_id)
+      return dispatch(thunk)
+    },
+    setCurrentPoOfromDb: (order_id)=>{
+      const thunk = setCurrentPoOfromDbTC(order_id)
+      return dispatch(thunk)
+    },
+    changePoOinDb: (order_id, prodId_and_qty_Arr)=>{
+      const thunk = changePoOinDbTC(order_id, prodId_and_qty_Arr)
+      return dispatch(thunk)
+    }
+  }
 }
 
 const LoginContainer = connect(mapState, mapDispatch)(Login)

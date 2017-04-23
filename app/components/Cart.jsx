@@ -4,12 +4,17 @@ import { Link } from 'react-router';
 import { getSessionOrdersTC } from '../reducers/session';
 
 const Cart = (props) => {
+  console.log('cart props', props)
   let currentOrder=props.orders.currentPoO;
 
   let currentTotal = 0
   function total(price) {
     currentTotal+=price
     return currentTotal
+  }
+
+  function handleChange(event) {
+    console.log(event.target.value)
   }
 
   return (
@@ -20,6 +25,7 @@ const Cart = (props) => {
         currentOrder && currentOrder.map(singleOrder => (
 
               <div className="container">
+
             <table id="cart" className="table table-hover table-condensed">
                       <thead>
                       <tr>
@@ -44,12 +50,12 @@ const Cart = (props) => {
                         </td>
                         <td data-th="Price">{singleOrder.associatedProduct.price}</td>
                         <td data-th="Quantity">
-                          <input type="number" className="form-control text-center" value="1" />
+                          <input type="number" className="form-control text-center" value={singleOrder.qty} onChange={handleChange}/>
                         </td>
-                        <td data-th="Subtotal" className="text-center">{ total(singleOrder.associatedProduct.price) }</td>
+                        <td data-th="Subtotal" className="text-center">{ total(Number(singleOrder.associatedProduct.price)) }</td>
                         <td className="actions" data-th="">
                           <button className="btn btn-info btn-sm"><i className="fa fa-refresh"></i></button>
-                          <button className="btn btn-danger btn-sm"><i className="fa fa-trash-o"></i></button>                
+                          <button className="btn btn-danger btn-sm"><i className="fa fa-trash-o"></i></button>
                         </td>
                       </tr>
                     </tbody>
@@ -64,7 +70,7 @@ const Cart = (props) => {
                                               <td className="text-center"><strong>Total {  }</strong></td>
                                             </tr>
                                             <tr>
-                                              <td><a href="#" className="btn btn-warning"><i className="fa fa-angle-left"></i> Continue Shopping</a></td>
+                                              <td><Link to="/categories" className="btn btn-warning"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
                                               <td colspan="2" className="hidden-xs"></td>
                                               <td className="hidden-xs text-center"><strong>Total ${ total(0) }</strong></td>
                                               <td><Link to="/checkout" className="btn btn-success btn-block">Checkout <i className="fa fa-angle-right"></i></Link></td>

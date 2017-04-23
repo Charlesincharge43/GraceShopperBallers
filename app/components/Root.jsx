@@ -9,7 +9,8 @@ import store from '../store'
 
 function mapState (state, ownProps) {
   return {
-    user: state.auth
+    user: state.auth,
+    orders: state.orders
   }
 }
 
@@ -27,6 +28,7 @@ function mapDispatch (dispatch, ownProps) {
 function isLoggedin(user){ //checking to see if user is logged in
   if (user) return (
         <div>
+        {console.log(user, 'user*********************')}
           <li>Hello, {user.firstName} </li>
           <li><Link to="/logout" activeClassName="active">Logout</Link></li>
         </div>
@@ -40,8 +42,38 @@ function isLoggedin(user){ //checking to see if user is logged in
   )
 }
 
+
+let totalQty = 0
+function orderQuantity(ordersArr){
+
+    ordersArr.forEach(function(elem){
+      totalQty += elem.qty
+    })
+
+    return totalQty
+
+}
+
+function cartNum(user, orders) {
+  if (orders.currentPoO) return (
+    <li>
+      <Link to="/cart" activeClassName="active">
+       <span className="glyphicon glyphicon-shopping-cart">{ orders.currentPoO.length }</span>
+      </Link>
+    </li>)
+  else return (
+    <li>
+    {console.log('false loop', orders)}
+      <Link to="/cart" activeClassName="active">
+        <span className="glyphicon glyphicon-shopping-cart"></span>
+      </Link>
+    </li>)
+}
+
+
+
 export const Root = connect(mapState, mapDispatch)(
-  ({ user, children, logoutThunk }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
+  ({ user, orders, children, logoutThunk }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
     return (
 
@@ -77,6 +109,7 @@ export const Root = connect(mapState, mapDispatch)(
               <ul className="nav navbar-nav navbar-right">
                 {
                   user ? (<div className= "nav navbar-nav ">
+                    {/* {console.log(orders)} */}
                             <li><h4 className= "text-wh">Hello, {user.firstName} </h4></li>
                             <li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>
                           </div>)
@@ -86,7 +119,7 @@ export const Root = connect(mapState, mapDispatch)(
                             <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
                           </div>)
                 }
-                <li><Link to="/cart" activeClassName="active"><span className="glyphicon glyphicon-shopping-cart"></span></Link></li>
+                {cartNum(user, orders)}
               </ul>
           </div>
       </nav>
