@@ -23,6 +23,7 @@ import { allOrders } from './reducers/orders'
 import singleProduct from './components/singleProduct'
 import { logout } from './reducers/auth'
 import WhoAmI from './components/WhoAmI'
+import { authUserOrdersThunk } from './reducers/orders'
 import {whoami} from './reducers/auth'
 
 const onRootEnter = () => {
@@ -52,15 +53,11 @@ const onRootEnter = () => {
   });
 }
 
-const onOrdersEnter = (nextState) => {//what is nextState used for?
-  axios.get(`/api/orders`)
-    .then(res => res.data)
-    .then(orders => {
-      store.dispatch(allOrders(orders))
-    })
-    .catch(err => {
-      console.error(err)
-    })
+const onOrdersEnter = (nextState) => {
+  let storeState = store.getState();
+  let auth_id = storeState.auth.id;
+  const thunk = authUserOrdersThunk(auth_id);
+  store.dispatch(thunk)
 }
 
 // const onCartEnter = () => {

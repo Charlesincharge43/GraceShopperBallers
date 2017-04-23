@@ -11,6 +11,7 @@ module.exports = require('express').Router()
       if(req.query.order_id) whereQueryObj.order_id = req.query.order_id
       if(req.query.product_id) whereQueryObj.product_id = req.query.product_id
 
+
       PoO.findAll({
         where: whereQueryObj,
         include: [{model: Product, as: 'associatedProduct'}],//now product on orders has an associatedProduct key pointing to the relevant product object.  Not sure why it created an associated_product_id field which needs to point to it, when product_id already does... 
