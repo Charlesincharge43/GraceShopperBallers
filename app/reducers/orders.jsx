@@ -114,7 +114,18 @@ export function changePoOinDbTC(order_id, prodId_and_qty_Arr){
   return function thunk(dispatch){
     return axios.put('/api/prodOnOrders/setorcreateBulk', {order_id, prodId_and_qty_Arr})
       .then(res=>{
-        console.log(res);//need to finish
+        let newPoOArr=res.data
+        dispatch(setCurrentPoOAC(newPoOArr))
+      })
+  }
+}
+
+export function emptySessionPoO(){
+  return function thunk(dispatch){
+    return axios.post('/api/prodOnOrders/emptySessionProdOnOrders')
+      .then(res=>{
+        let emptiedPoOArr=res.data
+        dispatch(setCurrentPoOAC(emptiedPoOArr))
       })
   }
 }

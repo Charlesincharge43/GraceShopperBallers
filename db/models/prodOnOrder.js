@@ -33,17 +33,21 @@ module.exports = db => db.define('prodOnOrders',
                 .catch(err=>err)
       },
       classSetorCreateBulk: function(order_id, prodId_and_qty_Arr){//array of prodId and qty objects: [{product_id: 1, qty:1}, {product_id: 2, qty:3}]
-        let setorCreatePromiseArr= prodId_and_qty_Arr.map(pId_qty_Obj=>{
+        let setorCreatePromiseArr= prodId_and_qty_Arr.map(pId_qty_Obj=>{// same logic as classSetorCreate but in bulk
           let qty= pId_qty_Obj.qty
           let product_id= pId_qty_Obj.product_id
-          this.findOne({where:{order_id, product_id}})
-            .then(poO=>{
-              if(poO) return poO.update({qty})//if there already exists a product on order belonging to order (of order_id) and pointing to the product_id, then set qty to qty
-              else return this.create({price: null, qty, product_id, associated_product_id: product_id, order_id})//else create a brand new product on order with foreign keys pointing to product_id and order_id, with qty set to qty
-            })//what the hell is this associated_product_id crap?  why are there 2 fields representing one thing?
-            .catch(err=>err)
+          return this.findOne({where:{order_id, product_id}})
+                  .then(poO=>{
+                    if(poO) return poO.update({qty})
+                    else return this.create({price: null, qty, product_id,associated_product_id: product_id, order_id})
+                  })
+                  .catch(err=>err)
         })
         return Promise.all(setorCreatePromiseArr)//promise with array of created or updated product on orders as its resolved value
+          .then(()=>this.findAll({//unfortunately I just dont know how to do this without queries twice
+            where:{order_id},
+            include: [{model: db.model('products'), as: 'associatedProduct'}],//***is there a less hacky solution to do this?
+          }))
           .catch(err=>err)
       },
     }

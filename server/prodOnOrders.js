@@ -14,7 +14,7 @@ module.exports = require('express').Router()
 
       PoO.findAll({
         where: whereQueryObj,
-        include: [{model: Product, as: 'associatedProduct'}],//now product on orders has an associatedProduct key pointing to the relevant product object.  Not sure why it created an associated_product_id field which needs to point to it, when product_id already does... 
+        include: [{model: Product, as: 'associatedProduct'}],//now product on orders has an associatedProduct key pointing to the relevant product object.  Not sure why it created an associated_product_id field which needs to point to it, when product_id already does...
       })
       .then(poOArr => res.json(poOArr))
       .catch(next)
@@ -69,7 +69,6 @@ module.exports = require('express').Router()
   //   })
   .get('/sessionProdOnOrders',
     (req, res, next) =>{
-      //req.session.currentOrder = [] //for testing purposes only
       res.json(req.session.currentOrder || [])
     })
   .post('/sessionProdOnOrders',
@@ -100,4 +99,9 @@ module.exports = require('express').Router()
         })
         .catch(next)
       }
+    })
+  .post('/emptySessionProdOnOrders',
+    (req, res, next) =>{
+      req.session.currentOrder= []
+      res.json(req.session.currentOrder)
     })
