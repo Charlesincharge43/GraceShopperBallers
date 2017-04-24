@@ -1,6 +1,8 @@
 import axios from 'axios'
+import { setCurrentPoOAC } from './orders'
 
 const UPDATE_BILLING = 'UPDATE_BILLING'
+const USER_CHECKOUT = 'USER_CHECKOUT'
 
 /* Action Creator */
 
@@ -36,6 +38,32 @@ export function createBillingInfo(cardNumber, expDate, ccvNumber, address, city,
 		})
 	}
 }
+
+export function completeOrder(uId) {
+
+	return function (dispatch) {
+		return axios.put('/api/orders/complete', {user_id: uId})
+		.then(res => {
+			console.log('success***********', res)
+			dispatch(setCurrentPoOAC([]))
+		})
+		.catch(err => {
+			console.error(err)
+		})
+	}
+}
+
+export function updateOrderPrice(curPoOArr) {
+
+	return function (dispatch) {
+		console.log('curPoO******', curPoOArr)
+		return axios.put('/api/prodOnOrders/updateCompOrderPrice', {curPoOArr})
+		.then(res => {
+			console.log('reached updateCompOrderPrice')
+		})
+	}
+}
+
 
 /* Reducer */
 let initialState = {

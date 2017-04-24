@@ -43,18 +43,6 @@ function isLoggedin(user){ //checking to see if user is logged in
   )
 }
 
-
-let totalQty = 0
-function orderQuantity(ordersArr){
-
-    ordersArr.forEach(function(elem){
-      totalQty += elem.qty
-    })
-
-    return totalQty
-
-}
-
 function cartNum(user, orders) {
   let items=0
   for(let poO of orders.currentPoO){
