@@ -10,7 +10,7 @@ var Promise = require('bluebird');
 
 const users = [
   {
-    id: 1,
+    // id: 1,
     firstName: 'Nishdawg',
     lastName: 'Mehta',
     email: 'nish@nish.com',
@@ -20,7 +20,7 @@ const users = [
     updated_at: '4-18-2017',
   },
   {
-    id: 2,
+    // id: 2,
     firstName: 'Charliiieeee',
     lastName: 'Long',
     email: 'charles@cool.mil',
@@ -29,7 +29,7 @@ const users = [
     updated_at: '4-18-2017',
   },
   {
-    id: 3,
+    // id: 3,
     firstName: 'Alex',
     lastName: 'Cherubin',
     email: 'alex@alex.com',
@@ -37,6 +37,15 @@ const users = [
     created_at: '4-18-2017',
     updated_at: '4-18-2017',
   },
+  {
+    firstName: 'Admin',
+    lastName: 'Admin',
+    email: 'admin@admin.com',
+    password: '1234',
+    created_at: '4-18-2017',
+    updated_at: '4-18-2017',
+    isAdmin: true,
+  }
 ]
 
 const products = [
@@ -84,17 +93,17 @@ const products = [
 
 const categories = [
   {
-    id: 1,
+    // id: 1,
     name: 'Jerseys',
     imageUrl: 'http://nba.frgimages.com/FFImage/thumb.aspx?i=/productImages%2f_1993000%2fff_1993196_xl.jpg&w=600',
   },
   {
-    id: 2,
+    // id: 2,
     name: 'Shoes',
     imageUrl: 'http://www.air-foamposite-galaxy.com/images/0829/Nike-Air-Max-LeBron-James-11-P.S-ELITE-Gold-Black-Basketball-shoes.jpg',
   },
   {
-    id: 3,
+    // id: 3,
     name: 'memorabilia',
     imageUrl: 'http://cdn.sportsmemorabilia.com/sports-product-image/1354-t1748799-340.jpg',
   },
