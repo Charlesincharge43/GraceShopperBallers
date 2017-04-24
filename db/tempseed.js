@@ -10,6 +10,7 @@ var Promise = require('bluebird');
 
 const users = [
   {
+    id: 1,
     firstName: 'Nishdawg',
     lastName: 'Mehta',
     email: 'nish@nish.com',
@@ -19,6 +20,7 @@ const users = [
     updated_at: '4-18-2017',
   },
   {
+    id: 2,
     firstName: 'Charliiieeee',
     lastName: 'Long',
     email: 'charles@cool.mil',
@@ -27,6 +29,7 @@ const users = [
     updated_at: '4-18-2017',
   },
   {
+    id: 3,
     firstName: 'Alex',
     lastName: 'Cherubin',
     email: 'alex@alex.com',
@@ -81,14 +84,17 @@ const products = [
 
 const categories = [
   {
+    id: 1,
     name: 'Jerseys',
     imageUrl: 'http://nba.frgimages.com/FFImage/thumb.aspx?i=/productImages%2f_1993000%2fff_1993196_xl.jpg&w=600',
   },
   {
+    id: 2,
     name: 'Shoes',
     imageUrl: 'http://www.air-foamposite-galaxy.com/images/0829/Nike-Air-Max-LeBron-James-11-P.S-ELITE-Gold-Black-Basketball-shoes.jpg',
   },
   {
+    id: 3,
     name: 'memorabilia',
     imageUrl: 'http://cdn.sportsmemorabilia.com/sports-product-image/1354-t1748799-340.jpg',
   },
@@ -100,35 +106,38 @@ const orders = [
     status: 'complete',
     user_id: 1,
   },
+]
 
+const reviews = [
   {
-    status: 'incomplete',
+    user_id: 3,
+    product_id: 1,
+    comments: "It's okay.  Too small.  Why doesn't this site let you buy different sizes?",
+    rating: 2,
+  },
+  {
     user_id: 1,
+    product_id: 1,
+    comments: "CAVS ARE THE BEST.  JUST LIKE THIS JERSEY",
+    rating: 5,
   },
-
   {
-    status: 'incomplete',
-    user_id:2,
+    user_id: 2,
+    product_id: 3,
+    comments: "Jeremy Lin is the best bakstball player in the world.  I don't care what the stats say.",
+    rating: 5,
   },
-
   {
-    status: 'incomplete',
-    user_id:3,
-  }
+    user_id: 2,
+    product_id: 5,
+    comments: "Very stylish",
+    rating: 4,
+  },
 ]
 
 
 module.exports={
   seed:   function (db) {
-
-      // const creatingCats = Promise.map(categories, function(category){
-      //   return db.Category.create(category)
-      // })
-      // creatingCats.then(()=>{
-      //   const creatingUsers = Promise.map(users, function (user) {
-      //     return db.User.create(user);
-      //   })
-      // })
 
       return Promise.map(categories, function (category) {
         return db.Category.create(category);
@@ -148,25 +157,11 @@ module.exports={
           return db.Order.create(order);
         })
       })
+      .then( ()=>{
+        return Promise.map(reviews, function(review){
+          return db.Review.create(review);
+        })
+      })
 
     }
 }
-
-//   const creatingRestaurants = Promise.map(data.restaurants, function (restaurant) {
-//     return Restaurant.create(restaurant, { include: [Place] });
-//   });
-//   const creatingActivities = Promise.map(data.activities, function (activity) {
-//     return Activity.create(activity, { include: [Place] });
-//   });
-//   return Promise.all([creatingHotels, creatingRestaurants, creatingActivities]);
-// })
-// .then(function () {
-//   console.log('Finished inserting data');
-// })
-// .catch(function (err) {
-//   console.error('There was totally a problem', err, err.stack);
-// })
-// .finally(function () {
-//   db.close(); // creates but does not return a promise
-//   return null; // stops bluebird from complaining about un-returned promise
-// });

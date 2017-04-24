@@ -4,8 +4,63 @@ html {
 body {
   background: linear-gradient(to right, #e6dada, #274046);}
 
+.centerContainer {
+    margin: 0 auto;
+    min-width: 750px;
+    max-width: 1050px;
+}
+
+.item-container {
+  height: 280px;
+}
+
+.float-left{
+  float: left;
+}
+
 .text-wh {
   color: white;
+}
+
+.text-small {
+  font-size: 12px
+}
+
+.text-medium {
+  font-size: 16px
+}
+
+.text-large {
+  font-size: 20px
+}
+
+.text-XL {
+  font-size: 24px
+}
+
+.stars-small {
+  font-size: 12px;
+  width: 60px;
+}
+
+.stars-medium {
+  font-size: 16px;
+  width: 80px;
+}
+
+.stars-large {
+  font-size: 20px;
+  width: 100px;
+}
+
+.stars-XL {
+  font-size: 24px;
+  width: 120px;
+}
+
+.medium-form {
+  width: 500px;
+  height: 100px;
 }
 
 .resizeLrg {
@@ -63,6 +118,33 @@ body {
 
 .inline {
   display: inline-block;
+}
+
+/* got it from here: https://codepen.io/Bluetidepro/pen/GkpEa */
+.star-ratings-css {
+  unicode-bidi: bidi-override;
+  color: #c5c5c5;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+}
+
+.star-ratings-css-top {
+    color: #e7711b;
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.star-ratings-css-bottom {
+    padding: 0;
+    display: block;
+    z-index: 0;
 }
 
 @media (max-width: 767px) {

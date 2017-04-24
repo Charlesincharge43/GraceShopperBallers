@@ -1,11 +1,11 @@
 import React from 'react';
-import Login from './Login'//Why need the extension here????
+
+import Login from './Login'
 import WhoAmI from './WhoAmI'
 import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router';
 import { logout } from '../reducers/auth'
 import store from '../store'
-
 
 function mapState (state, ownProps) {
   return {
@@ -56,15 +56,18 @@ function orderQuantity(ordersArr){
 }
 
 function cartNum(user, orders) {
-  if (orders.currentPoO) return (
+  let items=0
+  for(let poO of orders.currentPoO){
+    items+=+poO.qty
+  }
+  if (items) return (
     <li>
       <Link to="/cart" activeClassName="active">
-       <span className="glyphicon glyphicon-shopping-cart">{ orders.currentPoO.length }</span>
+       <span className="glyphicon glyphicon-shopping-cart">{ items }</span>
       </Link>
     </li>)
   else return (
     <li>
-    {console.log('false loop', orders)}
       <Link to="/cart" activeClassName="active">
         <span className="glyphicon glyphicon-shopping-cart"></span>
       </Link>
@@ -87,7 +90,11 @@ export const Root = connect(mapState, mapDispatch)(
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
               </button>
-              <a href="#" className="navbar-brand"><Link to="/categories"><img src="https://fanart.tv/fanart/tv/281714/hdtvlogo/ballers-5529a2fa52e21.png"></img></Link></a>
+              <a href="#" className="navbar-brand">
+                <Link to="/categories">
+                  <img src="https://fanart.tv/fanart/tv/281714/hdtvlogo/ballers-5529a2fa52e21.png"></img>
+                </Link>
+              </a>
           </div>
 
           <div id="navbarCollapse" className="collapse navbar-collapse">
@@ -110,7 +117,6 @@ export const Root = connect(mapState, mapDispatch)(
               <ul className="nav navbar-nav navbar-right">
                 {
                   user ? (<div className= "nav navbar-nav ">
-                    {/* {console.log(orders)} */}
                             <li><h4 className= "text-wh">Hello, {user.firstName} </h4></li>
                             <li><Link to="/logout" activeClassName="active" onClick={logoutThunk} >Logout</Link></li>
                           </div>)

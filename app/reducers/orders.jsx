@@ -45,7 +45,6 @@ export const authOrderProds = prodsOnOrders => ({
 //the incomplete order in the logged in user's database
 //don't get it twisted!!!
 
-
 //WE NEED TO ESTABLISH A NAMING CONVENTION!!!!!  OR AT LEAST REFACTOR SOMETIME IN THE NEXT FEW DAYS TO MAKE THESE STATE KEYS LESS CONFUSING
 let initialState = {
   allOrders: [],//array of order objects   //pretty much will never be used unless an admin needs to see all of them
