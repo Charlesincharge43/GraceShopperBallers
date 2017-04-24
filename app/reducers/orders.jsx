@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { changeSessionOrdersBulkTC } from './session.jsx'
+import { changeSessionOrdersBulkTC, getSessionOrdersTC } from './session.jsx'
 
 export const RECEIVE_ORDER = 'RECEIVE_ORDER'
 export const ALL_ORDERS = 'ALL_ORDERS'
@@ -100,6 +100,7 @@ export const ordersReducer = (prevState = initialState, action) => {
 
 
 //--------------------------------------------- THUNKS
+// THIS IS SUPER CONFUSING... THUNKS HERE AND IN SESSION.JSX NEED TO BE CONSOLIDATED INTO ONE FILE
 
 export function setCurrentPoOfromDbTC(order_id){//this simply pulls product on orders from database (associated with the incomplete order of logged in user)
   return function thunk(dispatch){
@@ -117,6 +118,24 @@ export function changePoOinDbTC(order_id, prodId_and_qty_Arr){//think of this as
       .then(res=>{
         let newPoOArr=res.data
         dispatch(setCurrentPoOAC(newPoOArr))
+      })
+  }
+}
+
+export function removePoOfromDbTC(order_id, product_id){//remove poO in db that matches order_id and product_id
+  return function thunk(dispatch){
+    return axios.delete(`/api/prodOnOrders/delete_one/?order_id=${order_id}&product_id=${product_id}`)
+      .then(res=>{
+        return dispatch(setCurrentPoOfromDbTC(order_id))
+      })
+  }
+}
+
+export function removePoOfromSessionsTC(product_id){
+  return function thunk(dispatch){
+    return axios.delete(`/api/prodOnOrders/delete_one_from_session/?product_id=${product_id}`)
+      .then(res=>{
+        dispatch(getSessionOrdersTC())
       })
   }
 }
@@ -159,25 +178,16 @@ export function authUserOrdersThunk (auth_id) {//good job on this alex!  I'm won
     return axios.get(`/api/orders/?user_id=${auth_id}&status=complete`)
     .then(res => res.data)
     .then(orders => {
-      console.log('orders from axios ... ', orders)
       const action = authUserOrders(orders);
       dispatch(action);
-
       return orders
     })
     .then(orders => {
-      console.log('orders from before PromiseAll', orders)
       return Promise.all(orders.map(order => {
-        console.log('order from PromiseAll', order)
         return axios.get(`/api/prodOnOrders/?order_id=${order.id}`)
       }))
     })
-    .then(res => {
-      console.log('res from PromiseAll', res)
-      return res
-    })
     .then(prods => {
-      console.log('prods from PromiseAll in authOrderProds', prods)
       const action = authOrderProds(prods)
       dispatch(action)
     })

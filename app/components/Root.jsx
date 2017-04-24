@@ -78,11 +78,11 @@ export const Root = connect(mapState, mapDispatch)(
                   <span className="icon-bar"></span>
                   <span className="icon-bar"></span>
               </button>
-              <a href="#" className="navbar-brand">
-                <Link to="/categories">
+              {/* <a href="#" className="navbar-brand"> */}
+                <Link to="/categories" className="navbar-brand">
                   <img src="https://fanart.tv/fanart/tv/281714/hdtvlogo/ballers-5529a2fa52e21.png"></img>
                 </Link>
-              </a>
+              {/* </a> */}
           </div>
 
           <div id="navbarCollapse" className="collapse navbar-collapse">
@@ -91,7 +91,7 @@ export const Root = connect(mapState, mapDispatch)(
                       <a data-toggle="dropdown" className="dropdown-toggle" href="#">Products <b className="caret"></b></a>
                       <ul role="menu" className="dropdown-menu">
                         { categories.map(category=>{
-                          return (<li><Link to={`/categories/${category.id}`}>{category.name}</Link></li>)
+                          return (<li><Link to={`/categories/${category.id}`} key={category.id}>{category.name}</Link></li>)
                         })}
                       </ul>
                   </li>

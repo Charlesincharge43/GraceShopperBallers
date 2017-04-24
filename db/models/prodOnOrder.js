@@ -53,16 +53,19 @@ module.exports = db => db.define('prodOnOrders',
     },
     instanceMethods:{
       updatePrice: function(price){
-        console.log('price is right', price)
-        // return Products.findOne({where:{id: product_id}})
-        //         .then(res => {
-        //           console.log('******prodRes*******', res)
-        //           return this.price = res.price
-        //         })
-        //         .catch(err=>err)
         return this.update({price})
+                  .then(updatedPoO=>{
+                    console.log('updatedPoO ',updatedPoO)
+                    let subtractfromProductInv=updatedPoO.qty
+                    return db.model('products').findOne({
+                      where: { id: this.product_id }
+                    })
+                    .then(targetProduct=>{
+                      return targetProduct.decrement('inventory', {by: subtractfromProductInv})
+                    })
+                  })
       }
-    }
+    },
   })
 
 module.exports.associations = (ProdOnOrder, {Product, Order}) => {//update, i understand now.. revert associated product back to just product, and then refactor everything (will have to change everything tho but thats okay)

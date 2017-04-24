@@ -1,8 +1,11 @@
 import React from 'react'
-import store from '../store'
 import {connect} from 'react-redux'
+import { browserHistory } from 'react-router'
+
+import store from '../store'
 import { logout } from '../reducers/auth'
 import { createBillingInfo, completeOrder, updateOrderPrice } from '../reducers/checkout'
+import { emptySessionPoOTC } from '../reducers/orders'
 
 export class Checkout extends React.Component {
   constructor() {
@@ -24,22 +27,24 @@ export class Checkout extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  handleSubmit(event) {
+  handleSubmit(event) {//MAKE THIS DISPATCH TO PROPS LATER
     event.preventDefault()
     const thunk = createBillingInfo(this.state.cardNumber, this.state.expDate, this.state.ccvNumber, this.state.address, this.state.city, this.state.state, this.state.zipCode)
     store.dispatch(thunk)
-    console.log('props', this.props.curPoO)
     const updateOrderPriceThunk = updateOrderPrice(this.props.curPoO)
     store.dispatch(updateOrderPriceThunk)
 
     if(this.props.user) {
       const completeOrderThunk = completeOrder(this.props.user.id)
       store.dispatch(completeOrderThunk)
+      store.dispatch(emptySessionPoOTC())
     }
     else {
       const guestCheckout = logout()
       store.dispatch(guestCheckout)
+      store.dispatch(emptySessionPoOTC())
     }
+    browserHistory.push(`/orders`)
   }
 
   render () {
@@ -112,8 +117,3 @@ function mapDispatch(dispatch, ownProps) {
 const CheckoutContainer = connect(mapState, mapDispatch)(Checkout)
 
 export default CheckoutContainer
-
-
-
-
-

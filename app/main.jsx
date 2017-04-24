@@ -56,7 +56,7 @@ const onRootEnter = () => {
 
 
 
-const onOrdersEnter = (nextState) => {
+const onOrdersEnter = (nextState) => {//this doesnt work if you just reload the orders route (because store.dispatch(whoami()) was moved from store.js to onrootenter... but it needs store.dispatch(whoami()) to finish to get storestate.auth.id
   let storeState = store.getState();
   let auth_id = storeState.auth.id;
   if (auth_id) {
@@ -76,14 +76,6 @@ const onProductsEnter = ()=>{//This is necessary so that when people make review
     .then(res=>res.data)
     .then(products=>store.dispatch(receiveProductsAC(products)))
 }
-
-// const onCartEnter = () => {
-//   axios.get('/api/prodOnOrders/sessionProdOnOrders')
-//     .then((r)=>{
-//       store.dispatch(setCurrentPoOAC(r.data))
-//     })
-// }
-
 
 render(
   <Provider store={store}>
