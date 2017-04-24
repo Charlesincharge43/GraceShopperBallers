@@ -14,6 +14,10 @@ body {
   height: 280px;
 }
 
+.side-margins {
+  margin: 0px 5px; 
+}
+
 .float-left{
   float: left;
 }
@@ -56,6 +60,16 @@ body {
 .stars-XL {
   font-size: 24px;
   width: 120px;
+}
+
+.tiny-form {
+  width: 100px;
+  height: 30px
+}
+
+.small-form {
+  width: 350px;
+  height: 30px;
 }
 
 .medium-form {

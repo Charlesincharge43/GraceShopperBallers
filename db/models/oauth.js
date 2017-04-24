@@ -28,7 +28,7 @@ module.exports = db => {
 
   // OAuth.V2 is a default argument for the OAuth.setupStrategy method - it's our callback function that will execute when the user has successfully logged in
   OAuth.V2 = (accessToken, refreshToken, profile, done) => {
-    console.log('inside of OAuth.V2*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+')
+    // console.log('inside of OAuth.V2*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+*+')
     return OAuth.findOrCreate({
       where: {
         provider: profile.provider,
@@ -53,17 +53,26 @@ module.exports = db => {
         _saveProfile: oauth.save(),
       })
     })
-    .then(({ oauth, user }) => user ||
-      OAuth.User.create({
-        name: profile.displayName,
-        email: profile.emails[0].value,
-      })
+
+    // .then(({ oauth, user }) => user ||
+    //   OAuth.User.create({
+    //     name: profile.displayName,
+    //     email: profile.emails[0].value,
+    //   })
+    .then(({ oauth, user }) => {
+      if(user) return user
+      
+      return OAuth.User.create({
+          name: profile.displayName,
+          email: profile.emails[0].value,
+        })
       .then(user => db.Promise.props({
         user,
         _setOauthUser: oauth.setUser(user)
       }))
       .then(({user}) => user)
-    )
+      .catch(err=>err)//Let instructors know, this .catch should be here (initially I was clueless about what the problem was.. why user wasn't being created when logging in thru google, the .catch helped me find what the problem was - failed to serialize user)
+    })
     .then(user => done(null, user))
     .catch(done)
 

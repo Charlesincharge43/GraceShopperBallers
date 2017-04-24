@@ -33,7 +33,6 @@ export const receiveReviewsTC= ({user_id, product_id})=> {
 
 export const postReviewthenReceiveAllTC= (newReviewObj)=> {
   return function thunk(dispatch){
-    console.log('inside thunk')
     return axios.post('/api/reviews/',newReviewObj)
       .then(res=>{
         let reviewsArr= res.data

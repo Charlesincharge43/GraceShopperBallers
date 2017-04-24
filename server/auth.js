@@ -75,6 +75,8 @@ OAuth.setupStrategy({
 // https://docs.google.com/document/d/1MHS7DzzXKZvR6MkL8VWdCxohFJHGgdms71XNLIET52Q/edit?usp=sharing
 passport.serializeUser((user, done) => {
   console.log('in serializeUser')
+  console.log('user is ',user)
+  console.dir(user)
   done(null, user.id)
 })
 
