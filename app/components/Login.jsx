@@ -103,7 +103,6 @@ function mapDispatch(dispatch, ownProps) {
       return dispatch(thunk)
     },
     changePoOinDb: (order_id, prodId_and_qty_Arr)=>{
-      console.log('at changePoOinDb')
       const thunk = changePoOinDbTC(order_id, prodId_and_qty_Arr)
       return dispatch(thunk)
     }

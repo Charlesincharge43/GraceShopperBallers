@@ -10,6 +10,7 @@ import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
 // import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
 import { setCurrentPoOAC, setCurrentPoOfromDbTC, receiveOrderAC, } from './reducers/orders.jsx'
+import { receiveReviewsTC } from './reducers/reviews.jsx'
 
 import Cart from './components/Cart.jsx'
 import Categories from './components/Categories.jsx'
@@ -53,11 +54,24 @@ const onRootEnter = () => {
   });
 }
 
+
+
 const onOrdersEnter = (nextState) => {
   let storeState = store.getState();
   let auth_id = storeState.auth.id;
   const thunk = authUserOrdersThunk(auth_id);
   store.dispatch(thunk)
+}
+
+const singleProductEnter = (nextState) => {
+  const product_id= nextState.params.product_id
+  store.dispatch(receiveReviewsTC({product_id}))
+}
+
+const onProductsEnter = ()=>{//This is necessary so that when people make reviews, they'll refresh on the products page
+  return axios.get('/api/products')
+    .then(res=>res.data)
+    .then(products=>store.dispatch(receiveProductsAC(products)))
 }
 
 // const onCartEnter = () => {
@@ -77,14 +91,11 @@ render(
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Categories}/>
         <Route path="/signup" component={Signup} />
-        <Route path="/categories/:category_id" component={Products}/>
+        <Route path="/categories/:category_id" component={Products} onEnter={onProductsEnter}/>
         <Route path="/checkout" component={Checkout}/>
         <Route path="/orders" component={Orders} onEnter={onOrdersEnter} />
-        {/* <Route path="/item" component={Item}/> */}
-        <Route path="/products/:product_id" component={singleProduct}/>
-        {/* <Route path="/orders" component={Orders}/>*/}
-         <Route path="/cart" component={Cart} />
-        {/*<Route path="/cart" component={Checkout}/> */}
+        <Route path="/products/:product_id" component={singleProduct} onEnter={singleProductEnter}/>
+        <Route path="/cart" component={Cart} />
       </Route>
       <Route path='*' component={NotFound} />
     </Router>
