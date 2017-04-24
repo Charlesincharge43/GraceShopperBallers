@@ -40,7 +40,8 @@ export const setSessionReducer = (prevState = initialState, action) => {
   }
 }
 
-//-------------------------------- PUSHT
+//-------------------------------- THUNKS
+// THIS IS SUPER CONFUSING... THUNKS HERE AND IN SESSION.JSX NEED TO BE CONSOLIDATED INTO ONE FILE
 
 export function pushToSessionOrdersTC (product_id) {
 

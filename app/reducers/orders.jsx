@@ -100,6 +100,7 @@ export const ordersReducer = (prevState = initialState, action) => {
 
 
 //--------------------------------------------- THUNKS
+// THIS IS SUPER CONFUSING... THUNKS HERE AND IN SESSION.JSX NEED TO BE CONSOLIDATED INTO ONE FILE
 
 export function setCurrentPoOfromDbTC(order_id){//this simply pulls product on orders from database (associated with the incomplete order of logged in user)
   return function thunk(dispatch){
@@ -177,25 +178,16 @@ export function authUserOrdersThunk (auth_id) {//good job on this alex!  I'm won
     return axios.get(`/api/orders/?user_id=${auth_id}&status=complete`)
     .then(res => res.data)
     .then(orders => {
-      console.log('orders from axios ... ', orders)
       const action = authUserOrders(orders);
       dispatch(action);
-
       return orders
     })
     .then(orders => {
-      console.log('orders from before PromiseAll', orders)
       return Promise.all(orders.map(order => {
-        console.log('order from PromiseAll', order)
         return axios.get(`/api/prodOnOrders/?order_id=${order.id}`)
       }))
     })
-    .then(res => {
-      console.log('res from PromiseAll', res)
-      return res
-    })
     .then(prods => {
-      console.log('prods from PromiseAll in authOrderProds', prods)
       const action = authOrderProds(prods)
       dispatch(action)
     })

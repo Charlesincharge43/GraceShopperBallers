@@ -67,7 +67,6 @@ module.exports = require('express').Router()
         })
         .catch(next)
   })
-
   // .put('/adminUp',   //This is in the future for debugging purposes (or for administrators)... more open ended update route
   //   (req, res, next) =>{
   //     let whereQueryObj= req.body.whereQueryObj
@@ -131,8 +130,6 @@ module.exports = require('express').Router()
       console.log('current session is ', req.session.currentOrder)
       let currentOrder= req.session.currentOrder
       for(let i=0; i<currentOrder.length; i++){
-        console.log(typeof currentOrder[i].product_id)
-        console.log(typeof req.query.product_id)
         if(currentOrder[i].product_id === req.query.product_id){
           currentOrder.splice(i,1)
         }
