@@ -55,6 +55,18 @@ module.exports = require('express').Router()
         })
         .catch(next)
     })
+  .delete('/delete_one',
+    (req, res, next) => {//think about later if this affects security
+      //req.body should look like {product_id: 1, order_id: 1}
+      console.log('should only be deleting poO with these values: ',req.query.order_id, req.query.product_id)
+      let queryObj={order_id: req.query.order_id, product_id: req.query.product_id}
+      PoO.destroy({where: queryObj})
+        .then(response=>{
+          console.log(response)
+          res.json(response)
+        })
+        .catch(next)
+  })
 
   // .put('/adminUp',   //This is in the future for debugging purposes (or for administrators)... more open ended update route
   //   (req, res, next) =>{
@@ -83,6 +95,7 @@ module.exports = require('express').Router()
         .then(mutatedCurrentOrder=>res.json(mutatedCurrentOrder))
         .catch(next)
     })
+
   .put('/setorcreate_to_session',
   //takes in a product id, and qty, then updates req.session.currentOrder (an array of product on orders)
   //by either pushing a new poO into the array, or setting the qty value of the poO already in the array
@@ -113,15 +126,27 @@ module.exports = require('express').Router()
       req.session.currentOrder= []
       res.json(req.session.currentOrder)
     })
-  .put('/updateCompOrderPrice', 
+  .delete('/delete_one_from_session',
+    (req, res, next) =>{
+      console.log('current session is ', req.session.currentOrder)
+      let currentOrder= req.session.currentOrder
+      for(let i=0; i<currentOrder.length; i++){
+        console.log(typeof currentOrder[i].product_id)
+        console.log(typeof req.query.product_id)
+        if(currentOrder[i].product_id === req.query.product_id){
+          currentOrder.splice(i,1)
+        }
+      }
+      let mutatedCurrentOrder=currentOrder
+      console.log('mutated session is', mutatedCurrentOrder)
+      res.json(mutatedCurrentOrder)
+    })
+  .put('/updateCompOrderPrice',
 
     (req, res, next) => {
-      // console.log('******reqBody*******', req.body.curPoOArr)
       let curPoOArr = req.body.curPoOArr
-      // console.log('PLEASE WORK&*********',curPoOArr)
       curPoOArr.forEach(function(elem){
         let newPrice = Number(elem.associatedProduct.price)
-        console.log('***newPrice***',newPrice)
         let order_id = elem.order_id
         let product_id = elem.product_id
         return PoO.findOne(
@@ -130,8 +155,6 @@ module.exports = require('express').Router()
             product_id
         }})
         .then(result => {
-          console.log('**the result is**', result)
-          console.log('new price is', newPrice)
           return result.updatePrice(newPrice)
         })
         .then(someRes => {
@@ -141,10 +164,3 @@ module.exports = require('express').Router()
       })
 
     })
-
-
-
-
-
-
-

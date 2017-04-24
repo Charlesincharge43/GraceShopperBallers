@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-import { changeSessionOrdersBulkTC } from './session.jsx'
+import { changeSessionOrdersBulkTC, getSessionOrdersTC } from './session.jsx'
 
 export const RECEIVE_ORDER = 'RECEIVE_ORDER'
 export const ALL_ORDERS = 'ALL_ORDERS'
@@ -117,6 +117,24 @@ export function changePoOinDbTC(order_id, prodId_and_qty_Arr){//think of this as
       .then(res=>{
         let newPoOArr=res.data
         dispatch(setCurrentPoOAC(newPoOArr))
+      })
+  }
+}
+
+export function removePoOfromDbTC(order_id, product_id){//remove poO in db that matches order_id and product_id
+  return function thunk(dispatch){
+    return axios.delete(`/api/prodOnOrders/delete_one/?order_id=${order_id}&product_id=${product_id}`)
+      .then(res=>{
+        return dispatch(setCurrentPoOfromDbTC(order_id))
+      })
+  }
+}
+
+export function removePoOfromSessionsTC(product_id){
+  return function thunk(dispatch){
+    return axios.delete(`/api/prodOnOrders/delete_one_from_session/?product_id=${product_id}`)
+      .then(res=>{
+        dispatch(getSessionOrdersTC())
       })
   }
 }
