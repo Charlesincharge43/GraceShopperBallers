@@ -59,8 +59,11 @@ const onRootEnter = () => {
 const onOrdersEnter = (nextState) => {
   let storeState = store.getState();
   let auth_id = storeState.auth.id;
-  const thunk = authUserOrdersThunk(auth_id);
-  store.dispatch(thunk)
+  if (auth_id) {
+    console.log('auth_id', auth_id)
+    const thunk = authUserOrdersThunk(auth_id);
+    store.dispatch(thunk)
+  }
 }
 
 const singleProductEnter = (nextState) => {

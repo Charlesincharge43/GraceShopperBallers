@@ -156,7 +156,7 @@ export function authUserOrdersThunk (auth_id) {//good job on this alex!  I'm won
 
   return function thunk (dispatch) {
 
-    return axios.get(`/api/orders/?user=${auth_id}&status=complete`)
+    return axios.get(`/api/orders/?user_id=${auth_id}&status=complete`)
     .then(res => res.data)
     .then(orders => {
       console.log('orders from axios ... ', orders)

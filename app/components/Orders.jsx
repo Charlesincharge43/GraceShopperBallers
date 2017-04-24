@@ -26,7 +26,7 @@ export class Orders extends React.Component {
                   prodsOnOrders.length > 0 &&
                   prodsOnOrders[i].data.map(prod => {
                     return <div className="panel-body">
-                      Product Id {prod.product_id}
+                      Product Id {prod.product_id} -- {prod.associatedProduct.title} {prod.associatedProduct.description} -- Price: ${prod.price}
                     </div>
                   })
                 }
