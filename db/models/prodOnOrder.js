@@ -53,7 +53,7 @@ module.exports = db => db.define('prodOnOrders',
     }
   })
 
-module.exports.associations = (ProdOnOrder, {Product, Order}) => {
+module.exports.associations = (ProdOnOrder, {Product, Order}) => {//update, i understand now.. revert associated product back to just product, and then refactor everything (will have to change everything tho but thats okay)
   ProdOnOrder.belongsTo(Product, {as: 'associatedProduct'})//needed to make this belongsTo so I can put associatedProduct on here.  For some reason it creates an associated_product_id which points to the relevant product, even though we already have a product_id... need to look into this
   ProdOnOrder.belongsTo(Order)
 }
