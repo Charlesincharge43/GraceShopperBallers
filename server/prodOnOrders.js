@@ -113,3 +113,38 @@ module.exports = require('express').Router()
       req.session.currentOrder= []
       res.json(req.session.currentOrder)
     })
+  .put('/updateCompOrderPrice', 
+
+    (req, res, next) => {
+      // console.log('******reqBody*******', req.body.curPoOArr)
+      let curPoOArr = req.body.curPoOArr
+      // console.log('PLEASE WORK&*********',curPoOArr)
+      curPoOArr.forEach(function(elem){
+        let newPrice = Number(elem.associatedProduct.price)
+        console.log('***newPrice***',newPrice)
+        let order_id = elem.order_id
+        let product_id = elem.product_id
+        return PoO.findOne(
+          {where: {
+            order_id,
+            product_id
+        }})
+        .then(result => {
+          console.log('**the result is**', result)
+          console.log('new price is', newPrice)
+          return result.updatePrice(newPrice)
+        })
+        .then(someRes => {
+          res.sendStatus(201)
+        })
+        .catch(err => err)
+      })
+
+    })
+
+
+
+
+
+
+

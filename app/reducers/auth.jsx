@@ -24,7 +24,7 @@ export const login = (email, password) =>
 export const logout = () =>
   dispatch =>
     axios.post('/api/auth/logout')
-      .then(()=> dispatch(emptySessionPoOTC()))
+      .then(()=> dispatch(emptySessionPoOTC())) //thunkcreatr = TC
       .then(() => dispatch(whoami()))
       .catch(() => dispatch(whoami()))
 

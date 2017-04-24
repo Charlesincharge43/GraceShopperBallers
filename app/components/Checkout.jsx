@@ -1,7 +1,8 @@
 import React from 'react'
 import store from '../store'
 import {connect} from 'react-redux'
-import { createBillingInfo } from '../reducers/checkout'
+import { logout } from '../reducers/auth'
+import { createBillingInfo, completeOrder, updateOrderPrice } from '../reducers/checkout'
 
 export class Checkout extends React.Component {
   constructor() {
@@ -21,13 +22,24 @@ export class Checkout extends React.Component {
 
   handleChange(event) {
     this.setState({[event.target.name]: event.target.value})
-    console.log('event in checkout handleChange', event)
   }
 
   handleSubmit(event) {
     event.preventDefault()
     const thunk = createBillingInfo(this.state.cardNumber, this.state.expDate, this.state.ccvNumber, this.state.address, this.state.city, this.state.state, this.state.zipCode)
     store.dispatch(thunk)
+    console.log('props', this.props.curPoO)
+    const updateOrderPriceThunk = updateOrderPrice(this.props.curPoO)
+    store.dispatch(updateOrderPriceThunk)
+
+    if(this.props.user) {
+      const completeOrderThunk = completeOrder(this.props.user.id)
+      store.dispatch(completeOrderThunk)
+    }
+    else {
+      const guestCheckout = logout()
+      store.dispatch(guestCheckout)
+    }
   }
 
   render () {
@@ -87,7 +99,10 @@ export class Checkout extends React.Component {
 }
 
 function mapState(state, ownProps) {
-  return {}
+  return {
+    user: state.auth,
+    curPoO: state.orders.currentPoO,
+  }
 }
 
 function mapDispatch(dispatch, ownProps) {

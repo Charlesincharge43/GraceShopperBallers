@@ -50,6 +50,18 @@ module.exports = db => db.define('prodOnOrders',
           }))
           .catch(err=>err)
       },
+    },
+    instanceMethods:{
+      updatePrice: function(price){
+        console.log('price is right', price)
+        // return Products.findOne({where:{id: product_id}})
+        //         .then(res => {
+        //           console.log('******prodRes*******', res)
+        //           return this.price = res.price
+        //         })
+        //         .catch(err=>err)
+        return this.update({price})
+      }
     }
   })
 

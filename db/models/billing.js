@@ -7,7 +7,7 @@ module.exports = db => db.define('billings', {
     type: Sequelize.STRING,
     allowNull: false,
     validation: {
-      isNumeric: true
+      isCreditCard: true
     }
   },
   expDate: {
