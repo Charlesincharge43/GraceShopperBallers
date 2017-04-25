@@ -61,7 +61,7 @@ const OrdersContainer = connect(mapState, mapDispatch)(Orders)
 
 export default OrdersContainer
 
-/* product on order:
+/* product on order
 
 {price: null, qty: 1, product_id: 3, order_id: null, associatedProduct: {id: 3, title: ‘Jeremy Lin Signed basketball’, description: ‘Signed by the best 3 week flash in the pan wonder in basketball history’, price: 1000000, inventory: 2, imageUrl: ’http://assets.nydailynews.com/polopoly_fs/1.1019747.1330898515!/img/httpImage/image.jpg_gen/derivatives/gallery_1200/10682257.jpg'} }
 
