@@ -9,7 +9,7 @@ import store from './store'
 import { Root } from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
 // import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
-import { setCurrentPoOAC, setCurrentPoOfromDbTC, receiveOrderAC, } from './reducers/orders.jsx'
+import { setCurrentPoOAC, setCurrentPoOfromDbTC, receiveOrderAC, fetchAllOrders, getPoOBulk } from './reducers/orders.jsx'
 import { receiveReviewsTC } from './reducers/reviews.jsx'
 
 import Cart from './components/Cart.jsx'
@@ -57,12 +57,25 @@ const onRootEnter = () => {
 
 
 const onOrdersEnter = (nextState) => {//this doesnt work if you just reload the orders route (because store.dispatch(whoami()) was moved from store.js to onrootenter... but it needs store.dispatch(whoami()) to finish to get storestate.auth.id
-  let storeState = store.getState();
-  let auth_id = storeState.auth.id;
-  if (auth_id) {
-    console.log('auth_id', auth_id)
-    const thunk = authUserOrdersThunk(auth_id);
-    store.dispatch(thunk)
+  let storeState = store.getState()
+  let auth= storeState.auth
+  if (auth.id) {
+    if(auth.isAdmin){
+      store.dispatch(fetchAllOrders())
+        .then(fetchOrdersAO=>{
+          // console.log(fetchOrdersAO)
+          // console.log('fetchOrdersAO ',fetchOrdersAO)
+          // console.log('fetchOrdersAO.allOrders ', fetchOrdersAO.allOrders)
+          let ordersArr= fetchOrdersAO.allOrders.map(order=>order.id)
+          console.log('ordersArr ', ordersArr)
+          return store.dispatch(getPoOBulk(ordersArr))
+        })
+
+    }
+    else {
+      const thunk = authUserOrdersThunk(auth.id);
+      store.dispatch(thunk)
+    }
   }
 }
 

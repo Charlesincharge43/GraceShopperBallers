@@ -17,10 +17,15 @@ export const receiveOrderAC = order => ({//should be changed to receive incomple
   order
 })
 
-export const allOrders = orders => ({
+export const allOrders = allOrders => ({
     type: ALL_ORDERS,
     allOrders
 })
+
+// export const allPoO= allPoO => ({
+//   type: ALL_PRODS_ON_ORDER,
+//   allPoO
+// })
 
 export const setCurrentPoOAC = currentPoO => ({
     type: SET_CURRENT_PRODS_ON_ORDER,
@@ -48,6 +53,7 @@ export const authOrderProds = prodsOnOrders => ({
 //WE NEED TO ESTABLISH A NAMING CONVENTION!!!!!  OR AT LEAST REFACTOR SOMETIME IN THE NEXT FEW DAYS TO MAKE THESE STATE KEYS LESS CONFUSING
 let initialState = {
   allOrders: [],//array of order objects   //pretty much will never be used unless an admin needs to see all of them
+  // allPoO: [],
 
 //------completed orders for logged in user, and product on orders (prodsOnOrders) associated with them -----
   authCompOrders: [],
@@ -93,6 +99,11 @@ export const ordersReducer = (prevState = initialState, action) => {
       newState.authInCompOrder = action.order;
       return newState;
 
+    // case ALL_PRODS_ON_ORDER:
+    //
+    //   newState.allPoO = action.allPoO;
+    //   return newState;
+
     default:
       return prevState;
   }
@@ -135,7 +146,8 @@ export function removePoOfromSessionsTC(product_id){
   return function thunk(dispatch){
     return axios.delete(`/api/prodOnOrders/delete_one_from_session/?product_id=${product_id}`)
       .then(res=>{
-        dispatch(getSessionOrdersTC())
+        let newSessionPoO= res.data
+        return dispatch(setCurrentPoOAC(newSessionPoO))
       })
   }
 }
@@ -170,6 +182,42 @@ export function setSessionandSyncDbTC(order_id, prodId_and_qty_Arr){// this does
       .catch(err=>err)
   }
 }
+
+export function fetchAllOrders(){
+  return function thunk(dispatch){
+    return axios.get(`/api/orders/`)
+      .then(res => res.data)
+      .then(orders => {
+        return dispatch(allOrders(orders))
+      })
+      .catch(err=>err)
+  }
+}
+
+export function getPoOBulk(Order_ids_Arr){
+  return function thunk(dispatch){
+    let promiseArr= Order_ids_Arr.map(order_id=>{
+      return axios.get(`/api/prodOnOrders/?order_id=${order_id}`)
+              .then(res=>{return res})
+    })
+    return Promise.all(promiseArr)
+            .then(poONestedArr=>{
+              let totalPoOArr=[]
+              poONestedArr.forEach(poOArr=>{totalPoOArr=totalPoOArr.concat(poOArr)})
+              return dispatch(authOrderProds(poONestedArr))
+            })
+  }
+}
+
+// THIS IS A MORE OPEN ENDED QUERY FOR ADMIN... (just in case for later.. but not needed for now)
+// export function fetchOrders(user_id, status){
+//   return function thunk(dispatch){
+//     return axios.get(`/api/orders/?user_id=${user_id}&status=${status}`)
+//       .then(res => res.data)
+//       .then(orders => {})
+//       .catch(err=>err)
+//   }
+// }
 
 export function authUserOrdersThunk (auth_id) {//good job on this alex!  I'm wondering if there is some way to break this doown into smaller chunks (but admittedly I have no idea how)
 

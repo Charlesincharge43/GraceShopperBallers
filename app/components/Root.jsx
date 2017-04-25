@@ -103,6 +103,7 @@ export const Root = connect(mapState, mapDispatch)(
                   </div>
               </form>
               <ul className="nav navbar-nav navbar-right">
+                {/* NEXT TIME JUST MAKE THE BELOW INTO A METHOD IN THE CLASS... !!!! e.g., isLoggedIn which would do render */}
                 {
                   user ? (<div className= "nav navbar-nav ">
                             <li><h4 className= "text-wh">Hello, {user.firstName} </h4></li>

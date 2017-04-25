@@ -9,15 +9,16 @@ export class Orders extends React.Component {
 
   render () {
 
-    const { auth, orders, authCompOrders, prodsOnOrders } = this.props
+    const { auth, orders, allOrders, authCompOrders, prodsOnOrders } = this.props
     console.log('prodsOnOrders', prodsOnOrders)
+    let ordersToDisplay = auth && auth.isAdmin ? allOrders : authCompOrders //if isAdmin true, then display all orders, otherwise just display completed orders of a regular user
 
     return (
       <div>
         {
           auth ?
-            authCompOrders.length > 0 ?
-            authCompOrders.map((order, i) => {
+            ordersToDisplay.length > 0 ?
+            ordersToDisplay.map((order, i) => {
               return <div className="panel panel-default">
                 <div className="panel-heading">
                   <h3 className="panel-title">Order No. {order.id}</h3>
@@ -50,6 +51,7 @@ function mapState(state, ownProps) {
     orders: state.orders,
     authCompOrders: state.orders.authCompOrders,
     prodsOnOrders: state.orders.prodsOnOrders,
+    allOrders: state.orders.allOrders,
   }
 }
 
