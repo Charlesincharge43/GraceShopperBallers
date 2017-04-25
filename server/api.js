@@ -12,6 +12,7 @@ api
   .use('/orders', require('./orders'))
   .use('/prodOnOrders', require('./prodOnOrders'))
   .use('/reviews/', require('./reviews'))
+  .use('/sendEmail', require('./sendEmail'))
 
-// No routes matched? 404.
+// No routes matched? 404
 api.use((req, res) => res.status(404).end())
