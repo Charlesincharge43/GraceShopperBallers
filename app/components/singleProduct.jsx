@@ -8,7 +8,8 @@ class SingleProduct extends React.Component {
   constructor(props){
     super(props)
     const currProduct_id = +props.params.product_id;
-    const product=props.products.filter((product)=>(product.id===currProduct_id))[0];
+    const product=props.products.filter((product)=>(product.id===currProduct_id))[0];// in the future this should not be done here!!!
+    //just keep the logic and allthat in the reducer (and then run the function exported by it)
 
     this.state={comments: "", rating: 1, selectedProduct: product}
 

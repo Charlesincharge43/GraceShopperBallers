@@ -142,7 +142,7 @@ module.exports = require('express').Router()
 
     (req, res, next) => {
       let curPoOArr = req.body.curPoOArr
-      curPoOArr.forEach(function(elem){
+      curPoOArr.forEach(function(elem){//this can actually be problematic and in fact im not sure how we didnt have issues (isnt server making multiple responses??)
         let newPrice = Number(elem.associatedProduct.price)
         let order_id = elem.order_id
         let product_id = elem.product_id

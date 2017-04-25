@@ -29,21 +29,26 @@ class Cart extends React.Component {
   }
 
   removePoO(event){
-
     let currentOrder_id=this.props.orders.authInCompOrder.id
     let product_id= event.target.name
     this.props.removePoOfromDb(currentOrder_id, product_id)
   }
 
+  total(currentOrder){
+    let currentTotal=0
+    currentOrder && currentOrder.forEach(singleOrder=>{ currentTotal+=(singleOrder.associatedProduct.price*singleOrder.qty) })
+    return currentTotal
+  }
+
+  subtotal(singleOrder){
+    let subtotal=singleOrder.associatedProduct.price*singleOrder.qty
+    return subtotal
+  }
+
   render(){
     let currentOrder=this.props.orders.currentPoO
     let currentOrder_id=this.props.orders.authInCompOrder.id
-    let currentTotal = 0
-    function total(price) {
-      currentTotal+=price
-      return currentTotal
-    }
-    console.log( 'currentOrder is ', currentOrder )
+    let currentTotal= this.state.currentTotal
 
     return (
 
@@ -64,7 +69,6 @@ class Cart extends React.Component {
                 </thead>
                 <tbody>
                   <tr>
-                    {/* {console.log('singleOrder',singleOrder.associatedProduct)} */}
                     <td data-th="Product">
                       <div className="row">
                         <div className="col-sm-2 hidden-xs"><img src= { singleOrder.associatedProduct.imageUrl } alt="..." className="img-responsive"/></div>
@@ -78,9 +82,8 @@ class Cart extends React.Component {
                     <td data-th="Quantity">
                       <input type="number" className="form-control text-center" placeholder={singleOrder.qty} name={singleOrder.product_id} onChange={this.handleChange}/>
                     </td>
-                    <td data-th="Subtotal" className="text-center">{ total(Number(singleOrder.associatedProduct.price)) }</td>
+                    <td data-th="Subtotal" className="text-center"> { this.subtotal(singleOrder) } </td>
                     <td className="actions" data-th="">
-                      { console.log('singleOrder product id is ', singleOrder.product_id)}
                       <button className="btn btn-danger btn-sm" name={singleOrder.product_id} onClick={ this.removePoO }>x</button>
                     </td>
                   </tr>
@@ -94,14 +97,10 @@ class Cart extends React.Component {
           <div className="col-sm-offset-8">
             <table className="table">
               <tfoot>
-
-                <tr className="visible-xs">
-                  <td className="text-center"><strong>Total {  }</strong></td>
-                </tr>
                 <tr>
                   <td><Link to="/categories" className="btn btn-warning"><i className="fa fa-angle-left"></i> Continue Shopping</Link></td>
                   <td colSpan="2" className="hidden-xs"></td>
-                  <td className="hidden-xs text-center"><strong>Total ${ total(0) }</strong></td>
+                  <td className="hidden-xs text-center"><strong>Total { this.total(currentOrder) } </strong></td>
                   <td><Link to="/checkout" className="btn btn-success btn-block">Checkout <i className="fa fa-angle-right"></i></Link></td>
                 </tr>
               </tfoot>
