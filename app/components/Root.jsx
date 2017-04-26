@@ -79,7 +79,7 @@ export const Root = connect(mapState, mapDispatch)(
                   <span className="icon-bar"></span>
               </button>
               {/* <a href="#" className="navbar-brand"> */}
-                <Link to="/categories" className="navbar-brand">
+                <Link to="/" className="navbar-brand">
                   <img src="https://fanart.tv/fanart/tv/281714/hdtvlogo/ballers-5529a2fa52e21.png"></img>
                 </Link>
               {/* </a> */}

@@ -89,6 +89,7 @@ body {
 
 .resizeXL {
   /*position: relative;*/
+
   height: 600px;
   width: 100%;
   overflow: hidden;
@@ -247,7 +248,6 @@ body {
     display: block;
     z-index: 0;
 }
-
 
 .bar-large {
   font-size: 30px;
