@@ -109,7 +109,7 @@ body {
 
 .resizeXL {
   /*position: relative;*/
-  height: 500px;
+  height: 600px;
   width: 100%;
   overflow: hidden;
 }
@@ -232,7 +232,6 @@ body {
 }
 
 /*LOGIN BUTTON*/
-body { padding: 2em; }
 
 
 /* Shared */
