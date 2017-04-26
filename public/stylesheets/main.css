@@ -1,8 +1,18 @@
 html {
   background: linear-gradient(to right, #e6dada, #274046); }
 
+  /*html {
+    background: black; }*/
+
 body {
   background: linear-gradient(to right, #e6dada, #274046);}
+
+  /*body {
+    background: black;}*/
+
+.orange-text {
+  color: orange;
+}
 
 .centerContainer {
     margin: 0 auto;
@@ -15,11 +25,19 @@ body {
 }
 
 .side-margins {
-  margin: 0px 5px; 
+  margin: 0px 10px;
 }
 
 .float-left{
+  vertical-align: top;
   float: left;
+}
+
+.carousel-floater{
+  top: 50px;
+  left: 100px;
+  position: absolute;
+  z-index: 15;
 }
 
 .text-wh {
@@ -77,6 +95,34 @@ body {
   height: 100px;
 }
 
+.small-div {
+  width: 200px;
+}
+
+.med-div {
+  width: 275px;
+}
+
+.large-div {
+  width: 450px;
+}
+
+.resizeXL {
+  /*position: relative;*/
+  height: 500px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.resizeXL > img {
+  /*position: absolute;*/
+  /*top: 50%;
+  transform: translateY(-50%);*/
+  width: 100%
+}
+
+
+
 .resizeLrg {
   position: relative;
   width: 100%;
@@ -95,6 +141,7 @@ body {
 .resizeMed {
   position: relative;
   width: 80%;
+  left: 10%;
   padding-top: 80%; /*  this line and above, will ALWAYS make the div into a square */
   overflow: hidden;
   /*height: 250px !important;*/
@@ -107,7 +154,30 @@ body {
   width: 100%
 }
 
+.resizeSm {
+  position: relative;
+  width: 80%;
+  padding-top: 80%; /*  this line and above, will ALWAYS make the div into a square */
+  overflow: hidden;
+  /*height: 250px !important;*/
+}
+
+.resizeSm > img { /* GO OVER THIS LATER */
+  position: absolute;
+  top: 50%;
+  left: 25%;
+  transform: translateY(-50%); /* This line and the one above will ALWAYS center any image inside the resizeLrg div  */
+  width: 80%
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+}
+
 .navbar {
+  margin-bottom: 0px;
   border: none;
   border-radius: 0;
   border-bottom: 1px dotted #777; }
