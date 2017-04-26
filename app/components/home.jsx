@@ -16,6 +16,7 @@ const Home = props =>{
   let filteredProducts= props.products.length ? sortByRating(props.products) : []
   console.log(" HOME PROPS IS ",props)
   return (
+    <div>
     <div id="myCarousel" className="carousel slide" data-ride="carousel">
       <ol className="carousel-indicators">
         <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
@@ -72,8 +73,10 @@ const Home = props =>{
         <span className="sr-only">Next</span>
       </a>
 
+
+    </div>
     { filteredProducts.length && <Products auth={ props.auth } products={ props.products } orders={ props.orders } filteredProducts= { filteredProducts }  /> }
-    </div>)
+  </div>)
   }
 
 
