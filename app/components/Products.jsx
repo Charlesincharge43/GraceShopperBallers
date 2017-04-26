@@ -147,29 +147,29 @@ export class Products extends React.Component {
           {
             products && products.map(product => {
                 return (
-                  <div className="col-xs-4" key={ product.id }>
+                  <div className="col-xs-4 med-div product" key={ product.id }>
                     { this.props.auth && this.props.auth.isAdmin ? <button type="submit" className="btn btn-danger" value={product.id} onClick={ this.removeProdBtn }> Remove </button> : null }
                     <Link className="thumbnail" to={`/products/${product.id}`} >
-                      <div className="resizeMed">
-                        <img src={ product.imageUrl } />
-                      </div>
-                      <div className="caption">
-                        <h5>
-                          <p>{ product.title }</p>
-                          <p>Description: { product.description }</p>
-                          <p>Price: { product.price }</p>
-                          <p>In Stock: { product.inventory }</p>
-                        </h5>
-                        <div>
-                        <div className="star-ratings-css stars-large">
-                          <div className="star-ratings-css-top" style={ this.starRating(product.starNum, product.starDenom) }><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                          <div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span className='text-small'>({this.numRatings(product.starDenom)})</span></div>
+                          <div className="resizeMed">
+                            <img src={ product.imageUrl } />
+                          </div>
+                          <div className="caption">
+                            <h5>
+                              <p>{ product.title }</p>
+                              <p>Description: { product.description }</p>
+                              <p>Price: $ { product.price }</p>
+                              <p>In Stock: { product.inventory }</p>
+                            </h5>
+                            <div>
+                            <div className="star-ratings-css stars-large">
+                              <div className="star-ratings-css-top" style={ this.starRating(product.starNum, product.starDenom) }><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+                              <div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span className='text-small'>({this.numRatings(product.starDenom)})</span></div>
+                            </div>
+                              <div>Quantity </div>
+                              <input type="text" value={this.state.prodQty[product.id]} onClick={(e)=>e.preventDefault()} onChange={this.handleChange} name={product.id} />
+                              <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>Add to Cart</button>
+                            </div>
                         </div>
-                          <div>Quantity </div>
-                          <input type="text" value={this.state.prodQty[product.id]} onClick={(e)=>e.preventDefault()} onChange={this.handleChange} name={product.id} />
-                          <button className="btn btn-xs btn-default" value={product.id} onClick={this.addOrder}>Add to Cart</button>
-                        </div>
-                      </div>
                   </Link>
                 </div>
               )

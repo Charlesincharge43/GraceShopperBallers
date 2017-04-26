@@ -13,11 +13,14 @@ describe('/api/auth', () => {
   before('Await database sync', () => db.didSync)
   afterEach('Clear the tables', () => db.truncate({ cascade: true }))
 
-  beforeEach('create a user', () =>
-    User.create({
+  beforeEach('create a user', () =>{
+    console.log('here')
+
+    return User.create({
       email: alice.username,
       password: alice.password
     })
+  }
   )
 
   describe('POST /login/local (username, password)', () => {

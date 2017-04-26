@@ -1,8 +1,18 @@
 html {
   background: linear-gradient(to right, #e6dada, #274046); }
 
+  /*html {
+    background: black; }*/
+
 body {
   background: linear-gradient(to right, #e6dada, #274046);}
+
+  /*body {
+    background: black;}*/
+
+.orange-text {
+  color: orange;
+}
 
 .centerContainer {
     margin: 0 auto;
@@ -15,11 +25,19 @@ body {
 }
 
 .side-margins {
-  margin: 0px 5px;
+  margin: 0px 10px;
 }
 
 .float-left{
+  vertical-align: top;
   float: left;
+}
+
+.carousel-floater{
+  top: 50px;
+  left: 100px;
+  position: absolute;
+  z-index: 15;
 }
 
 .text-wh {
@@ -42,26 +60,6 @@ body {
   font-size: 24px
 }
 
-.stars-small {
-  font-size: 12px;
-  width: 60px;
-}
-
-.stars-medium {
-  font-size: 16px;
-  width: 80px;
-}
-
-.stars-large {
-  font-size: 20px;
-  width: 100px;
-}
-
-.stars-XL {
-  font-size: 24px;
-  width: 120px;
-}
-
 .tiny-form {
   width: 100px;
   height: 30px
@@ -76,6 +74,35 @@ body {
   width: 500px;
   height: 100px;
 }
+
+.small-div {
+  width: 200px;
+}
+
+.med-div {
+  width: 275px;
+}
+
+.large-div {
+  width: 450px;
+}
+
+.resizeXL {
+  /*position: relative;*/
+
+  height: 600px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.resizeXL > img {
+  /*position: absolute;*/
+  /*top: 50%;
+  transform: translateY(-50%);*/
+  width: 100%
+}
+
+
 
 .resizeLrg {
   position: relative;
@@ -94,6 +121,7 @@ body {
 
 .resizeMed {
   position: relative;
+  left: 10%;
   width: 80%;
   padding-top: 80%; /*  this line and above, will ALWAYS make the div into a square */
   overflow: hidden;
@@ -107,7 +135,47 @@ body {
   width: 100%
 }
 
+.resizeSm {
+  position: relative;
+  width: 80%;
+  padding-top: 80%; /*  this line and above, will ALWAYS make the div into a square */
+  overflow: hidden;
+  /*height: 250px !important;*/
+}
+
+.resizeSm > img { /* GO OVER THIS LATER */
+  position: absolute;
+  left: 25%;
+  top: 50%;
+  transform: translateY(-50%); /* This line and the one above will ALWAYS center any image inside the resizeLrg div  */
+  width: 80%
+}
+
+.category {
+  float: left;
+}
+.category a:hover{
+  transition: transform .5s;
+  transform: translateY(-2%);
+  text-decoration: none;
+}
+
+.product {
+  float: left;
+}
+.product a:hover{
+  transition: transform .5s;
+  transform: translateY(-2%);
+  text-decoration: none;
+}
+
+.footer {
+  position: relative;
+  margin-top: -1em;
+}
+
 .navbar {
+  margin-bottom: 0px;
   border: none;
   border-radius: 0;
   border-bottom: 1px dotted #777; }
@@ -132,6 +200,26 @@ body {
 
 .inline {
   display: inline-block;
+}
+
+.stars-small {
+  font-size: 12px;
+  width: 60px;
+}
+
+.stars-medium {
+  font-size: 16px;
+  width: 80px;
+}
+
+.stars-large {
+  font-size: 30px;
+  width: 150px;
+}
+
+.stars-XL {
+  font-size: 24px;
+  width: 120px;
 }
 
 /* got it from here: https://codepen.io/Bluetidepro/pen/GkpEa */
@@ -163,6 +251,95 @@ body {
 
 #nav-search {
   margin-left: 5px;
+}
+
+.bar-large {
+  font-size: 30px;
+  width: 150px;
+}
+
+.bar-text {
+  height: 25px;
+}
+
+.bar-ratings {
+  unicode-bidi: bidi-override;
+  color: #c5c5c5;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+}
+
+.bar-ratings-top {
+    height: 25px;
+    background-color: orange;
+    /*color: #e7711b;*/
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.bar-ratings-bottom {
+    height: 25px;
+    background: grey;
+    padding: 0;
+    display: block;
+    z-index: 0;
+}
+
+/*LOGIN BUTTON*/
+
+
+/* Shared */
+.loginBtn {
+  box-sizing: border-box;
+  position: relative;
+  /* width: 13em;  - apply for fixed size */
+  margin: 0.2em;
+  padding: 0 15px 0 46px;
+  border: none;
+  text-align: left;
+  line-height: 34px;
+  height: 200%;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+}
+.loginBtn:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 200%;
+}
+.loginBtn:focus {
+  outline: none;
+}
+.loginBtn:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+
+/* Google */
+.loginBtn--google {
+  /*font-family: "Roboto", Roboto, arial, sans-serif;*/
+  background: #DD4B39;
+}
+.loginBtn--google:before {
+  border-right: #BB3F30 1px solid;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+}
+.loginBtn--google:hover,
+.loginBtn--google:focus {
+  background: #E74B37;
 }
 
 @media (max-width: 767px) {

@@ -44,6 +44,39 @@ class Categories extends React.Component {
     let addCatSwitch= this.state.addCatSwitch
     return (
       <div>
+{/*
+<div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+  <ol className="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+  <div className="carousel-inner" role="listbox">
+    <div className="carousel-item active">
+      <img className="d-block img-fluid" src="https://cavs-staging-cavaiersholdings.netdna-ssl.com/content/images/thumbs/0020957_23-lebron-james-2nd-alt-swingman-jersey_415.jpeg" alt="First slide" />
+    </div>
+    <div className="carousel-item">
+      <img className="d-block img-fluid" src="https://cavs-staging-cavaiersholdings.netdna-ssl.com/content/images/thumbs/0020957_23-lebron-james-2nd-alt-swingman-jersey_415.jpeg" alt="Second slide" />
+    </div>
+    <div className="carousel-item">
+      <img className="d-block img-fluid" src="https://cavs-staging-cavaiersholdings.netdna-ssl.com/content/images/thumbs/0020957_23-lebron-james-2nd-alt-swingman-jersey_415.jpeg" alt="Third slide" />
+    </div>
+  </div>
+  <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span className="sr-only">Previous</span>
+  </a>
+  <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+    <span className="sr-only">Next</span>
+  </a>
+</div> */}
+
+
+
+
+
+
         <h3>Categories</h3>
         { this.props.auth && this.props.auth.isAdmin ? <button type="submit" className="btn btn-primary" onClick={ this.viewSwitch }> Toggle Add Category </button> : null }
         { addCatSwitch ?
@@ -54,10 +87,11 @@ class Categories extends React.Component {
             </div>
           )
           : null }
+
         <div className="row">
           {
             categories && categories.map(category => (
-              <div className="col-xs-4" key={ category.id } >
+              <div className="col-xs-4 category" key={ category.id } >
                 { this.props.auth && this.props.auth.isAdmin ? <button type="submit" className="btn btn-danger" value={category.id} onClick={ this.removeCatBtn }> Remove </button> : null }
                 <Link className="thumbnail" to={`/products/filtered/${category.id}`} >
                 <div className="resizeLrg">

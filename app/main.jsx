@@ -20,6 +20,7 @@ import Signup from './components/Signup'
 import Products from './components/Products'
 import Checkout from './components/Checkout'
 import Orders from './components/Orders'
+import Home from './components/Home'
 import { allOrders } from './reducers/orders'
 import singleProduct from './components/singleProduct'
 import { logout } from './reducers/auth'
@@ -94,7 +95,8 @@ render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Root} onEnter={onRootEnter}>
-        <IndexRedirect to="/categories" />
+        <IndexRedirect to="/home" />
+        <Route path="/home" component={ Home } />
         <Route path="/categories" component={Categories} />
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Categories}/>
