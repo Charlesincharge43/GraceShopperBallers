@@ -2,6 +2,7 @@ import React from 'react';
 
 import Login from './Login'
 import WhoAmI from './WhoAmI'
+import Footer from './Footer'
 import {connect, Provider} from 'react-redux'
 import { Link } from 'react-router';
 import { logout } from '../reducers/auth'
@@ -51,7 +52,7 @@ function cartNum(user, orders) {
   if (items) return (
     <li>
       <Link to="/cart" activeClassName="active">
-       <span className="glyphicon glyphicon-shopping-cart">{ items }</span>
+       <span className="glyphicon glyphicon-shopping-cart"><span className="orange-text">{ items }</span></span>
       </Link>
     </li>)
   else return (
@@ -68,7 +69,6 @@ export const Root = connect(mapState, mapDispatch)(
   ({ categories, user, orders, children, logoutThunk }) =>{//Whatever child component is clicked will be the children (e.g., anything under root)
   //whatever mapstoprops is will determine what user is logged in!! So figure out how the auth works
     return (
-
           <div>
           <nav role="navigation" className="navbar navbar-inverse">
           <div className="navbar-header">
@@ -119,7 +119,10 @@ export const Root = connect(mapState, mapDispatch)(
               </ul>
           </div>
       </nav>
-      {children}
+      <div>
+        {children}
+      </div>
+      <Footer />
     </div>
     )
   }

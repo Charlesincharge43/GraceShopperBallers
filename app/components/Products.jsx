@@ -133,7 +133,7 @@ export class Products extends React.Component {
             products && products.map(product => {
               if(product.category_id === currCategory_id) {
                 return (
-                  <div className="col-xs-4" key={ product.id }>
+                  <div className="col-xs-4 med-div" key={ product.id }>
                     { this.props.auth && this.props.auth.isAdmin ? <button type="submit" className="btn btn-danger" value={product.id} onClick={ this.removeProdBtn }> Remove </button> : null }
                     <Link className="thumbnail" to={`/products/${product.id}`} >
                       <div className="resizeMed">
@@ -143,7 +143,7 @@ export class Products extends React.Component {
                         <h5>
                           <p>{ product.title }</p>
                           <p>Description: { product.description }</p>
-                          <p>Price: { product.price }</p>
+                          <p>Price: $ { product.price }</p>
                           <p>In Stock: { product.inventory }</p>
                         </h5>
                         <div>
