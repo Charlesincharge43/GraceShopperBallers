@@ -249,6 +249,10 @@ body {
     z-index: 0;
 }
 
+#nav-search {
+  margin-left: 5px;
+}
+
 .bar-large {
   font-size: 30px;
   width: 150px;

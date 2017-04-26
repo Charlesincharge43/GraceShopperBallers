@@ -20,6 +20,7 @@ export class Products extends React.Component {
     this.props.products.forEach(product=>{this.state.prodQty[product.id]=1})
     this.addOrder=this.addOrder.bind(this)
     this.handleChange=this.handleChange.bind(this)
+    this.filterProducts = this.filterProducts.bind(this)
 // ------
 //These are for admin
     this.viewSwitch=this.viewSwitch.bind(this)
@@ -106,8 +107,22 @@ export class Products extends React.Component {
     return denom/5 || 0
   }
 
+  filterProducts (productsArr, categoryParam, productSearchArr) {
+    console.log('inside of filterProducts')
+    if (categoryParam) {
+      console.log('typeof categoryParam: ', typeof categoryParam)
+      return productsArr.filter(product => {
+        return product.category_id === Number(categoryParam)
+      })
+    } else {
+      return productSearchArr
+    }
+  }
+
   render(){
-    const products = this.props.products;
+
+    const products = this.filterProducts(this.props.products, this.props.params.category_id, this.props.productSearch.productSearchArr)
+    console.log('products from filterProducts function', products)
     const currCategory_id = +this.props.params.category_id;
     let addProdSwitch= this.state.addProdSwitch
 
@@ -131,7 +146,6 @@ export class Products extends React.Component {
         <div className="row">
           {
             products && products.map(product => {
-              if(product.category_id === currCategory_id) {
                 return (
                   <div className="col-xs-4 med-div product" key={ product.id }>
                     { this.props.auth && this.props.auth.isAdmin ? <button type="submit" className="btn btn-danger" value={product.id} onClick={ this.removeProdBtn }> Remove </button> : null }
@@ -159,7 +173,6 @@ export class Products extends React.Component {
                   </Link>
                 </div>
               )
-            }
           })
         }
       </div>
@@ -169,7 +182,7 @@ export class Products extends React.Component {
   }
 }
 
-const mapState = ({ auth, products, orders }) => ({ auth, products, orders });// store.getState().products !!  ... that is passed into products
+const mapState = ({ auth, products, orders, productSearch }) => ({ auth, products, orders, productSearch });// store.getState().products !!  ... that is passed into products
 
 const mapDispatch = (dispatch)=>(
   {
@@ -190,7 +203,7 @@ const mapDispatch = (dispatch)=>(
     },
     removeProd: function(id){
       dispatch(removeProdTC(id))
-    }
+    },
   }
 );
 
