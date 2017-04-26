@@ -5,7 +5,7 @@ import { browserHistory } from 'react-router'
 import store from '../store'
 import { logout } from '../reducers/auth'
 import { createBillingInfo, completeOrder, updateOrderPrice, sendEmail } from '../reducers/checkout'
-import { emptySessionPoOTC } from '../reducers/orders'
+import { emptySessionPoOTC, receiveIncompleteOrderTC } from '../reducers/orders'
 
 export class Checkout extends React.Component {
   constructor() {
@@ -42,7 +42,9 @@ export class Checkout extends React.Component {
     if(this.props.user) {
       const completeOrderThunk = completeOrder(this.props.user.id)
       store.dispatch(completeOrderThunk)
+        .then(()=>store.dispatch(receiveIncompleteOrderTC(this.props.user.id)))
       store.dispatch(emptySessionPoOTC())
+
     }
     else {
       const guestCheckout = logout()

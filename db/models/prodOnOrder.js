@@ -17,8 +17,10 @@ module.exports = db => db.define('prodOnOrders',
   {
     classMethods:{
       classIncrement: function(order_id, product_id){
+        console.log('hereeeeee***********', order_id, product_id)
         return this.findOne({where:{order_id, product_id}})
                 .then(poO=>{
+                  console.log('hereeeeee***********', poO)
                   if(poO) return poO.increment('qty')//if there already exists a product on order belonging to order (of order_id) and pointing to the product_id, then just increment qty by one
                   else return this.create({price: null, qty: 1, product_id, associated_product_id: product_id, order_id})//else create a brand new product on order with foreign keys pointing to product_id and order_id
                 })
