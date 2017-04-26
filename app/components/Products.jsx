@@ -17,6 +17,7 @@ export class Products extends React.Component {
       inventory:0,
       imageUrl:'',
     }
+    console.log('PRODUCTS props IS  ', props)
     this.props.products.forEach(product=>{this.state.prodQty[product.id]=1})
     this.addOrder=this.addOrder.bind(this)
     this.handleChange=this.handleChange.bind(this)
@@ -107,7 +108,7 @@ export class Products extends React.Component {
     return denom/5 || 0
   }
 
-  filterProducts (productsArr, categoryParam, productSearchArr) {
+  filterProducts (productsArr, categoryParam, filteredProducts) {
     console.log('inside of filterProducts')
     if (categoryParam) {
       console.log('typeof categoryParam: ', typeof categoryParam)
@@ -115,15 +116,15 @@ export class Products extends React.Component {
         return product.category_id === Number(categoryParam)
       })
     } else {
-      return productSearchArr
+      console.log('filteredProducts is ',filteredProducts)
+      return filteredProducts
     }
   }
 
   render(){
-
-    const products = this.filterProducts(this.props.products, this.props.params.category_id, this.props.productSearch.productSearchArr)
+    const products = this.props.params ? this.filterProducts(this.props.products, this.props.params.category_id, this.props.filteredProducts) : this.filterProducts(this.props.products, null , this.props.filteredProducts)
     console.log('products from filterProducts function', products)
-    const currCategory_id = +this.props.params.category_id;
+    const currCategory_id = this.props.params ? +this.props.params.category_id: null
     let addProdSwitch= this.state.addProdSwitch
 
     return (
@@ -182,7 +183,7 @@ export class Products extends React.Component {
   }
 }
 
-const mapState = ({ auth, products, orders, productSearch }) => ({ auth, products, orders, productSearch });// store.getState().products !!  ... that is passed into products
+const mapState = ({ auth, products, orders, filteredProducts }) => ({ auth, products, orders, filteredProducts });// store.getState().products !!  ... that is passed into products
 
 const mapDispatch = (dispatch)=>(
   {

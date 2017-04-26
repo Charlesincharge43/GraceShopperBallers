@@ -8,7 +8,7 @@ import Footer from './Footer'
 import { Link } from 'react-router';
 import { logout } from '../reducers/auth'
 import store from '../store'
-import { setProductSearchArr } from '../reducers/search'
+import { setFilteredProducts } from '../reducers/search'
 
 
 class Root extends React.Component {
@@ -161,7 +161,7 @@ function mapDispatch (dispatch, ownProps) {
       dispatch(thunk)
     },
     productSearchArrThunk: function (productArr) {
-      dispatch(setProductSearchArr(productArr))
+      dispatch(setFilteredProducts(productArr))
     }
   }
 }

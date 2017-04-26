@@ -1,23 +1,25 @@
 import axios from 'axios'
 
-export const SET_PRODUCT_SEARCH_ARR = 'SET_PRODUCT_SEARCH_ARR'
+export const SET_FILTERED_PRODUCTS = 'SET_FILTERED_PRODUCTS'
 
-export const setProductSearchArr = productSearchArr => ({
-    type: SET_PRODUCT_SEARCH_ARR,
-    productSearchArr
+export const setFilteredProducts = filteredProducts => ({
+    type: SET_FILTERED_PRODUCTS,
+    filteredProducts
 })
 
-const initialState = {
-  productSearchArr: [],
-};
+// const initialState = {
+//   filteredProducts: [],
+// };
 
-export const searchReducer = (prevState = initialState, action) => {
+const initialState = []
 
-  const newState = Object.assign({}, prevState)
+export const setFilteredProdReducer = (prevState = initialState, action) => {
+
+  let newState = initialState.slice(0)
 
   switch (action.type) {
-  case SET_PRODUCT_SEARCH_ARR:
-    newState.productSearchArr = [...action.productSearchArr]
+  case SET_FILTERED_PRODUCTS:
+    newState= [...action.filteredProducts]
     return newState
 
   default:
@@ -26,5 +28,3 @@ export const searchReducer = (prevState = initialState, action) => {
 }
 
 //--------------------------------------------- THUNKS -------------------------
-
-

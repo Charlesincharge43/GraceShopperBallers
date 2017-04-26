@@ -1,9 +1,20 @@
 import React from 'react'
-import Products from './Products'
+import { Products } from './Products'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
 
-const Home = props =>{
+function sortByRating (products){
+  let sortedByRating= products.sort(function(a,b){
+    let aRating=a.starNum/a.starDenom
+    let bRating=b.starNum/b.starDenom
+    return bRating-aRating
+  })
+  return [sortedByRating[0],sortedByRating[1]]
+}
 
+const Home = props =>{
+  let filteredProducts= props.products.length ? sortByRating(props.products) : []
+  console.log(" HOME PROPS IS ",props)
   return (
     <div id="myCarousel" className="carousel slide" data-ride="carousel">
       <ol className="carousel-indicators">
@@ -16,54 +27,6 @@ const Home = props =>{
           <div className="resizeXL">
             <img className="first-slide" src="http://img02.yeeea.com/download/26-1/lebron_james_5-wallpaper-1280x800.jpg" alt="First slide"/>
           </div>
-{/*
-  This whole thing looks like google ads... what a shame.. in theory coulda been awesome to show
-
-          <div className="col-xs-4 carousel-floater large-div" key="1">
-
-
-            <Link className="thumbnail inline side-margins" to={`/products/1`} >
-                <div className="resizeSm">
-                  <img src= "https://cavs-staging-cavaiersholdings.netdna-ssl.com/content/images/thumbs/0020957_23-lebron-james-2nd-alt-swingman-jersey_415.jpeg" />
-                </div>
-                <div className="caption">
-                  <h5>
-                    <p>Title Placeholder</p>
-                    <p>Description Placeholder</p>
-                    <p>Price: $2.99</p>
-                  </h5>
-                  <div>
-                    <div className="star-ratings-css stars-large">
-                      <div className="star-ratings-css-top" style={{width: '80%'}}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                      <div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span className='text-small'>(15)</span></div>
-                    </div>
-                  </div>
-                </div>
-          </Link>
-
-
-
-          <Link className="thumbnail inline side-margins" to={`/products/1`} >
-              <div className="resizeSm">
-                <img src= "https://cavs-staging-cavaiersholdings.netdna-ssl.com/content/images/thumbs/0020957_23-lebron-james-2nd-alt-swingman-jersey_415.jpeg" />
-              </div>
-              <div className="caption">
-                <h5>
-                  <p>Title Placeholder</p>
-                  <p>Description Placeholder</p>
-                  <p>Price: $2.99</p>
-                </h5>
-                <div>
-                  <div className="star-ratings-css stars-large">
-                    <div className="star-ratings-css-top" style={{width: '80%'}}><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-                    <div className="star-ratings-css-bottom"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span><span className='text-small'>(15)</span></div>
-                  </div>
-                </div>
-              </div>
-        </Link>
-
-        </div> */}
-
           <div className="container">
             <div className="carousel-caption">
               <div>
@@ -108,8 +71,14 @@ const Home = props =>{
         <span className="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span className="sr-only">Next</span>
       </a>
-    {/* <Products />  need to pass in props to this? */}
+
+    { filteredProducts.length && <Products auth={ props.auth } products={ props.products } orders={ props.orders } filteredProducts= { filteredProducts }  /> }
     </div>)
   }
 
-export default Home
+
+const mapState = ({ auth, products, orders }) => ({ auth, products, orders })
+
+const mapDispatch = (dispatch)=>({})
+
+export default connect(mapState, mapDispatch)(Home)
