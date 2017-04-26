@@ -4,13 +4,14 @@ import { browserHistory } from 'react-router'
 
 import store from '../store'
 import { logout } from '../reducers/auth'
-import { createBillingInfo, completeOrder, updateOrderPrice } from '../reducers/checkout'
+import { createBillingInfo, completeOrder, updateOrderPrice, sendEmail } from '../reducers/checkout'
 import { emptySessionPoOTC } from '../reducers/orders'
 
 export class Checkout extends React.Component {
   constructor() {
     super()
     this.state = {
+      email: '',
       cardNumber: '',
       expDate: '',
       ccvNumber: '',
@@ -34,6 +35,10 @@ export class Checkout extends React.Component {
     const updateOrderPriceThunk = updateOrderPrice(this.props.curPoO)
     store.dispatch(updateOrderPriceThunk)
 
+    //to send email
+    const emailThunk = sendEmail(this.state.email)
+    store.dispatch(emailThunk)
+
     if(this.props.user) {
       const completeOrderThunk = completeOrder(this.props.user.id)
       store.dispatch(completeOrderThunk)
@@ -51,6 +56,12 @@ export class Checkout extends React.Component {
   	console.log('this state', this.state)
     return (
         <form className="form-horizontal" onSubmit={this.handleSubmit} >
+          <div className="form-group">
+            <label className="col-sm-2 control-label">email</label>
+            <div className="col-sm-10">
+              <input type="text" name="email" value={this.state.email} className="form-control" placeholder="" onChange={this.handleChange} />
+            </div>
+          </div>
           <div className="form-group">
             <label className="col-sm-2 control-label">Credit Card Number</label>
             <div className="col-sm-10">
