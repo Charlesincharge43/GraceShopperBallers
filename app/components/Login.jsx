@@ -60,9 +60,9 @@ export class Login extends React.Component {
           </div>
 
         </form>
-<button class="loginBtn loginBtn--google">
+{/* <button class="loginBtn loginBtn--google">
   Login with Google
-</button>
+</button> */}
         <div className="or buffer">
           <div className="back-line">
             <span>OR</span>
