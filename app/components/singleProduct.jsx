@@ -18,7 +18,7 @@ class SingleProduct extends React.Component {
     this.handleChangeStar= this.handleChangeStar.bind(this)
 
     //this is for subtotals
-    this.numRatings= this.numRatings.bind(this)
+    this.subNumReviews= this.subNumReviews.bind(this)
     this.starSubRating= this.starSubRating.bind(this)
     this.filterByStar= this.filterByStar.bind(this)
     this.percentage= this.percentage.bind(this)
@@ -58,7 +58,15 @@ class SingleProduct extends React.Component {
     return " "+percentage+"%"
   }
 
-  numRatings(numStars){
+  starRating(num, denom){
+    return denom ? {width: ((num/denom)*100+'%')} : {width: '0%'}
+  }
+
+  numRatings(denom){
+    return denom/5 || 0
+  }
+
+  subNumReviews(numStars){
     return this.filterByStar(numStars).length
   }
 
@@ -100,7 +108,7 @@ class SingleProduct extends React.Component {
               </div>
 
               <div>
-                <span className="bar-text">5 stars ({this.numRatings(5)}) {this.percentage(5)}</span>
+                <span className="bar-text">5 stars ({this.subNumReviews(5)}) {this.percentage(5)}</span>
                   <div className="bar-ratings bar-large">
                     <div className="bar-ratings-top" style={this.starSubRating(5)}></div>
                     <div className="bar-ratings-bottom"></div>
@@ -108,7 +116,7 @@ class SingleProduct extends React.Component {
               </div>
 
               <div>
-                <span className="bar-text">4 stars ({this.numRatings(4)}) {this.percentage(4)}</span>
+                <span className="bar-text">4 stars ({this.subNumReviews(4)}) {this.percentage(4)}</span>
                   <div className="bar-ratings bar-large">
                     <div className="bar-ratings-top" style={this.starSubRating(4)}></div>
                     <div className="bar-ratings-bottom"></div>
@@ -116,7 +124,7 @@ class SingleProduct extends React.Component {
               </div>
 
               <div>
-                <span className="bar-text">3 stars ({this.numRatings(3)}) {this.percentage(3)}</span>
+                <span className="bar-text">3 stars ({this.subNumReviews(3)}) {this.percentage(3)}</span>
                   <div className="bar-ratings bar-large">
                     <div className="bar-ratings-top" style={this.starSubRating(3)}></div>
                     <div className="bar-ratings-bottom"></div>
@@ -124,7 +132,7 @@ class SingleProduct extends React.Component {
               </div>
 
               <div>
-                <span className="bar-text">2 stars ({this.numRatings(2)}) {this.percentage(2)}</span>
+                <span className="bar-text">2 stars ({this.subNumReviews(2)}) {this.percentage(2)}</span>
                   <div className="bar-ratings bar-large">
                     <div className="bar-ratings-top" style={this.starSubRating(2)}></div>
                     <div className="bar-ratings-bottom"></div>
@@ -132,7 +140,7 @@ class SingleProduct extends React.Component {
               </div>
 
               <div>
-                <span className="bar-text">1 stars ({this.numRatings(1)}) {this.percentage(1)}</span>
+                <span className="bar-text">1 stars ({this.subNumReviews(1)}) {this.percentage(1)}</span>
                   <div className="bar-ratings bar-large">
                     <div className="bar-ratings-top" style={this.starSubRating(1)}></div>
                     <div className="bar-ratings-bottom"></div>

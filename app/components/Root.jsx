@@ -11,7 +11,7 @@ import store from '../store'
 import { setProductSearchArr } from '../reducers/search'
 
 
-export class Root extends React.Component {
+class Root extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -167,3 +167,5 @@ function mapDispatch (dispatch, ownProps) {
 }
 
 const RootContainer = connect(mapState, mapDispatch)(Root)
+
+export default RootContainer
