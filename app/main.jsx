@@ -6,7 +6,7 @@ import {connect, Provider} from 'react-redux'
 import axios from 'axios';
 
 import store from './store'
-import { Root } from './components/Root.jsx'
+import Root from './components/Root.jsx'
 import { receiveCategoriesAC, receiveProductsAC } from './reducers/receive.jsx'
 // import { fetchSessionCurrOrdersAC } from './reducers/session.jsx'
 import { setCurrentPoOAC, setCurrentPoOfromDbTC, receiveOrderAC, fetchAllOrders, getPoOBulk } from './reducers/orders.jsx'
@@ -99,7 +99,8 @@ render(
         <Route path="/login" component={Login} />
         <Route path="/logout" component={Categories}/>
         <Route path="/signup" component={Signup} />
-        <Route path="/categories/:category_id" component={Products} onEnter={onProductsEnter}/>
+        <Route path="/products/filtered" component={Products} onEnter={onProductsEnter}/>
+        <Route path="/products/filtered/:category_id" component={Products} onEnter={onProductsEnter}/>
         <Route path="/checkout" component={Checkout}/>
         <Route path="/orders" component={Orders} onEnter={onOrdersEnter} />
         <Route path="/products/:product_id" component={singleProduct} onEnter={singleProductEnter}/>

@@ -15,7 +15,7 @@ body {
 }
 
 .side-margins {
-  margin: 0px 5px; 
+  margin: 0px 5px;
 }
 
 .float-left{
@@ -159,6 +159,10 @@ body {
     padding: 0;
     display: block;
     z-index: 0;
+}
+
+#nav-search {
+  margin-left: 5px;
 }
 
 @media (max-width: 767px) {
