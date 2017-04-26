@@ -91,7 +91,7 @@ class Categories extends React.Component {
         <div className="row">
           {
             categories && categories.map(category => (
-              <div className="col-xs-4" key={ category.id } >
+              <div className="col-xs-4 category" key={ category.id } >
                 { this.props.auth && this.props.auth.isAdmin ? <button type="submit" className="btn btn-danger" value={category.id} onClick={ this.removeCatBtn }> Remove </button> : null }
                 <Link className="thumbnail" to={`/categories/${category.id}`} >
                 <div className="resizeLrg">

@@ -60,26 +60,6 @@ body {
   font-size: 24px
 }
 
-.stars-small {
-  font-size: 12px;
-  width: 60px;
-}
-
-.stars-medium {
-  font-size: 16px;
-  width: 80px;
-}
-
-.stars-large {
-  font-size: 20px;
-  width: 100px;
-}
-
-.stars-XL {
-  font-size: 24px;
-  width: 120px;
-}
-
 .tiny-form {
   width: 100px;
   height: 30px
@@ -141,8 +121,8 @@ body {
 
 .resizeMed {
   position: relative;
-  width: 80%;
   left: 10%;
+  width: 80%;
   padding-top: 80%; /*  this line and above, will ALWAYS make the div into a square */
   overflow: hidden;
   /*height: 250px !important;*/
@@ -165,16 +145,33 @@ body {
 
 .resizeSm > img { /* GO OVER THIS LATER */
   position: absolute;
-  top: 50%;
   left: 25%;
+  top: 50%;
   transform: translateY(-50%); /* This line and the one above will ALWAYS center any image inside the resizeLrg div  */
   width: 80%
 }
 
+.category {
+  float: left;
+}
+.category a:hover{
+  transition: transform .5s;
+  transform: translateY(-2%);
+  text-decoration: none;
+}
+
+.product {
+  float: left;
+}
+.product a:hover{
+  transition: transform .5s;
+  transform: translateY(-2%);
+  text-decoration: none;
+}
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  left: 30%;
+  position: relative;
+  margin-top: -1em;
 }
 
 .navbar {
@@ -205,6 +202,26 @@ body {
   display: inline-block;
 }
 
+.stars-small {
+  font-size: 12px;
+  width: 60px;
+}
+
+.stars-medium {
+  font-size: 16px;
+  width: 80px;
+}
+
+.stars-large {
+  font-size: 30px;
+  width: 150px;
+}
+
+.stars-XL {
+  font-size: 24px;
+  width: 120px;
+}
+
 /* got it from here: https://codepen.io/Bluetidepro/pen/GkpEa */
 .star-ratings-css {
   unicode-bidi: bidi-override;
@@ -232,6 +249,44 @@ body {
     z-index: 0;
 }
 
+.bar-large {
+  font-size: 30px;
+  width: 150px;
+}
+
+.bar-text {
+  height: 25px;
+}
+
+.bar-ratings {
+  unicode-bidi: bidi-override;
+  color: #c5c5c5;
+  margin: 0 auto;
+  position: relative;
+  padding: 0;
+  text-shadow: 0px 1px 0 #a2a2a2;
+}
+
+.bar-ratings-top {
+    height: 25px;
+    background-color: orange;
+    /*color: #e7711b;*/
+    padding: 0;
+    position: absolute;
+    z-index: 1;
+    display: block;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+.bar-ratings-bottom {
+    height: 25px;
+    background: grey;
+    padding: 0;
+    display: block;
+    z-index: 0;
+}
 
 /*LOGIN BUTTON*/
 

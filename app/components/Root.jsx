@@ -122,25 +122,8 @@ export const Root = connect(mapState, mapDispatch)(
       <div>
         {children}
       </div>
-      <Footer />
+      {/* <Footer />  can't get it to stay at the bottom so whatever */}
     </div>
     )
   }
 )
-//comment
-{/*
-    <nav className="navbar navbar-inverse">
-      <div className="container-fluid">
-        <div className="navbar-header">
-          <a className="navbar-brand" href="#"><img src="https://www.google.com/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&ved=0ahUKEwiXhc765rDTAhUp0oMKHaHWDYgQjBwIBA&url=https%3A%2F%2Ffanart.tv%2Ffanart%2Ftv%2F281714%2Fhdtvlogo%2Fballers-5529a2fa52e21.png&psig=AFQjCNEXQDBfJ8yB-8_K9v7mChPn2UG8rg&ust=1492701054215976"></img></a>
-        </div>
-        <ul className="nav navbar-nav">
-          <li><Link to="/categories" activeClassName="active">Categories</Link></li>
-          <li><Link to="/orders" activeClassName="active">Orders</Link></li>
-          <li><Link to="/signup" activeClassName="active">Sign Up</Link></li>
-          <li><Link to="/login" activeClassName="active">Log In</Link></li>
-          <li><Link to="/logout" activeClassName="active">Logout</Link></li>
-          <li><Link to="/cart" activeClassName="active">Cart</Link></li>
-        </ul>
-      </div>
-*/}
