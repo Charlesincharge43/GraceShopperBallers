@@ -92,7 +92,7 @@ const products = [
 
   {
     title: 'Michael Jordan',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money.',
     price:199,
     inventory: 10,
     imageUrl: 'http://nba.frgimages.com/FFImage/thumb.aspx?i=/productImages/_1191000/ff_1191816_xl.jpg&w=340',
@@ -101,7 +101,7 @@ const products = [
 
   {
     title: 'Allen Iverson',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:129,
     inventory: 10,
     imageUrl: 'http://nba.frgimages.com/FFImage/thumb.aspx?i=/productImages/_384000/FF_384730_xl.jpg&w=340',
@@ -109,7 +109,7 @@ const products = [
   },
   {
     title: 'Steph Curry',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:199,
     inventory: 10,
     imageUrl: 'http://nba.frgimages.com/FFImage/thumb.aspx?i=/productImages/_714000/ff_714312_xl.jpg&w=340',
@@ -117,7 +117,7 @@ const products = [
   },
   {
     title: 'Derrick Rose',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://nba.frgimages.com/FFImage/thumb.aspx?i=/productImages/_384000/FF_384730_xl.jpg&w=340',
@@ -125,7 +125,7 @@ const products = [
   },
   {
     title: 'KD 9\'s',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://images.champssports.com/is/image/EBFL2/47504416_fr_sc7?hei=1500&wid=1500',
@@ -133,7 +133,7 @@ const products = [
   },
   {
     title: 'Oladipo\'s',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://ballershoesdb.com/wp-content/uploads/2017/01/Jordan-Extra.Fly_.jpg',
@@ -141,7 +141,7 @@ const products = [
   },
   {
     title: 'Bron Bron\'s',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'https://lh3.googleusercontent.com/-y5GlJVpiGHk/VYJmKUxFhzI/AAAAAAAEgBc/2pZC4prZoMY/s600/nike-zoom-soldier-9-gr-sprite-3-05.jpg',
@@ -149,7 +149,7 @@ const products = [
   },
     {
     title: 'Lakers World Championship Ring \'10',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://cdn3.volusion.com/nsknt.fmgpw/v/vspfiles/photos/RNBA2000LAKERS-2.jpg',
@@ -157,7 +157,7 @@ const products = [
   },
     {
     title: 'Signed Jordan Poster (picture included)',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://cdn.sportsmemorabilia.com/sports-product-image/jordan-michael-auto-gatorade-16x20-photo-1325-t193160-500.jpg',
@@ -165,7 +165,7 @@ const products = [
   },
   {
     title: 'Signed Durant Jersey',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/41ZarJ1IZuL.jpg',
@@ -173,7 +173,7 @@ const products = [
   },
     {
     title: 'Kevin McHale',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'https://s-media-cache-ak0.pinimg.com/564x/a7/71/90/a7719019ad5771d700b53d0873202438.jpg',
@@ -181,7 +181,7 @@ const products = [
   },
     {
     title: 'Patrick Ewing',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://images.footballfanatics.com/FFImage/thumb.aspx?i=/productImages/_1785000/ff_1785898_xl.jpg&w=340',
@@ -189,7 +189,7 @@ const products = [
   },
     {
     title: 'Emeka Okafor',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'https://s-media-cache-ak0.pinimg.com/736x/05/c1/49/05c149afde79f458f6d889af87784fa4.jpg',
@@ -197,7 +197,7 @@ const products = [
   },
     {
     title: 'Warrior\'s Poster',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://theinspirationgrid.com/wp-content/uploads/2013/05/Caroline-Blanchet-NBA-Posters-05.jpg',
@@ -205,7 +205,7 @@ const products = [
   },
   {
     title: 'Beastbrook',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/32124c32980711.569ba68e320ef.png',
@@ -213,7 +213,7 @@ const products = [
   },
   {
     title: 'Vince Carter',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://certifiedathlete.com/wp-content/uploads/2014/01/hi-res-72562075_crop_650x440.jpg',
@@ -221,7 +221,7 @@ const products = [
   },
   {
     title: 'Rockets vs. Thunder Game 6',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://www.houstontoyotacenter.com/assets/img/TC15full_OKC.jpg',
@@ -229,7 +229,7 @@ const products = [
   },
   {
     title: 'Grizzlies vs. Spurs Game 5',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'https://www.getmoresports.com/wp-content/uploads/2015/12/Memphis%20GrizzliesvsSan%20Antonio%20Spurs.jpg',
@@ -237,7 +237,7 @@ const products = [
   },
   {
     title: 'Bulls vs. Celtics Game 5',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'http://i.cdn.turner.com/drp/nba/bulls/sites/default/files/styles/hi_res_full_width/public/1617_preview_celtics_1200x698.jpg?itok=s8ep65YP',
@@ -245,7 +245,7 @@ const products = [
   },
   {
     title: 'Raptor\'s vs. Bucks Game 6',
-    description: '"yes they may look like gym teacher shoes. but they also impart you with the ability to knock down half court shots as if they were free throws"',
+    description: 'blah blah blah this product is awesome, spend money',
     price:600,
     inventory: 10,
     imageUrl: 'https://i.ytimg.com/vi/ktSl6leT5cE/maxresdefault.jpg',
@@ -284,34 +284,36 @@ const categories = [
 ]
 
 
-const orders = [
-  {
-    status: 'complete',
-    user_id: 1,
-  },
-]
+// const orders = [
+//   {
+//     status: 'complete',
+//     user_id: 1,
+//   },
+// ]
 
-const reviews = [
+const reviewsbyAlex = [
   {
-    user_id: 3,
     product_id: 1,
     comments: "It's okay.  Too small.  Why doesn't this site let you buy different sizes?",
     rating: 2,
   },
+]
+
+const reviewsbyNish = [
   {
-    user_id: 1,
     product_id: 1,
     comments: "CAVS ARE THE BEST.  JUST LIKE THIS JERSEY",
     rating: 5,
   },
+]
+
+const reviewsbyCharles = [
   {
-    user_id: 2,
     product_id: 3,
     comments: "Jeremy Lin is the best bakstball player in the world.  I don't care what the stats say.",
     rating: 5,
   },
   {
-    user_id: 2,
     product_id: 5,
     comments: "Very stylish",
     rating: 4,
@@ -326,25 +328,46 @@ module.exports={
         return db.Category.create(category);
       })
       .then( () => {
-        return Promise.map(users, function (user) {
-          return db.User.create(user);
-        })
-      })
-      .then( () => {
+        // console.log('************************************************')
         return Promise.map(products, function(product){
           return db.Product.create(product);
         })
       })
-      .then( () => {
-        return Promise.map(orders, function(order){
-          return db.Order.create(order);
+      // .then( () => {
+      //   return Promise.map(orders, function(order){
+      //     return db.Order.create(order);
+      //   })
+      // })
+      .then( (products) => {
+        return Promise.map(users, function (user) {
+          return db.User.create(user);
         })
       })
-      .then( ()=>{
-        return Promise.map(reviews, function(review){
-          return db.Review.create(review);
-        })
-      })
+      // .then( (users)=>{
+      //     reviewsbyAlex[0].user_id=users[2].id
+      //     db.Review.create()
+      //   // return Promise.map(reviewsbyNish, function(review){
+      //   //   review.user_id=users[0].id
+      //   //   review.
+      //   //   console.log(review)
+      //   //   return db.Review.create(review);
+      //   //   })
+      //   // .then( ()=>{
+      //   //   return Promise.map(reviewsbyCharles, function(review){
+      //   //   review.user_id=users[1].id
+      //   //   console.log(review)
+      //   //   return db.Review.create(review);
+      //   //   })
+      //   // })
+      //   // .then( ()=>{
+      //   //
+      //   //   return Promise.map(reviewsbyAlex, function(review){
+      //   //   review.user_id=users[2].id
+      //   //   console.log(review)
+      //   //   return db.Review.create(review);
+      //   //   })
+      //   // })
+      // })
 
     }
 }

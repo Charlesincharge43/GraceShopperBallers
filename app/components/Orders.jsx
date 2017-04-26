@@ -24,10 +24,11 @@ export class Orders extends React.Component {
                   <h3 className="panel-title">Order No. {order.id}</h3>
                 </div>
                 {
-                  prodsOnOrders.length > 0 &&
+                  // prodsOnOrders.length  //prodsOnOrders.length is not good enough.. because if there is a bug we have an order that is empty, it wont be able to render
+                  prodsOnOrders[i] &&
                   prodsOnOrders[i].data.map(prod => {
                     return <div className="panel-body">
-                      Product Id {prod.product_id} -- {prod.associatedProduct.title} {prod.associatedProduct.description} -- Price: ${prod.price}
+                      Product Id {prod.product_id} -- {prod.associatedProduct.title} -- {prod.associatedProduct.description} -- Price: ${prod.price}
                     </div>
                   })
                 }
