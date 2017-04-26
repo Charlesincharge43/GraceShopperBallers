@@ -64,6 +64,16 @@ export function updateOrderPrice(curPoOArr) {
 	}
 }
 
+export function sendEmail(userEmail){
+
+	return function (dispatch) {
+		return axios.post('/api/sendEmail/now', {userEmail})
+		.then(res=> {
+			console.log('sent email!!!')
+		})
+	}
+}
+
 
 /* Reducer */
 let initialState = {

@@ -60,7 +60,9 @@ export class Login extends React.Component {
           </div>
 
         </form>
-
+<button class="loginBtn loginBtn--google">
+  Login with Google
+</button>
         <div className="or buffer">
           <div className="back-line">
             <span>OR</span>
@@ -71,7 +73,7 @@ export class Login extends React.Component {
             <a
               target="_self"
               href="/api/auth/login/google"
-              className="btn btn-social btn-google">
+              className="loginBtn loginBtn--google">
               <i className="fa fa-google" />
               <span>Login! with Google</span>
             </a>

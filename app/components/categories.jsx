@@ -54,6 +54,7 @@ class Categories extends React.Component {
             </div>
           )
           : null }
+
         <div className="row">
           {
             categories && categories.map(category => (

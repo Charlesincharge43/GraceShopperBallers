@@ -1,9 +1,8 @@
 // using SendGrid's Node.js Library
 // https://github.com/sendgrid/sendgrid-nodejs
-console.log('*****sendgrid API', process.env.SENDGRID_API_KEY)
 var sg = require('sendgrid')(process.env.SENDGRID_API_KEY);
 
-var request = sg.emptyRequest({
+var request = (emailaddress) => sg.emptyRequest({
   method: 'POST',
   path: '/v3/mail/send',
   body: {
@@ -11,52 +10,31 @@ var request = sg.emptyRequest({
       {
         to: [
           {
-            email: 'nishmeht7@gmail.com',
+            email: emailaddress,
           },
         ],
-        subject: 'I\'m replacing the subject tag',
+        subject: 'Your order has been shipped!!!',
       },
     ],
     from: {
-      email: 'charles.m.long43@gmail.com',
+      email: 'bigBaller@baler.heroku.app',
     },
     content: [
       {
         type: 'text/html',
-        value: 'I\'m replacing the <strong>body tag</strong>',
+        value: 'Thank you for placing your Ballin order, your boutta ball hard son!!!',
       },
     ],
   },
 });
 
-// email.addTo("nishmeht7@gmail.com");
-// email.setFrom("notorious_nish@hotmail.com");
-// email.setSubject("Sending with SendGrid is Fun");
-// email.setHtml("and easy to do anywhere, even with Node.js");
-
-// sendgrid.send(email);
-
-
-// sg.API(request, function(error, response) {
-//   if (error) {
-//     console.log('Error response received');
-//   }
-//   console.log(response.statusCode);
-//   console.log(response.body);
-//   console.log(response.headers);
-// });
-
-
 module.exports = require('express').Router()
-	.get('/now', function(req, res){
+	.post('/now', function(req, res){
+    return sg.API(request(req.body.userEmail), function(error, response) {
+      if (error) {
+        console.log('Error response received');
+      }
+      res.send(201);
+		})
 
-		sg.API(request, function(error, response) {
-		  if (error) {
-		    console.log('Error response received');
-		  }
-		  console.log(response.sendStatus);
-		  console.log('the body is', response.body);
-		  console.log('the headers are',response.headers);
-		  //console.log(response.send(201));
-		});
 	})
