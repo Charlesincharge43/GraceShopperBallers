@@ -26,7 +26,7 @@ const Home = props =>{
       <div className="carousel-inner" role="listbox">
         <div className="item active">
           <div className="resizeXL">
-            <img className="first-slide" src="https://images4.alphacoders.com/219/219054.jpg" alt="First slide"/>
+            <img className="first-slide" src="https://www.walldevil.com/wallpapers/w02/762988-basketball-black-background-change-chicago-bulls-michael-jordan-nba-text-typography-wall.jpg" alt="First slide"/>
           </div>
           <div className="container">
             <div className="carousel-caption">
